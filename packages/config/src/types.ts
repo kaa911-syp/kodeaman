@@ -21,6 +21,9 @@ export interface KodeamanConfig {
     zapBaseline: boolean;
     zapTargetUrl?: string;
     npmAudit?: boolean;
+    playwright?: boolean;
+    playwrightTargetUrl?: string;
+    playwrightZapProxy?: string;
   };
   presets: string[];
   prioritization: {

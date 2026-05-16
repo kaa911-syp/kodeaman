@@ -1,5 +1,5 @@
 import type { NormalizedFinding, SeverityLevel } from "@kodeaman/schema";
-import type { ScanResult, OwaspScanReport } from "./renderer.js";
+import type { ScanResult, OwaspScanReport, CoverageReport } from "./renderer.js";
 
 const SEVERITY_COLORS: Record<SeverityLevel, string> = {
   critical: "\x1b[31m",
@@ -58,6 +58,56 @@ export class CLIRenderer {
 
     for (const finding of result.findings) {
       lines.push(this.renderFindingLine(finding, locale));
+    }
+
+    lines.push("");
+    return lines.join("\n");
+  }
+
+  renderCoverageReport(coverage: CoverageReport, locale: "en" | "id"): string {
+    const lines: string[] = [];
+
+    lines.push("");
+    lines.push(`${BOLD}  ${locale === "id" ? "Laporan Cakupan Scanner" : "Scanner Coverage Report"}${RESET}`);
+    lines.push(`${DIM}${"─".repeat(70)}${RESET}`);
+    lines.push(
+      locale === "id"
+        ? `  Cakupan OWASP: ${BOLD}${coverage.overallCoveragePercent}%${RESET}`
+        : `  OWASP coverage: ${BOLD}${coverage.overallCoveragePercent}%${RESET}`,
+    );
+    lines.push("");
+
+    const header = `  ${"Scanner".padEnd(18)} ${"Status".padEnd(18)} ${"Findings".padEnd(10)} ${"Duration".padEnd(10)} Reason`;
+    lines.push(header);
+    lines.push(`  ${"─".repeat(68)}`);
+
+    const skipped = new Map(coverage.scannersSkipped.map((scanner) => [scanner.name, scanner.reason]));
+    for (const scanner of coverage.scannersConfigured) {
+      const ran = coverage.scannersRan.includes(scanner);
+      const reason = skipped.get(scanner) ?? "";
+      const errored = reason.toLowerCase().includes("error");
+      const status = ran
+        ? `\x1b[32m✅ ran${RESET}`
+        : errored
+          ? `\x1b[31m❌ error${RESET}`
+          : `\x1b[33m⚠️ skipped${RESET}`;
+      const findingsCount = coverage.owaspCoverage
+        .filter((category) => category.coveredBy.includes(scanner))
+        .reduce((sum, category) => sum + category.findingsCount, 0);
+      lines.push(
+        `  ${scanner.padEnd(18)} ${status.padEnd(27)} ${String(findingsCount).padEnd(10)} ${"-".padEnd(10)} ${reason}`,
+      );
+    }
+
+    lines.push("");
+    lines.push(`  ${locale === "id" ? "Cakupan OWASP" : "OWASP Coverage"}`);
+    lines.push(`  ${"Category".padEnd(45)} ${"Covered".padEnd(10)} ${"By"}`);
+    lines.push(`  ${"─".repeat(68)}`);
+    for (const category of coverage.owaspCoverage) {
+      const covered = category.covered ? `\x1b[32myes${RESET}` : `\x1b[33mno${RESET}`;
+      lines.push(
+        `  ${`${category.categoryId}: ${category.categoryName}`.slice(0, 43).padEnd(45)} ${covered.padEnd(19)} ${category.coveredBy.join(", ") || "-"}`,
+      );
     }
 
     lines.push("");

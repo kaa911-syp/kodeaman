@@ -6,6 +6,7 @@ export const FindingSourceSchema = z.enum([
   "zap-full",
   "codeql",
   "npm-audit",
+  "playwright",
   "custom",
 ]);
 
@@ -177,6 +178,21 @@ export const RawToolRefsSchema = z.object({
   rawCategory: z.string().optional(),
 });
 
+export const FindingOccurrenceSchema = z.object({
+  filePath: z.string(),
+  target: z.string().optional(),
+  repoRoot: z.string().optional(),
+});
+
+export const FixCommandSchema = z.object({
+  command: z.string(),
+  cwd: z.string().optional(),
+  description: z.string(),
+  descriptionId: z.string(),
+  isBreaking: z.boolean(),
+  packageManager: z.enum(["npm", "pnpm", "yarn"]),
+});
+
 export const NormalizedFindingSchema = z.object({
   schemaVersion: z.literal("1.0.0"),
   findingId: z.string(),
@@ -195,9 +211,11 @@ export const NormalizedFindingSchema = z.object({
   shortDescription: z.string().optional(),
 
   location: FindingLocationSchema,
+  occurrences: z.array(FindingOccurrenceSchema).optional(),
   evidence: z.array(EvidenceBlockSchema),
   classification: ClassificationRefsSchema,
   raw: RawToolRefsSchema,
+  fixCommands: z.array(FixCommandSchema).optional(),
 
   repoContext: RepoContextSchema.optional(),
   prioritization: PrioritizationFactorsSchema,

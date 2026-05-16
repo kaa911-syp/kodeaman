@@ -5,5 +5,6 @@ export type {
   GamificationData,
   OwaspScanReport,
   OwaspCategoryResult,
+  CoverageReport,
 } from "./renderer.js";
 export { CLIRenderer } from "./cli-renderer.js";

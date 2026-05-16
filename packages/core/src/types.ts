@@ -36,10 +36,38 @@ export interface TimingInfo {
   adapterTimings: Record<string, number>;
 }
 
+export interface ScannerCoverage {
+  scannerName: string;
+  status: "ran" | "skipped-disabled" | "skipped-unavailable" | "skipped-error";
+  reason?: string;
+  findingsCount: number;
+  durationMs: number;
+}
+
+export interface CoverageReport {
+  scannersConfigured: string[];
+  scannersRan: string[];
+  scannersSkipped: { name: string; reason: string }[];
+  owaspCoverage: {
+    categoryId: string;
+    categoryName: string;
+    covered: boolean;
+    coveredBy: string[];
+    findingsCount: number;
+  }[];
+  overallCoveragePercent: number;
+  scanSurfaces: {
+    surface: string;
+    covered: boolean;
+    scanners: string[];
+  }[];
+}
+
 export interface ScanResult {
   findings: NormalizedFinding[];
   summary: ScanSummary;
   timing: TimingInfo;
+  coverageReport?: CoverageReport;
 }
 
 export interface PrioritizationConfig {

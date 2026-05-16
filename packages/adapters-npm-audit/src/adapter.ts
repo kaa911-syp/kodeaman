@@ -1,4 +1,4 @@
-import type { NormalizedFinding, RepoContext } from "@kodeaman/schema";
+import type { FixCommand, NormalizedFinding, RepoContext } from "@kodeaman/schema";
 import type { NpmAuditResult, NpmAuditScanContext, NpmVulnerability } from "./types.js";
 import {
   mapSeverity,
@@ -44,7 +44,10 @@ export class NpmAuditAdapter implements ScannerAdapter {
     }
 
     const raw: NpmAuditResult = JSON.parse(stdout);
-    return this.parseAuditOutput(raw, repoContext);
+    return this.parseAuditOutput(raw, repoContext, {
+      packageManager: pm,
+      targetPath: context.targetPath,
+    });
   }
 
   private async runAudit(
@@ -58,7 +61,9 @@ export class NpmAuditAdapter implements ScannerAdapter {
       args.push(...context.extraArgs);
     }
 
-    const { stdout } = await execFileAsync(pm, args, {
+    const command = process.platform === "win32" ? "cmd.exe" : pm;
+    const commandArgs = process.platform === "win32" ? ["/d", "/s", "/c", `${pm}.cmd`, ...args] : args;
+    const { stdout } = await execFileAsync(command, commandArgs, {
       timeout: context.timeout ?? 120_000,
       maxBuffer: 50 * 1024 * 1024,
       cwd: context.targetPath,
@@ -79,14 +84,66 @@ export class NpmAuditAdapter implements ScannerAdapter {
     }
   }
 
-  parseAuditOutput(raw: NpmAuditResult, repoContext?: RepoContext): NormalizedFinding[] {
+  private buildFixCommands(
+    packageName: string,
+    vuln: NpmVulnerability,
+    scanContext?: Pick<NpmAuditScanContext, "packageManager" | "targetPath">,
+  ): FixCommand[] | undefined {
+    if (!vuln.fixAvailable) return undefined;
+
+    const packageManager = scanContext?.packageManager ?? "npm";
+    const cwd = scanContext?.targetPath;
+
+    if (vuln.fixAvailable === true) {
+      return [
+        {
+          command: packageManager === "pnpm" ? "pnpm audit --fix" : "npm audit fix",
+          cwd,
+          description: "Apply available non-breaking audit fixes",
+          descriptionId: "Terapkan perbaikan audit tanpa breaking change yang tersedia",
+          isBreaking: false,
+          packageManager,
+        },
+      ];
+    }
+
+    const isBreaking = vuln.fixAvailable.isSemVerMajor;
+    const command = packageManager === "pnpm"
+      ? isBreaking
+        ? `pnpm update ${vuln.fixAvailable.name}@${vuln.fixAvailable.version}`
+        : "pnpm audit --fix"
+      : isBreaking
+        ? `npm install ${vuln.fixAvailable.name}@${vuln.fixAvailable.version}`
+        : "npm audit fix";
+
+    return [
+      {
+        command,
+        cwd,
+        description: isBreaking
+          ? `Upgrade ${packageName} to ${vuln.fixAvailable.version}; review breaking changes before merging`
+          : "Apply available non-breaking audit fixes",
+        descriptionId: isBreaking
+          ? `Upgrade ${packageName} ke ${vuln.fixAvailable.version}; tinjau breaking change sebelum merge`
+          : "Terapkan perbaikan audit tanpa breaking change yang tersedia",
+        isBreaking,
+        packageManager,
+      },
+    ];
+  }
+
+  parseAuditOutput(
+    raw: NpmAuditResult,
+    repoContext?: RepoContext,
+    scanContext?: Pick<NpmAuditScanContext, "packageManager" | "targetPath">,
+  ): NormalizedFinding[] {
     const findings: NormalizedFinding[] = [];
 
     for (const [packageName, vuln] of Object.entries(raw.vulnerabilities)) {
       const viaDetails = getViaDetails(vuln);
       if (viaDetails.length === 0) continue;
 
-      findings.push(this.mapVulnerability(packageName, vuln, repoContext));
+      findings.push(this.mapVulnerability(packageName, vuln, repoContext, scanContext));
     }
 
     return findings;
@@ -96,6 +153,7 @@ export class NpmAuditAdapter implements ScannerAdapter {
     packageName: string,
     vuln: NpmVulnerability,
     repoContext?: RepoContext,
+    scanContext?: Pick<NpmAuditScanContext, "packageManager" | "targetPath">,
   ): NormalizedFinding {
     const severity = mapSeverity(vuln.severity);
     const confidence = mapConfidence(vuln);
@@ -104,6 +162,8 @@ export class NpmAuditAdapter implements ScannerAdapter {
     const advisoryTitle = getAdvisoryTitle(vuln);
     const advisoryUrl = getAdvisoryUrl(vuln);
     const viaDetails = getViaDetails(vuln);
+
+    const fixCommands = this.buildFixCommands(packageName, vuln, scanContext);
 
     const evidenceContent = [
       `Package: ${packageName}`,
@@ -171,6 +231,7 @@ export class NpmAuditAdapter implements ScannerAdapter {
       },
 
       repoContext,
+      fixCommands,
 
       prioritization: {
         baseSeverity: severity,

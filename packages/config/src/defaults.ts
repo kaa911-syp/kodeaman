@@ -6,6 +6,7 @@ export const DEFAULT_CONFIG: KodeamanConfig = {
     semgrep: true,
     zapBaseline: false,
     npmAudit: false,
+    playwright: false,
   },
   presets: [],
   prioritization: {

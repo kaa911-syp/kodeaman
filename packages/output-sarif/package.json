@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/output-markdown",
+  "name": "@kodeaman/output-sarif",
   "version": "0.1.0",
-  "description": "Markdown output renderer for KodeAman security reports",
+  "description": "SARIF v2.1.0 output converter for KodeAman security findings",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -22,13 +22,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/core": "workspace:*",
-    "@kodeaman/schema": "workspace:*",
-    "@kodeaman/i18n": "workspace:*",
-    "@kodeaman/gamification": "workspace:*"
+    "@kodeaman/schema": "workspace:*"
   },
   "devDependencies": {
-    "@kodeaman/config": "workspace:*",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
   }

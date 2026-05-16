@@ -31,11 +31,15 @@ export {
   detectWSL,
   checkWSLAvailability,
   getWSLInstallInstructions,
+  getInstallInstructions,
+  preflightCheck,
   detectScanners,
   detectEnvironment,
   type ScannerInfo,
   type EnvironmentInfo,
   type WSLInstallInstructions,
+  type InstallInstructions,
+  type PreflightCheckResult,
 } from "./environment.js";
 
 // Progress reporter

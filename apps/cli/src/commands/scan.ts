@@ -15,6 +15,23 @@ const SEVERITY_ORDER: SeverityLevel[] = [
   "critical",
 ];
 
+function reportPreflightWarnings(
+  warnings: string[],
+  installInstructions: { title: string; commands: string[]; note: string }[],
+): void {
+  for (const warning of warnings) {
+    logger.warn(warning);
+  }
+
+  for (const instructions of installInstructions) {
+    logger.info(instructions.title);
+    for (const command of instructions.commands) {
+      logger.info(`  ${command}`);
+    }
+    logger.info(`  ${instructions.note}`);
+  }
+}
+
 function severityAtOrAbove(
   finding: SeverityLevel,
   threshold: SeverityLevel,
@@ -70,7 +87,14 @@ export function createScanCommand(): Command {
             : "Starting security scan...",
         );
 
+        const { preflightCheck } = await import("@kodeaman/owasp");
+        const preflight = preflightCheck(config.language);
+        if (preflight.warnings.length > 0) {
+          reportPreflightWarnings(preflight.warnings, preflight.installInstructions);
+        }
+
         let findings: NormalizedFinding[] = [];
+        let coverageReport: import("@kodeaman/core").CoverageReport | undefined;
 
         if (opts.input) {
           logger.debug(`Reading input file: ${opts.input}`);
@@ -107,11 +131,17 @@ export function createScanCommand(): Command {
               pipeline.registerAdapter(new ZapBaselineAdapter() as never);
             }
 
+            if (config.scanners.playwright) {
+              const { PlaywrightAdapter } = await import("@kodeaman/adapters-playwright");
+              pipeline.registerAdapter(new PlaywrightAdapter() as never);
+            }
+
             const pipelineResult = await pipeline.run({
               repoRoot,
               provider: "local",
             });
             findings = pipelineResult.findings;
+            coverageReport = pipelineResult.coverageReport;
           } catch (err) {
             logger.error(
               "Failed to run pipeline. Make sure scanners are installed.",
@@ -142,6 +172,11 @@ export function createScanCommand(): Command {
           },
         };
 
+        if (coverageReport && (opts.verbose || coverageReport.overallCoveragePercent < 100)) {
+          const cliRenderer = new CLIRenderer();
+          console.log(cliRenderer.renderCoverageReport(coverageReport, config.language));
+        }
+
         switch (opts.format) {
           case "json":
             console.log(JSON.stringify(result, null, 2));
@@ -149,6 +184,12 @@ export function createScanCommand(): Command {
           case "markdown": {
             const mdRenderer = new MarkdownRenderer();
             console.log(mdRenderer.renderPRComment(result, config));
+            break;
+          }
+          case "sarif": {
+            const { SarifConverter } = await import("@kodeaman/output-sarif");
+            const converter = new SarifConverter();
+            console.log(JSON.stringify(converter.convert(findings), null, 2));
             break;
           }
           default: {

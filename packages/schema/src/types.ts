@@ -4,6 +4,7 @@ export type FindingSource =
   | "zap-full"
   | "codeql"
   | "npm-audit"
+  | "playwright"
   | "custom";
 
 export type OwaspCategory =
@@ -163,6 +164,15 @@ export interface RawToolRefs {
   rawCategory?: string;
 }
 
+export interface FixCommand {
+  command: string;
+  cwd?: string;
+  description: string;
+  descriptionId: string;
+  isBreaking: boolean;
+  packageManager: "npm" | "pnpm" | "yarn";
+}
+
 export interface NormalizedFinding {
   schemaVersion: "1.0.0";
   findingId: string;
@@ -181,9 +191,11 @@ export interface NormalizedFinding {
   shortDescription?: string;
 
   location: FindingLocation;
+  occurrences?: { filePath: string; target?: string; repoRoot?: string }[];
   evidence: EvidenceBlock[];
   classification: ClassificationRefs;
   raw: RawToolRefs;
+  fixCommands?: FixCommand[];
 
   repoContext?: RepoContext;
   prioritization: PrioritizationFactors;

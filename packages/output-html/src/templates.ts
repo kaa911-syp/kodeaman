@@ -119,6 +119,7 @@ export function evidenceCardTemplate(opts: {
   snippet?: string;
   whyItMatters: string;
   remediation: string[];
+  fixCommands?: { command: string; cwd?: string; description: string; descriptionId: string; isBreaking: boolean }[];
   cwes: string[];
   owaspRefs: string[];
   confidence: string;
@@ -127,6 +128,7 @@ export function evidenceCardTemplate(opts: {
   const whyLabel = opts.locale === "id" ? "Kenapa ini penting" : "Why it matters";
   const fixLabel = opts.locale === "id" ? "Cara Memperbaiki" : "How to Fix";
   const confidenceLabel = opts.locale === "id" ? "Keyakinan" : "Confidence";
+  const fixCommandsLabel = opts.locale === "id" ? "Perintah Perbaikan" : "Fix Commands";
 
   let locationHtml = "";
   if (opts.filePath) {
@@ -144,6 +146,14 @@ export function evidenceCardTemplate(opts: {
   const remediationItems = opts.remediation
     .map((step) => `<li>${escapeHtml(step)}</li>`)
     .join("");
+
+  const fixCommandsHtml = opts.fixCommands && opts.fixCommands.length > 0
+    ? `<div class="fix-commands"><strong>${fixCommandsLabel}:</strong>${opts.fixCommands.map((fixCommand) => {
+      const command = fixCommand.cwd ? `cd ${fixCommand.cwd} && ${fixCommand.command}` : fixCommand.command;
+      const description = opts.locale === "id" ? fixCommand.descriptionId : fixCommand.description;
+      return `<div class="fix-command"><p>${escapeHtml(description)}${fixCommand.isBreaking ? " (breaking)" : ""}</p><pre><code>${escapeHtml(command)}</code></pre></div>`;
+    }).join("")}</div>`
+    : "";
 
   const refs: string[] = [];
   for (const cwe of opts.cwes) {
@@ -169,6 +179,7 @@ ${locationHtml}
 ${snippetHtml}
 <div class="why-matters"><strong>${whyLabel}:</strong> ${escapeHtml(opts.whyItMatters)}</div>
 <div><strong>${fixLabel}:</strong><ol class="remediation-list">${remediationItems}</ol></div>
+${fixCommandsHtml}
 ${refs.length > 0 ? `<div class="refs">${refs.join("")}</div>` : ""}
 </div>`;
 }

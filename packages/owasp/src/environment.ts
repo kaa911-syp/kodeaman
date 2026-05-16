@@ -33,6 +33,22 @@ export interface WSLInstallInstructions {
   note: string;
 }
 
+export interface InstallInstructions {
+  scanner: string;
+  locale: "en" | "id";
+  title: string;
+  commands: string[];
+  note: string;
+}
+
+export interface PreflightCheckResult {
+  environment: EnvironmentInfo;
+  missingScanners: ScannerInfo[];
+  warnings: string[];
+  installInstructions: InstallInstructions[];
+  canRun: boolean;
+}
+
 /**
  * Detect if running inside WSL (Windows Subsystem for Linux).
  */
@@ -139,11 +155,21 @@ export function getWSLInstallInstructions(
  * Detect which security scanners are available on the system.
  */
 export function detectScanners(): ScannerInfo[] {
+  const docker = checkScanner("docker", "docker", "docker --version");
+  const zapBaseline = checkScanner("zap-baseline", "zap-baseline.py", "zap-baseline.py --version");
+
   const scanners: ScannerInfo[] = [
     checkScanner("semgrep", "semgrep", "semgrep --version"),
-    checkScanner("zap-baseline", "zap-baseline.py", "zap-baseline.py --version"),
+    zapBaseline.available
+      ? zapBaseline
+      : {
+          ...zapBaseline,
+          available: docker.available,
+          path: docker.path,
+          version: docker.version,
+        },
     checkScanner("npm-audit", "npm", "npm --version"),
-    checkScanner("docker", "docker", "docker --version"),
+    docker,
   ];
 
   return scanners;
@@ -199,6 +225,115 @@ function mapNameToSource(name: string): FindingSource {
 /**
  * Detect the full environment information.
  */
+export function getInstallInstructions(
+  scanner: string,
+  locale: "en" | "id" = "en"
+): InstallInstructions {
+  const normalized = scanner === "zap-baseline.py" ? "zap-baseline" : scanner;
+
+  if (normalized === "semgrep") {
+    if (locale === "id") {
+      return {
+        scanner: normalized,
+        locale,
+        title: "Petunjuk Instalasi Semgrep",
+        commands: [
+          "pipx install semgrep",
+          "python -m pip install semgrep",
+          "brew install semgrep",
+        ],
+        note: "Gunakan pipx jika tersedia agar Semgrep terpasang sebagai CLI terisolasi. Di macOS, Homebrew juga didukung.",
+      };
+    }
+
+    return {
+      scanner: normalized,
+      locale,
+      title: "Semgrep Installation Instructions",
+      commands: [
+        "pipx install semgrep",
+        "python -m pip install semgrep",
+        "brew install semgrep",
+      ],
+      note: "Prefer pipx when available so Semgrep is installed as an isolated CLI. Homebrew is also supported on macOS.",
+    };
+  }
+
+  if (normalized === "zap-baseline") {
+    if (locale === "id") {
+      return {
+        scanner: normalized,
+        locale,
+        title: "Petunjuk Instalasi ZAP Baseline",
+        commands: ["docker pull ghcr.io/zaproxy/zaproxy:stable"],
+        note: "KodeAman dapat menjalankan ZAP Baseline lewat Docker, jadi pastikan perintah docker tersedia di PATH dan daemon Docker sedang berjalan.",
+      };
+    }
+
+    return {
+      scanner: normalized,
+      locale,
+      title: "ZAP Baseline Installation Instructions",
+      commands: ["docker pull ghcr.io/zaproxy/zaproxy:stable"],
+      note: "KodeAman can run ZAP Baseline through Docker, so make sure the docker command is on PATH and the Docker daemon is running.",
+    };
+  }
+
+  if (normalized === "npm" || normalized === "npm-audit") {
+    if (locale === "id") {
+      return {
+        scanner: "npm-audit",
+        locale,
+        title: "Petunjuk Instalasi npm",
+        commands: ["Install Node.js LTS dari https://nodejs.org/"],
+        note: "npm disertakan bersama Node.js dan diperlukan untuk menjalankan npm audit pada proyek JavaScript/TypeScript.",
+      };
+    }
+
+    return {
+      scanner: "npm-audit",
+      locale,
+      title: "npm Installation Instructions",
+      commands: ["Install Node.js LTS from https://nodejs.org/"],
+      note: "npm ships with Node.js and is required to run npm audit for JavaScript/TypeScript projects.",
+    };
+  }
+
+  return {
+    scanner: normalized,
+    locale,
+    title: locale === "id" ? `Petunjuk Instalasi ${normalized}` : `${normalized} Installation Instructions`,
+    commands: [],
+    note: locale === "id"
+      ? "Pastikan perintah CLI tersedia di PATH sebelum menjalankan pemindaian."
+      : "Make sure the CLI command is available on PATH before running the scan.",
+  };
+}
+
+export function preflightCheck(
+  locale: "en" | "id" = "en",
+  environment: EnvironmentInfo = detectEnvironment()
+): PreflightCheckResult {
+  const missingScanners = environment.scanners.filter(
+    (scanner) => scanner.name !== "docker" && !scanner.available
+  );
+  const warnings = missingScanners.map((scanner) =>
+    locale === "id"
+      ? `Pemindai ${scanner.name} tidak tersedia di PATH.`
+      : `Scanner ${scanner.name} is not available on PATH.`
+  );
+
+  return {
+    environment,
+    missingScanners,
+    warnings,
+    installInstructions: missingScanners.map((scanner) =>
+      getInstallInstructions(scanner.name, locale)
+    ),
+    canRun: missingScanners.length < environment.scanners.filter((scanner) => scanner.name !== "docker").length,
+  };
+}
+
 export function detectEnvironment(): EnvironmentInfo {
   const wsl = detectWSL();
   const scanners = detectScanners();

@@ -157,6 +157,50 @@ describe("ScanPipeline", () => {
 
     expect(result.findings).toHaveLength(1);
     expect(result.findings[0].prioritization.priorityScore).toBe(80);
+    expect(result.findings[0].occurrences).toEqual([
+      { filePath: "file.ts" },
+    ]);
+  });
+
+  it("should preserve cross-workspace occurrences when dedupe keys match", async () => {
+    const pipeline = new ScanPipeline();
+    const sharedDedupeKey = "npm-audit|next|CVE-123";
+    const adminFinding = makeFinding({
+      findingId: "npm-audit:next:admin",
+      dedupeKey: sharedDedupeKey,
+      source: "npm-audit",
+      category: "sca",
+      surface: "dependency",
+      location: {
+        filePath: "package.json",
+        component: "admin",
+      },
+      repoContext: { repoFullName: "/repo" },
+    });
+    const frontendFinding = makeFinding({
+      findingId: "npm-audit:next:frontend",
+      dedupeKey: sharedDedupeKey,
+      source: "npm-audit",
+      category: "sca",
+      surface: "dependency",
+      location: {
+        filePath: "package.json",
+        component: "frontend",
+      },
+      repoContext: { repoFullName: "/repo" },
+    });
+
+    pipeline.registerAdapter(
+      createMockAdapter("npm-audit", [adminFinding, frontendFinding])
+    );
+
+    const result = await pipeline.run(defaultContext);
+
+    expect(result.findings).toHaveLength(1);
+    expect(result.findings[0].occurrences).toEqual([
+      { filePath: "package.json", target: "admin", repoRoot: "/repo" },
+      { filePath: "package.json", target: "frontend", repoRoot: "/repo" },
+    ]);
   });
 
   it("should sort findings by priority score descending", async () => {

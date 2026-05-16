@@ -103,6 +103,56 @@ describe("NpmAuditAdapter", () => {
         expect(finding.coaching.remediationId.length).toBeGreaterThan(0);
       }
     });
+
+    it("should generate npm audit fix commands for non-breaking fixes", () => {
+      const findings = adapter.parseAuditOutput(auditFixture as NpmAuditResult, undefined, {
+        packageManager: "npm",
+        targetPath: "/repo/admin",
+      });
+      const lodash = findings.find((f) => f.location.component === "lodash");
+
+      expect(lodash!.fixCommands).toEqual([
+        {
+          command: "npm audit fix",
+          cwd: "/repo/admin",
+          description: "Apply available non-breaking audit fixes",
+          descriptionId: "Terapkan perbaikan audit tanpa breaking change yang tersedia",
+          isBreaking: false,
+          packageManager: "npm",
+        },
+      ]);
+    });
+
+    it("should generate direct npm install commands for breaking fixes", () => {
+      const findings = adapter.parseAuditOutput(auditFixture as NpmAuditResult, undefined, {
+        packageManager: "npm",
+        targetPath: "/repo/frontend",
+      });
+      const axios = findings.find((f) => f.location.component === "axios");
+
+      expect(axios!.fixCommands?.[0]).toMatchObject({
+        command: "npm install axios@1.6.0",
+        cwd: "/repo/frontend",
+        isBreaking: true,
+        packageManager: "npm",
+      });
+    });
+
+    it("should generate pnpm fix commands from scan context", () => {
+      const findings = adapter.parseAuditOutput(auditFixture as NpmAuditResult, undefined, {
+        packageManager: "pnpm",
+        targetPath: "/repo/frontend",
+      });
+      const axios = findings.find((f) => f.location.component === "axios");
+      const lodash = findings.find((f) => f.location.component === "lodash");
+
+      expect(lodash!.fixCommands?.[0].command).toBe("pnpm audit --fix");
+      expect(axios!.fixCommands?.[0]).toMatchObject({
+        command: "pnpm update axios@1.6.0",
+        packageManager: "pnpm",
+        isBreaking: true,
+      });
+    });
   });
 });
 

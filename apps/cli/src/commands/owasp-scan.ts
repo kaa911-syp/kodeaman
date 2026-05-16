@@ -82,7 +82,7 @@ export function createOwaspScanCommand(): Command {
     .option("-c, --config <path>", "Path to config file")
     .option(
       "-f, --format <format>",
-      "Output format (html|markdown|json)",
+      "Output format (html|markdown|json|sarif)",
       "html",
     )
     .option("-l, --language <lang>", "Language (en|id)")
@@ -123,7 +123,7 @@ export function createOwaspScanCommand(): Command {
         const locale = config.language;
 
         // Step 2: Detect environment
-        const { detectEnvironment, checkWSLAvailability, getWSLInstallInstructions } =
+        const { detectEnvironment, checkWSLAvailability, getWSLInstallInstructions, preflightCheck } =
           await import("@kodeaman/owasp");
         const { OwaspProgressReporter } = await import("@kodeaman/owasp");
 
@@ -136,8 +136,19 @@ export function createOwaspScanCommand(): Command {
             : `Platform: ${env.platform} | Node: ${env.nodeVersion}`,
         );
 
-        // Step 2b: Report scanner status
+        // Step 2b: Report scanner status and actionable install guidance
         progress.reportScannerStatus(env.scanners);
+        const preflight = preflightCheck(locale, env);
+        for (const warning of preflight.warnings) {
+          logger.warn(warning);
+        }
+        for (const instructions of preflight.installInstructions) {
+          logger.info(instructions.title);
+          for (const command of instructions.commands) {
+            logger.info(`  ${command}`);
+          }
+          logger.info(`  ${instructions.note}`);
+        }
 
         // Step 3: Windows WSL check
         if (
@@ -225,6 +236,16 @@ export function createOwaspScanCommand(): Command {
             logger.debug("Registered npm-audit adapter");
           } catch {
             logger.debug("npm-audit adapter not available");
+          }
+        }
+
+        if (config.scanners.playwright) {
+          try {
+            const { PlaywrightAdapter } = await import("@kodeaman/adapters-playwright");
+            pipeline.registerAdapter(new PlaywrightAdapter() as never);
+            logger.debug("Registered Playwright adapter");
+          } catch {
+            logger.debug("Playwright adapter not available");
           }
         }
 
@@ -390,45 +411,40 @@ export function createOwaspScanCommand(): Command {
             break;
           }
 
+          case "sarif": {
+            const { SarifConverter } = await import("@kodeaman/output-sarif");
+            const converter = new SarifConverter();
+            const sarif = JSON.stringify(converter.convert(allFindings), null, 2);
+            if (opts.output) {
+              writeFileSync(opts.output, sarif, "utf-8");
+              logger.success(
+                locale === "id"
+                  ? `Laporan SARIF disimpan ke ${opts.output}`
+                  : `SARIF report saved to ${opts.output}`,
+              );
+            } else {
+              console.log(sarif);
+            }
+            break;
+          }
+
           default:
             logger.error(`Unknown format: ${opts.format}`);
             process.exit(1);
         }
 
-        // Step 9: OWASP coverage dashboard
-        console.log("");
-        const allCats = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10"];
-        const header =
-          locale === "id"
-            ? "=== Dashboard Cakupan OWASP Top 10 ==="
-            : "=== OWASP Top 10 Coverage Dashboard ===";
-        console.log(header);
-
-        for (const catCode of allCats) {
-          const phase = scanResult.phases.find((p) => p.owaspCode === catCode);
-          if (phase) {
-            const findingCount = phase.findings.length;
-            const status = findingCount > 0 ? `${findingCount} finding(s)` : "CLEAR";
-            const severity =
-              findingCount > 0
-                ? ` [max: ${phase.findings.reduce(
-                    (max, f) =>
-                      SEVERITY_ORDER.indexOf(f.severity) > SEVERITY_ORDER.indexOf(max)
-                        ? f.severity
-                        : max,
-                    "info" as SeverityLevel,
-                  )}]`
-                : "";
-            const name = locale === "id" ? phase.titleId : phase.titleEn;
-            console.log(`  ${catCode}: ${name} — ${status}${severity}`);
-          } else {
-            console.log(
-              `  ${catCode}: ${locale === "id" ? "(tidak dipindai)" : "(not scanned)"}`,
-            );
-          }
-        }
-
-        console.log("");
+        // Step 9: OWASP coverage report
+        const { buildCoverageReport } = await import("@kodeaman/core");
+        const coverageReport = buildCoverageReport(
+          [
+            ...(config.scanners.semgrep ? [{ scannerName: "semgrep", status: "ran" as const, findingsCount: 0, durationMs: 0 }] : [{ scannerName: "semgrep", status: "skipped-disabled" as const, reason: "Disabled in configuration", findingsCount: 0, durationMs: 0 }]),
+            ...(config.scanners.zapBaseline ? [{ scannerName: "zap-baseline", status: "ran" as const, findingsCount: 0, durationMs: 0 }] : [{ scannerName: "zap-baseline", status: "skipped-disabled" as const, reason: "Disabled in configuration", findingsCount: 0, durationMs: 0 }]),
+            ...(config.scanners.npmAudit ? [{ scannerName: "npm-audit", status: "ran" as const, findingsCount: 0, durationMs: 0 }] : [{ scannerName: "npm-audit", status: "skipped-disabled" as const, reason: "Disabled in configuration", findingsCount: 0, durationMs: 0 }]),
+          ],
+          allFindings,
+        );
+        const { CLIRenderer } = await import("@kodeaman/output-markdown");
+        console.log(new CLIRenderer().renderCoverageReport(coverageReport, locale));
 
         // Step 10: Exit code 1 if findings >= failOnSeverity
         const hasExceedingFindings = allFindings.some((f) =>

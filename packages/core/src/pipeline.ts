@@ -10,8 +10,10 @@ import type {
   ScanSummary,
   TimingInfo,
   KodeamanConfig,
+  ScannerCoverage,
 } from "./types.js";
 import { deduplicateFindings } from "./dedup.js";
+import { buildCoverageReport } from "./coverage.js";
 
 const SEVERITY_ORDER: SeverityLevel[] = [
   "critical",
@@ -78,6 +80,7 @@ export class ScanPipeline {
 
     // Step 1: Run all registered adapters
     const allFindings: NormalizedFinding[] = [];
+    const scannerCoverage: ScannerCoverage[] = [];
 
     for (const adapter of this.adapters) {
       // Skip adapters not enabled in config
@@ -85,13 +88,39 @@ export class ScanPipeline {
         this.config.scanners &&
         this.config.scanners[adapter.name] === false
       ) {
+        scannerCoverage.push({
+          scannerName: adapter.name,
+          status: "skipped-disabled",
+          reason: "Disabled in configuration",
+          findingsCount: 0,
+          durationMs: 0,
+        });
         continue;
       }
 
       const adapterStart = Date.now();
-      const findings = await adapter.scan(context);
-      adapterTimings[adapter.name] = Date.now() - adapterStart;
-      allFindings.push(...findings);
+      try {
+        const findings = await adapter.scan(context);
+        const durationMs = Date.now() - adapterStart;
+        adapterTimings[adapter.name] = durationMs;
+        scannerCoverage.push({
+          scannerName: adapter.name,
+          status: "ran",
+          findingsCount: findings.length,
+          durationMs,
+        });
+        allFindings.push(...findings);
+      } catch (err) {
+        const durationMs = Date.now() - adapterStart;
+        adapterTimings[adapter.name] = durationMs;
+        scannerCoverage.push({
+          scannerName: adapter.name,
+          status: "skipped-error",
+          reason: err instanceof Error ? err.message : String(err),
+          findingsCount: 0,
+          durationMs,
+        });
+      }
     }
 
     // Step 2: Deduplicate
@@ -105,8 +134,9 @@ export class ScanPipeline {
           SEVERITY_ORDER.indexOf(b.severity)
     );
 
-    // Step 4: Build summary
+    // Step 4: Build summary and coverage
     const summary = buildSummary(sorted);
+    const coverageReport = buildCoverageReport(scannerCoverage, sorted);
 
     const completedAt = new Date().toISOString();
     const timing: TimingInfo = {
@@ -120,6 +150,7 @@ export class ScanPipeline {
       findings: sorted,
       summary,
       timing,
+      coverageReport,
     };
   }
 }

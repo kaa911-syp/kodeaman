@@ -177,6 +177,7 @@ export class HtmlReportGenerator {
       snippet: finding.location.snippet,
       whyItMatters,
       remediation,
+      fixCommands: finding.fixCommands,
       cwes: finding.classification.cwe ?? [],
       owaspRefs: finding.classification.owasp ?? [],
       confidence: finding.confidence,

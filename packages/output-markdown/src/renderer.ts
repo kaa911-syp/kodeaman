@@ -1,5 +1,24 @@
 import type { NormalizedFinding, SeverityLevel } from "@kodeaman/schema";
 
+export interface CoverageReport {
+  scannersConfigured: string[];
+  scannersRan: string[];
+  scannersSkipped: { name: string; reason: string }[];
+  owaspCoverage: {
+    categoryId: string;
+    categoryName: string;
+    covered: boolean;
+    coveredBy: string[];
+    findingsCount: number;
+  }[];
+  overallCoveragePercent: number;
+  scanSurfaces: {
+    surface: string;
+    covered: boolean;
+    scanners: string[];
+  }[];
+}
+
 /**
  * OWASP scan report structure. Mirrors the schema type that worker-1 is adding.
  * TODO: Replace with import from @kodeaman/schema once OwaspScanReport is exported.
@@ -160,6 +179,47 @@ export class MarkdownRenderer {
     return lines.join("\n");
   }
 
+  renderCoverageReport(coverage: CoverageReport, locale: "en" | "id"): string {
+    const lines: string[] = [];
+    const title = locale === "id" ? "### Laporan Cakupan Scanner" : "### Scanner Coverage Report";
+
+    lines.push(title);
+    lines.push("");
+    lines.push(
+      locale === "id"
+        ? `**Cakupan OWASP:** ${coverage.overallCoveragePercent}%`
+        : `**OWASP coverage:** ${coverage.overallCoveragePercent}%`,
+    );
+    lines.push("");
+    lines.push("| Scanner | Status | Findings | Duration | Reason |");
+    lines.push("| --- | --- | ---: | ---: | --- |");
+
+    const skipped = new Map(coverage.scannersSkipped.map((scanner) => [scanner.name, scanner.reason]));
+    for (const scanner of coverage.scannersConfigured) {
+      const ran = coverage.scannersRan.includes(scanner);
+      const reason = skipped.get(scanner) ?? "";
+      const status = ran ? "✅ ran" : reason.toLowerCase().includes("error") ? "❌ error" : "⚠️ skipped";
+      const categoryFindings = coverage.owaspCoverage
+        .filter((category) => category.coveredBy.includes(scanner))
+        .reduce((sum, category) => sum + category.findingsCount, 0);
+      lines.push(`| ${scanner} | ${status} | ${categoryFindings} | - | ${reason} |`);
+    }
+
+    lines.push("");
+    lines.push(locale === "id" ? "#### Cakupan OWASP" : "#### OWASP Coverage");
+    lines.push("");
+    lines.push("| Category | Covered | Covered by | Findings |");
+    lines.push("| --- | --- | --- | ---: |");
+    for (const category of coverage.owaspCoverage) {
+      lines.push(
+        `| ${category.categoryId}: ${category.categoryName} | ${category.covered ? "Yes" : "No"} | ${category.coveredBy.join(", ") || "-"} | ${category.findingsCount} |`,
+      );
+    }
+
+    lines.push("");
+    return lines.join("\n");
+  }
+
   renderFinding(
     finding: NormalizedFinding,
     locale: "en" | "id",
@@ -179,6 +239,18 @@ export class MarkdownRenderer {
       lines.push(`\u{1F4C1} \`${loc}\``);
     } else if (finding.location.url) {
       lines.push(`\u{1F310} \`${finding.location.url}\``);
+    }
+
+    if (finding.occurrences && finding.occurrences.length > 1) {
+      const primaryOccurrence = `${finding.location.component ?? ""}\0${finding.location.filePath ?? finding.location.url ?? ""}`;
+      const alsoFound = finding.occurrences
+        .filter((occurrence) => `${occurrence.target ?? ""}\0${occurrence.filePath}` !== primaryOccurrence)
+        .map((occurrence) => occurrence.target ? `${occurrence.target}/${occurrence.filePath}` : occurrence.filePath);
+      if (alsoFound.length > 0) {
+        lines.push(locale === "id"
+          ? `Juga ditemukan di: ${alsoFound.join(", ")}`
+          : `Also found in: ${alsoFound.join(", ")}`);
+      }
     }
 
     lines.push("");
@@ -201,6 +273,16 @@ export class MarkdownRenderer {
     lines.push(fixLabel);
     for (const step of steps) {
       lines.push(`- ${step}`);
+    }
+
+    if (finding.fixCommands && finding.fixCommands.length > 0) {
+      lines.push("");
+      lines.push("**Fix:**");
+      for (const fixCommand of finding.fixCommands) {
+        lines.push("```sh");
+        lines.push(fixCommand.cwd ? `cd ${fixCommand.cwd} && ${fixCommand.command}` : fixCommand.command);
+        lines.push("```");
+      }
     }
 
     if (finding.coaching.safeExampleCode) {
