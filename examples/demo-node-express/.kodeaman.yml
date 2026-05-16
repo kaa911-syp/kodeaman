@@ -1,0 +1,40 @@
+# KodeAman Configuration — Node/Express Demo
+# Preset: node-express
+# Language: English (for demo clarity)
+
+language: en
+
+# Scanner selection
+scanners:
+  semgrep: true        # SAST — static analysis for injection, auth, config issues
+  zapBaseline: false   # DAST — disabled (no running server in this demo)
+  npmAudit: true       # Dependency vulnerability scanner
+
+# Framework preset
+presets:
+  - node-express
+
+# Finding prioritization
+prioritization:
+  maxFindingsInComment: 5    # Show top 5 findings in PR comments
+  failOnSeverity: high       # Exit code 1 if any high or critical findings
+
+# Gamification
+gamification:
+  enabled: true
+
+# Output formats
+output:
+  markdown: true
+  sarif: false
+  json: false
+  html: true
+
+# OWASP Top 10 scanning
+owasp:
+  enabled: true
+  categories: [A01, A02, A03, A05, A06, A07]   # Most relevant for Node/Express
+  parallel: false
+  confidenceGate: low
+  evidenceGate: true
+  failOnSeverity: high

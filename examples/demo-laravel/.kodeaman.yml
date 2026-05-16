@@ -1,0 +1,39 @@
+# KodeAman Configuration — Laravel Demo
+# Preset: laravel
+# Language: Bahasa Indonesia
+
+language: id
+
+# Scanner selection
+scanners:
+  semgrep: true        # SAST — analisis statis untuk injeksi, auth, konfigurasi
+  zapBaseline: false   # DAST — dinonaktifkan (tidak ada server berjalan di demo ini)
+
+# Preset framework
+presets:
+  - laravel
+
+# Prioritas temuan
+prioritization:
+  maxFindingsInComment: 5
+  failOnSeverity: high
+
+# Gamifikasi
+gamification:
+  enabled: true
+
+# Format output
+output:
+  markdown: true
+  sarif: false
+  json: false
+  html: true
+
+# Pemindaian OWASP Top 10
+owasp:
+  enabled: true
+  categories: [A01, A02, A03, A04, A05, A07]   # Paling relevan untuk Laravel
+  parallel: false
+  confidenceGate: low
+  evidenceGate: true
+  failOnSeverity: high
