@@ -53,7 +53,7 @@ This roadmap tracks product milestones and repository-organization work for Kode
 - [x] Add package-level documentation for OWASP, output, and scanner adapter packages
 - [ ] Improve prioritizer with context flags
 - [ ] Add 10 more Bahasa lessons/templates
-- [ ] Write detailed onboarding docs under `docs/` for GitHub, GitLab, CLI, and self-hosting
+- [x] Write detailed onboarding docs under `docs/` for GitHub, GitLab, CLI, and self-hosting
 - [ ] Run 15 interviews and collect repo pilots
 - [ ] Triage pilot feedback into roadmap
 
