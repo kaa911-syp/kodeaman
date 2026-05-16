@@ -1,0 +1,41 @@
+import type { PresetConfig } from "../types.js";
+
+export const laravelPreset: PresetConfig = {
+  name: "laravel",
+  description: "Laravel PHP framework preset with Eloquent, Blade, and artisan-aware rules",
+  framework: "laravel",
+  frameworkHints: ["php", "laravel", "mysql"],
+  semgrepRules: [
+    "php.lang.security.injection.tainted-sql-string",
+    "php.lang.security.injection.tainted-filename",
+    "php.lang.security.eval-use",
+    "php.lang.security.preg-replace-eval",
+    "php.lang.security.md5-used-as-password",
+    "php.lang.security.file-inclusion",
+    "php.laravel.security.raw-sql-injection",
+    "php.laravel.security.blade-xss",
+    "php.laravel.security.mass-assignment",
+    "php.laravel.security.csrf-disabled",
+    "php.laravel.security.debug-enabled",
+    "php.laravel.security.env-exposure",
+    "php.laravel.security.hardcoded-credentials",
+    "php.laravel.security.unsafe-file-upload",
+    "php.laravel.security.open-redirect",
+    "php.laravel.security.weak-password-rules",
+  ],
+  zapPolicies: ["baseline", "sql-injection", "xss", "path-traversal"],
+  priorityOverrides: {
+    "env-exposure": 20,
+    "debug-mode": 15,
+    "mass-assignment": 15,
+    "sqli": 25,
+    "file-upload": 15,
+    "hardcoded-secret": 20,
+    "csrf": 10,
+    "xss": 15,
+    "auth-bypass": 25,
+  },
+  coachingOverrides: {
+    sqli: "sqli-laravel",
+  },
+};

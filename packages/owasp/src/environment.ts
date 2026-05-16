@@ -1,0 +1,233 @@
+/**
+ * Environment detection for OWASP scanning.
+ *
+ * Detects WSL, available scanners, and platform information.
+ */
+
+import { execSync } from "node:child_process";
+import { readFileSync, existsSync } from "node:fs";
+import type { FindingSource } from "@kodeaman/schema";
+
+export interface ScannerInfo {
+  name: string;
+  source: FindingSource;
+  available: boolean;
+  path?: string;
+  version?: string;
+}
+
+export interface EnvironmentInfo {
+  platform: "linux" | "wsl" | "windows" | "macos";
+  isWSL: boolean;
+  wslDistro?: string;
+  scanners: ScannerInfo[];
+  nodeVersion: string;
+  hasDocker: boolean;
+  scannersAvailable: FindingSource[];
+}
+
+export interface WSLInstallInstructions {
+  locale: "en" | "id";
+  title: string;
+  steps: string[];
+  note: string;
+}
+
+/**
+ * Detect if running inside WSL (Windows Subsystem for Linux).
+ */
+export function detectWSL(): { isWSL: boolean; distro?: string } {
+  // Check WSL_DISTRO_NAME environment variable
+  const distroEnv = process.env["WSL_DISTRO_NAME"];
+  if (distroEnv) {
+    return { isWSL: true, distro: distroEnv };
+  }
+
+  // Check /proc/version for Microsoft/WSL indicators
+  try {
+    if (existsSync("/proc/version")) {
+      const version = readFileSync("/proc/version", "utf-8");
+      if (/microsoft|wsl/i.test(version)) {
+        return { isWSL: true, distro: distroEnv ?? undefined };
+      }
+    }
+  } catch {
+    // Not available, not WSL
+  }
+
+  // Check WSLInterop
+  try {
+    if (existsSync("/proc/sys/fs/binfmt_misc/WSLInterop")) {
+      return { isWSL: true, distro: distroEnv ?? undefined };
+    }
+  } catch {
+    // Not available
+  }
+
+  return { isWSL: false };
+}
+
+/**
+ * On Windows, check if WSL is installed and available.
+ */
+export function checkWSLAvailability(): {
+  available: boolean;
+  distros: string[];
+} {
+  if (process.platform !== "win32") {
+    return { available: false, distros: [] };
+  }
+
+  try {
+    const output = execSync("wsl --list --quiet", {
+      encoding: "utf-8",
+      timeout: 5000,
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+
+    const distros = output
+      .split("\n")
+      .map((line) => line.replace(/\0/g, "").trim())
+      .filter((line) => line.length > 0);
+
+    return { available: distros.length > 0, distros };
+  } catch {
+    return { available: false, distros: [] };
+  }
+}
+
+/**
+ * Get WSL installation instructions in English or Indonesian.
+ */
+export function getWSLInstallInstructions(
+  locale: "en" | "id" = "en"
+): WSLInstallInstructions {
+  if (locale === "id") {
+    return {
+      locale: "id",
+      title: "Petunjuk Instalasi WSL",
+      steps: [
+        "Buka PowerShell sebagai Administrator",
+        'Jalankan: wsl --install -d Ubuntu',
+        "Restart komputer Anda jika diminta",
+        "Setelah restart, buka Ubuntu dari Start Menu",
+        "Buat username dan password Linux Anda",
+        "Jalankan: sudo apt update && sudo apt upgrade -y",
+        "Instal alat pemindai keamanan yang diperlukan di dalam WSL",
+      ],
+      note: "WSL diperlukan untuk menjalankan pemindai keamanan berbasis Linux seperti Semgrep dan ZAP pada Windows.",
+    };
+  }
+
+  return {
+    locale: "en",
+    title: "WSL Installation Instructions",
+    steps: [
+      "Open PowerShell as Administrator",
+      'Run: wsl --install -d Ubuntu',
+      "Restart your computer if prompted",
+      "After restart, open Ubuntu from the Start Menu",
+      "Create your Linux username and password",
+      "Run: sudo apt update && sudo apt upgrade -y",
+      "Install required security scanning tools inside WSL",
+    ],
+    note: "WSL is required to run Linux-based security scanners like Semgrep and ZAP on Windows.",
+  };
+}
+
+/**
+ * Detect which security scanners are available on the system.
+ */
+export function detectScanners(): ScannerInfo[] {
+  const scanners: ScannerInfo[] = [
+    checkScanner("semgrep", "semgrep", "semgrep --version"),
+    checkScanner("zap-baseline", "zap-baseline.py", "zap-baseline.py --version"),
+    checkScanner("npm-audit", "npm", "npm --version"),
+    checkScanner("docker", "docker", "docker --version"),
+  ];
+
+  return scanners;
+}
+
+function checkScanner(
+  name: string,
+  command: string,
+  versionCommand: string
+): ScannerInfo {
+  const source = mapNameToSource(name);
+
+  try {
+    // Try to find the command path
+    const whichCmd = process.platform === "win32" ? "where" : "which";
+    const path = execSync(`${whichCmd} ${command}`, {
+      encoding: "utf-8",
+      timeout: 5000,
+      stdio: ["pipe", "pipe", "pipe"],
+    }).trim().split("\n")[0];
+
+    // Try to get version
+    let version: string | undefined;
+    try {
+      version = execSync(versionCommand, {
+        encoding: "utf-8",
+        timeout: 5000,
+        stdio: ["pipe", "pipe", "pipe"],
+      }).trim().split("\n")[0];
+    } catch {
+      // Version check failed, but command exists
+    }
+
+    return { name, source, available: true, path, version };
+  } catch {
+    return { name, source, available: false };
+  }
+}
+
+function mapNameToSource(name: string): FindingSource {
+  switch (name) {
+    case "semgrep":
+      return "semgrep";
+    case "zap-baseline":
+      return "zap-baseline";
+    case "npm-audit":
+      return "npm-audit";
+    default:
+      return "custom";
+  }
+}
+
+/**
+ * Detect the full environment information.
+ */
+export function detectEnvironment(): EnvironmentInfo {
+  const wsl = detectWSL();
+  const scanners = detectScanners();
+  const hasDocker = scanners.some(
+    (s) => s.name === "docker" && s.available
+  );
+
+  let platform: EnvironmentInfo["platform"];
+  if (wsl.isWSL) {
+    platform = "wsl";
+  } else if (process.platform === "win32") {
+    platform = "windows";
+  } else if (process.platform === "darwin") {
+    platform = "macos";
+  } else {
+    platform = "linux";
+  }
+
+  const scannersAvailable: FindingSource[] = scanners
+    .filter((s) => s.available && s.source !== "custom")
+    .map((s) => s.source);
+
+  return {
+    platform,
+    isWSL: wsl.isWSL,
+    wslDistro: wsl.distro,
+    scanners,
+    nodeVersion: process.version,
+    hasDocker,
+    scannersAvailable,
+  };
+}

@@ -1,0 +1,107 @@
+name: Pilot Feedback
+description: Share feedback from your KodeAman pilot experience
+title: "[Pilot]: "
+labels: ["type:validation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for piloting KodeAman! Your feedback directly shapes the product.
+        Terima kasih sudah mencoba KodeAman! Feedback kamu sangat berharga.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Git Platform
+      options:
+        - GitHub
+        - GitLab Cloud
+        - GitLab Self-hosted
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Tech Stack
+      options:
+        - Laravel / PHP
+        - Node.js / Express
+        - WordPress / PHP
+        - React / Next.js
+        - Python / Django / Flask
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Your Role
+      options:
+        - Student
+        - Bootcamp graduate
+        - Junior developer
+        - Startup engineer
+        - Freelancer / agency
+        - Senior developer
+        - Lecturer / mentor
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: usefulness
+    attributes:
+      label: Usefulness (1-5)
+      description: How useful were the PR comments?
+      options:
+        - "5 - Very useful"
+        - "4 - Useful"
+        - "3 - Somewhat useful"
+        - "2 - Not very useful"
+        - "1 - Not useful at all"
+    validations:
+      required: true
+  - type: dropdown
+    id: noise
+    attributes:
+      label: Noise Level (1-5)
+      description: How noisy/overwhelming were the findings? (1=quiet, 5=overwhelming)
+      options:
+        - "1 - Very clean"
+        - "2 - Mostly clean"
+        - "3 - Moderate"
+        - "4 - Somewhat noisy"
+        - "5 - Too noisy"
+    validations:
+      required: true
+  - type: dropdown
+    id: weekly
+    attributes:
+      label: Would you use this weekly?
+      options:
+        - "Yes"
+        - "Maybe"
+        - "No"
+    validations:
+      required: true
+  - type: textarea
+    id: liked
+    attributes:
+      label: What did you like?
+      placeholder: The Bahasa explanations were helpful...
+    validations:
+      required: true
+  - type: textarea
+    id: disliked
+    attributes:
+      label: What could be improved?
+      placeholder: Too many false positives for...
+  - type: textarea
+    id: false-positives
+    attributes:
+      label: False Positives
+      description: Were any findings incorrect? List them here.
+  - type: textarea
+    id: missing
+    attributes:
+      label: Missing Features
+      description: What features would make this more useful for you?

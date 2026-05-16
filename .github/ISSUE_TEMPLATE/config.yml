@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/kodeaman/kodeaman/discussions
+    about: Ask questions and share ideas with the community
+  - name: Security Vulnerability
+    url: https://github.com/kodeaman/kodeaman/blob/main/SECURITY.md
+    about: Report security vulnerabilities privately

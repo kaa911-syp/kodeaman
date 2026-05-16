@@ -1,0 +1,37 @@
+import type { PresetConfig } from "../types.js";
+
+export const nodeExpressPreset: PresetConfig = {
+  name: "node-express",
+  description: "Node.js/Express preset with npm ecosystem, JWT, and middleware-aware rules",
+  framework: "express",
+  frameworkHints: ["javascript", "node", "express"],
+  semgrepRules: [
+    "javascript.lang.security.detect-eval-with-expression",
+    "javascript.lang.security.detect-child-process",
+    "javascript.lang.security.detect-non-literal-regexp",
+    "javascript.lang.security.detect-non-literal-require",
+    "javascript.lang.security.detect-possible-timing-attacks",
+    "javascript.express.security.audit.xss.mustache-escape",
+    "javascript.express.security.audit.helmet-missing",
+    "javascript.express.security.audit.cors-misconfiguration",
+    "javascript.express.security.injection.tainted-sql-string",
+    "javascript.jwt.security.jwt-none-alg",
+    "javascript.jwt.security.jwt-hardcoded-secret",
+    "typescript.lang.security.detect-eval-with-expression",
+    "typescript.lang.security.detect-child-process",
+    "typescript.express.security.audit.cors-misconfiguration",
+  ],
+  zapPolicies: ["baseline", "api-scan", "sql-injection", "xss"],
+  priorityOverrides: {
+    "eval-injection": 25,
+    "rce": 25,
+    "jwt-weak": 20,
+    "cors-misconfiguration": 15,
+    "hardcoded-secret": 20,
+    "sqli": 20,
+    "xss": 15,
+    "missing-auth": 15,
+    "info-leak": 10,
+  },
+  coachingOverrides: {},
+};

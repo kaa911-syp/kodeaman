@@ -1,0 +1,59 @@
+name: Feature Request
+description: Suggest a new feature for KodeAman
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for suggesting a feature! Help us understand your idea.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this feature solve?
+      placeholder: I'm always frustrated when...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this to work?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any other solutions you've thought about?
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - CLI
+        - GitHub Bot
+        - GitLab Bot
+        - Coaching / Education
+        - Gamification
+        - Scanner Adapters
+        - Presets / Rules
+        - Localization (Bahasa)
+        - Self-hosting
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: persona
+    attributes:
+      label: Your Role
+      description: Which best describes you?
+      options:
+        - Student
+        - Bootcamp graduate
+        - Junior developer
+        - Startup engineer
+        - Freelancer / agency
+        - Senior developer
+        - Lecturer / mentor
+        - Other

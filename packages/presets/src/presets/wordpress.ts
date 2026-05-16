@@ -1,0 +1,35 @@
+import type { PresetConfig } from "../types.js";
+
+export const wordpressPreset: PresetConfig = {
+  name: "wordpress",
+  description: "WordPress preset with plugin/theme patterns, hooks, and wp-specific security rules",
+  framework: "wordpress",
+  frameworkHints: ["php", "wordpress"],
+  semgrepRules: [
+    "php.lang.security.injection.tainted-sql-string",
+    "php.lang.security.eval-use",
+    "php.lang.security.file-inclusion",
+    "php.lang.security.md5-used-as-password",
+    "php.wordpress.security.wpdb-prepare-missing",
+    "php.wordpress.security.nonce-missing",
+    "php.wordpress.security.direct-file-access",
+    "php.wordpress.security.unescaped-output",
+    "php.wordpress.security.capability-check-missing",
+    "php.wordpress.security.file-upload-unrestricted",
+    "php.wordpress.security.hardcoded-credentials",
+    "php.wordpress.security.admin-endpoint-unprotected",
+  ],
+  zapPolicies: ["baseline", "sql-injection", "xss", "path-traversal"],
+  priorityOverrides: {
+    sqli: 25,
+    "hardcoded-secret": 20,
+    "file-upload": 20,
+    "path-traversal": 20,
+    xss: 15,
+    csrf: 15,
+    "missing-auth": 15,
+    "admin-endpoint": 20,
+    "info-leak": 10,
+  },
+  coachingOverrides: {},
+};

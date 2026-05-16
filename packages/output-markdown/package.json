@@ -1,0 +1,34 @@
+{
+  "name": "@kodeaman/output-markdown",
+  "version": "0.1.0",
+  "description": "Markdown output renderer for KodeAman security reports",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kodeaman/schema": "workspace:*",
+    "@kodeaman/i18n": "workspace:*",
+    "@kodeaman/gamification": "workspace:*"
+  },
+  "devDependencies": {
+    "@kodeaman/config": "workspace:*",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

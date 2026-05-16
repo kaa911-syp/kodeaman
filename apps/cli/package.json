@@ -1,0 +1,40 @@
+{
+  "name": "@kodeaman/cli",
+  "version": "0.1.0",
+  "description": "CLI for KodeAman security coach",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "kodeaman": "./dist/index.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kodeaman/config": "workspace:*",
+    "@kodeaman/core": "workspace:*",
+    "@kodeaman/schema": "workspace:*",
+    "@kodeaman/adapters-semgrep": "workspace:*",
+    "@kodeaman/adapters-zap": "workspace:*",
+    "@kodeaman/adapters-npm-audit": "workspace:*",
+    "@kodeaman/owasp": "workspace:*",
+    "@kodeaman/prioritizer": "workspace:*",
+    "@kodeaman/coaching": "workspace:*",
+    "@kodeaman/gamification": "workspace:*",
+    "@kodeaman/output-markdown": "workspace:*",
+    "@kodeaman/output-html": "workspace:*",
+    "@kodeaman/presets": "workspace:*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.0.0"
+  }
+}

@@ -1,0 +1,15 @@
+# https://github.com/settings/apps/new
+# GitHub App Manifest for KodeAman
+
+name: KodeAman Security Coach
+description: Security coaching bot for Indonesian developers — scan PRs for vulnerabilities and provide educational feedback
+url: https://github.com/kodeaman/kodeaman
+public: true
+
+default_events:
+  - pull_request
+
+default_permissions:
+  pull_requests: write
+  contents: read
+  checks: write

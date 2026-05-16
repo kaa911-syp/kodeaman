@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0.0",
+  "findingId": "semgrep:laravel.sql.raw-query:9c0a4e2",
+  "dedupeKey": "laravel.sql.raw-query|app/Http/Controllers/UserController.php|44|CWE-89",
+  "source": "semgrep",
+  "category": "sqli",
+  "surface": "source-code",
+  "severity": "high",
+  "confidence": "high",
+  "status": "open",
+  "title": "Possible SQL injection via raw query",
+  "description": "User input appears in a raw SQL query without safe parameter binding.",
+  "shortDescription": "Raw query uses request input directly.",
+  "location": {
+    "filePath": "app/Http/Controllers/UserController.php",
+    "startLine": 44,
+    "endLine": 44,
+    "snippet": "$sql = \"SELECT * FROM users WHERE email = '$email'\";"
+  },
+  "evidence": [
+    {
+      "type": "code",
+      "label": "Matched code",
+      "content": "$sql = \"SELECT * FROM users WHERE email = '$email'\";",
+      "redacted": false
+    }
+  ],
+  "classification": {
+    "cwe": ["CWE-89"],
+    "owasp": ["A03:2021-Injection"],
+    "tags": ["laravel", "sql", "input-validation"]
+  },
+  "raw": {
+    "tool": "semgrep",
+    "toolRuleId": "laravel.sql.raw-query",
+    "rawSeverity": "ERROR",
+    "rawConfidence": "HIGH"
+  },
+  "repoContext": {
+    "provider": "github",
+    "repoFullName": "kodeaman/demo-laravel",
+    "branch": "feature/user-search",
+    "pullRequestNumber": 18,
+    "environment": "preview",
+    "stackHints": ["php", "laravel", "mysql"],
+    "framework": ["laravel"]
+  },
+  "prioritization": {
+    "baseSeverity": "high",
+    "adjustedSeverity": "high",
+    "priorityScore": 86,
+    "confidenceScore": 92,
+    "internetExposureScore": 80,
+    "authSurfaceScore": 30,
+    "dataSensitivityScore": 70,
+    "repeatedPatternScore": 10,
+    "developerBurdenScore": 35,
+    "reasons": [
+      "Input reaches SQL construction",
+      "Route appears user-facing",
+      "Easy remediation with parameter binding"
+    ]
+  },
+  "coaching": {
+    "titleEn": "Use parameter binding instead of raw SQL interpolation",
+    "titleId": "Gunakan parameter binding, jangan interpolasi SQL mentah",
+    "summaryEn": "This query may allow attackers to change SQL behavior through crafted input.",
+    "summaryId": "Query ini bisa memungkinkan input berbahaya mengubah perilaku SQL.",
+    "whyItMattersEn": "If exploited, attackers may read, change, or delete database data.",
+    "whyItMattersId": "Jika dieksploitasi, penyerang bisa membaca, mengubah, atau menghapus data database.",
+    "remediationEn": [
+      "Use query builder or prepared statements",
+      "Validate and constrain input format",
+      "Avoid string concatenation for SQL"
+    ],
+    "remediationId": [
+      "Gunakan query builder atau prepared statements",
+      "Validasi dan batasi format input",
+      "Hindari penggabungan string untuk SQL"
+    ],
+    "lessonId": "lesson-sqli-001",
+    "lessonSlug": "sql-injection-basics-laravel",
+    "lessonLevel": "beginner",
+    "lessonEstimatedMinutes": 4,
+    "autofixEligible": true,
+    "autofixStrategy": "template-rewrite"
+  },
+  "gamification": {
+    "issueFamily": "sqli",
+    "xpReward": 15,
+    "badgeKey": "first-sqli-fix",
+    "streakEligible": true,
+    "questKey": "quest-fix-3-injection-issues",
+    "questProgressDelta": 1,
+    "repeatOffender": false
+  },
+  "detectedAt": "2026-05-15T16:00:00.000Z"
+}

@@ -1,0 +1,107 @@
+{
+  "version": "1.56.0",
+  "results": [
+    {
+      "check_id": "python.django.security.injection.sql.sql-injection-using-raw",
+      "path": "app/views/users.py",
+      "start": { "line": 42, "col": 5, "offset": 1023 },
+      "end": { "line": 42, "col": 65, "offset": 1083 },
+      "extra": {
+        "message": "Detected raw SQL query with user-controlled input. This could lead to SQL injection. Use parameterized queries instead.",
+        "severity": "ERROR",
+        "metadata": {
+          "category": "security",
+          "technology": ["django", "python"],
+          "cwe": ["CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"],
+          "owasp": ["A03:2021 - Injection"],
+          "confidence": "HIGH",
+          "impact": "HIGH",
+          "likelihood": "HIGH",
+          "references": ["https://owasp.org/Top10/A03_2021-Injection/"],
+          "source": "https://semgrep.dev/r/python.django.security.injection.sql.sql-injection-using-raw"
+        },
+        "lines": "    User.objects.raw(f\"SELECT * FROM users WHERE name = '{name}'\")",
+        "is_ignored": false
+      }
+    },
+    {
+      "check_id": "javascript.browser.security.insufficient-postmessage-origin-validation",
+      "path": "frontend/src/components/Chat.tsx",
+      "start": { "line": 15, "col": 1, "offset": 312 },
+      "end": { "line": 19, "col": 2, "offset": 498 },
+      "extra": {
+        "message": "No origin check on postMessage listener. Any window can send messages to this handler, which could lead to XSS or data exfiltration.",
+        "severity": "WARNING",
+        "metadata": {
+          "category": "security",
+          "technology": ["browser", "javascript"],
+          "cwe": ["CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"],
+          "owasp": ["A07:2021 - Cross-Site Scripting (XSS)"],
+          "confidence": "MEDIUM",
+          "impact": "MEDIUM",
+          "likelihood": "MEDIUM",
+          "references": ["https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"],
+          "source": "https://semgrep.dev/r/javascript.browser.security.insufficient-postmessage-origin-validation"
+        },
+        "lines": "window.addEventListener('message', (event) => {\n  const data = event.data;\n  document.getElementById('output').innerHTML = data.html;\n});",
+        "is_ignored": false
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.hardcoded-password-default-argument",
+      "path": "app/config/settings.py",
+      "start": { "line": 88, "col": 1, "offset": 2105 },
+      "end": { "line": 88, "col": 52, "offset": 2156 },
+      "extra": {
+        "message": "Hardcoded password used as a default argument. This password could be exposed in version control. Use environment variables or a secrets manager.",
+        "severity": "ERROR",
+        "metadata": {
+          "category": "security",
+          "technology": ["python"],
+          "cwe": ["CWE-798: Use of Hard-coded Credentials"],
+          "owasp": ["A07:2021 - Identification and Authentication Failures"],
+          "confidence": "HIGH",
+          "impact": "MEDIUM",
+          "likelihood": "HIGH",
+          "references": [],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.hardcoded-password-default-argument"
+        },
+        "lines": "def connect_db(password=\"super_secret_password_123\"):",
+        "is_ignored": false
+      }
+    },
+    {
+      "check_id": "python.flask.security.debug-enabled",
+      "path": "app/main.py",
+      "start": { "line": 120, "col": 1, "offset": 3200 },
+      "end": { "line": 120, "col": 28, "offset": 3227 },
+      "extra": {
+        "message": "Debug mode is enabled. This exposes the interactive debugger and allows arbitrary code execution. Disable debug mode in production.",
+        "severity": "WARNING",
+        "metadata": {
+          "category": "security",
+          "technology": ["flask", "python"],
+          "cwe": ["CWE-489: Active Debug Code"],
+          "owasp": ["A05:2021 - Security Misconfiguration"],
+          "confidence": "HIGH",
+          "impact": "HIGH",
+          "likelihood": "LOW",
+          "references": [],
+          "source": "https://semgrep.dev/r/python.flask.security.debug-enabled"
+        },
+        "lines": "app.run(debug=True, host='0.0.0.0')",
+        "is_ignored": false
+      }
+    }
+  ],
+  "errors": [],
+  "paths": {
+    "scanned": [
+      "app/views/users.py",
+      "app/config/settings.py",
+      "app/main.py",
+      "frontend/src/components/Chat.tsx"
+    ],
+    "skipped": []
+  }
+}

@@ -1,0 +1,125 @@
+import type {
+  NormalizedFinding,
+  SeverityLevel,
+  FindingCategory,
+} from "@kodeaman/schema";
+import type {
+  ScannerAdapter,
+  ScanContext,
+  ScanResult,
+  ScanSummary,
+  TimingInfo,
+  KodeamanConfig,
+} from "./types.js";
+import { deduplicateFindings } from "./dedup.js";
+
+const SEVERITY_ORDER: SeverityLevel[] = [
+  "critical",
+  "high",
+  "medium",
+  "low",
+  "info",
+];
+
+function emptySeverityCounts(): Record<SeverityLevel, number> {
+  return { info: 0, low: 0, medium: 0, high: 0, critical: 0 };
+}
+
+function buildSummary(findings: NormalizedFinding[]): ScanSummary {
+  const bySeverity = emptySeverityCounts();
+  const byCategory: Partial<Record<FindingCategory, number>> = {};
+  let xpEarned = 0;
+  const badgesAwarded: string[] = [];
+
+  for (const f of findings) {
+    bySeverity[f.severity]++;
+    byCategory[f.category] = (byCategory[f.category] ?? 0) + 1;
+    if (f.gamification.xpReward) {
+      xpEarned += f.gamification.xpReward;
+    }
+    if (f.gamification.badgeKey) {
+      badgesAwarded.push(f.gamification.badgeKey);
+    }
+  }
+
+  // Top findings sorted by priority score descending
+  const topFindings = [...findings]
+    .sort(
+      (a, b) =>
+        b.prioritization.priorityScore - a.prioritization.priorityScore
+    )
+    .slice(0, 3);
+
+  return {
+    total: findings.length,
+    bySeverity,
+    byCategory,
+    topFindings,
+    xpEarned,
+    badgesAwarded: [...new Set(badgesAwarded)],
+  };
+}
+
+export class ScanPipeline {
+  private adapters: ScannerAdapter[] = [];
+  private config: KodeamanConfig;
+
+  constructor(config: KodeamanConfig = {}) {
+    this.config = config;
+  }
+
+  registerAdapter(adapter: ScannerAdapter): void {
+    this.adapters.push(adapter);
+  }
+
+  async run(context: ScanContext): Promise<ScanResult> {
+    const startedAt = new Date().toISOString();
+    const adapterTimings: Record<string, number> = {};
+
+    // Step 1: Run all registered adapters
+    const allFindings: NormalizedFinding[] = [];
+
+    for (const adapter of this.adapters) {
+      // Skip adapters not enabled in config
+      if (
+        this.config.scanners &&
+        this.config.scanners[adapter.name] === false
+      ) {
+        continue;
+      }
+
+      const adapterStart = Date.now();
+      const findings = await adapter.scan(context);
+      adapterTimings[adapter.name] = Date.now() - adapterStart;
+      allFindings.push(...findings);
+    }
+
+    // Step 2: Deduplicate
+    const deduplicated = deduplicateFindings(allFindings);
+
+    // Step 3: Sort by priority score (descending)
+    const sorted = deduplicated.sort(
+      (a, b) =>
+        b.prioritization.priorityScore - a.prioritization.priorityScore ||
+        SEVERITY_ORDER.indexOf(a.severity) -
+          SEVERITY_ORDER.indexOf(b.severity)
+    );
+
+    // Step 4: Build summary
+    const summary = buildSummary(sorted);
+
+    const completedAt = new Date().toISOString();
+    const timing: TimingInfo = {
+      startedAt,
+      completedAt,
+      durationMs: Date.now() - new Date(startedAt).getTime(),
+      adapterTimings,
+    };
+
+    return {
+      findings: sorted,
+      summary,
+      timing,
+    };
+  }
+}

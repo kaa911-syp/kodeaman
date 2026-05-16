@@ -1,0 +1,69 @@
+{
+  "severity": {
+    "critical": "Critical",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "info": "Info"
+  },
+  "status": {
+    "open": "Open",
+    "fixed": "Fixed",
+    "ignored": "Ignored",
+    "accepted-risk": "Accepted Risk"
+  },
+  "ui": {
+    "findingsTitle": "Security Findings",
+    "noFindings": "No security findings detected — great job!",
+    "summaryTitle": "Summary",
+    "detailsTitle": "Details",
+    "remediationTitle": "How to Fix",
+    "whyItMattersTitle": "Why It Matters",
+    "safeExampleTitle": "Safe Example",
+    "lessonTitle": "Learn More",
+    "viewLesson": "View Lesson",
+    "badgeEarned": "Badge Earned!",
+    "questProgress": "Quest Progress",
+    "xpEarned": "XP Earned",
+    "streakCount": "Streak",
+    "level": "Level",
+    "findingCount": "{count} finding(s)",
+    "fixedCount": "{count} fixed",
+    "newCount": "{count} new"
+  },
+  "pr": {
+    "commentHeader": "## KodeAman Security Report",
+    "commentFooter": "---\n_Powered by [KodeAman](https://github.com/kodeaman) — your security coach_",
+    "noIssuesFound": "No security issues found in this PR. Keep it up!",
+    "issuesFound": "Found {count} security issue(s) in this PR.",
+    "criticalWarning": "**CRITICAL:** This PR contains {count} critical security issue(s) that must be addressed before merging.",
+    "collapseDetails": "Click to expand details",
+    "viewFullReport": "View full report"
+  },
+  "gamification": {
+    "xpGained": "You earned {xp} XP!",
+    "badgeUnlocked": "Badge unlocked: {badge}!",
+    "questCompleted": "Quest completed: {quest}!",
+    "streakMessage": "You're on a {count}-PR clean streak!",
+    "streakBroken": "Your clean streak was broken. Start a new one!",
+    "levelUp": "Level up! You're now level {level}.",
+    "repeatOffender": "This issue has appeared before. Review the lesson to avoid it next time.",
+    "encouragement": "Every fix makes your code more secure. Keep going!"
+  },
+  "coaching": {
+    "autofixAvailable": "An automatic fix is available for this issue.",
+    "autofixApplied": "Automatic fix applied successfully.",
+    "lessonRecommended": "We recommend reading the lesson: {title}",
+    "estimatedTime": "Estimated reading time: {minutes} minutes"
+  },
+  "badges": {
+    "first-fix": "First Fix",
+    "first-sqli-fix": "SQL Injection Slayer",
+    "first-xss-fix": "XSS Exterminator",
+    "clean-pr": "Clean PR",
+    "streak-3": "3-PR Streak",
+    "streak-7": "7-PR Streak",
+    "quest-master": "Quest Master",
+    "security-champion": "Security Champion"
+  }
+}

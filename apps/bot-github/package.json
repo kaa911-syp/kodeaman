@@ -1,0 +1,32 @@
+{
+  "name": "@kodeaman/bot-github",
+  "version": "0.1.0",
+  "description": "GitHub App bot for KodeAman security coach",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "probot": "^13.0.0",
+    "@kodeaman/core": "workspace:*",
+    "@kodeaman/config": "workspace:*",
+    "@kodeaman/owasp": "workspace:*",
+    "@kodeaman/output-markdown": "workspace:*",
+    "@kodeaman/output-html": "workspace:*",
+    "@kodeaman/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.0.0"
+  }
+}
