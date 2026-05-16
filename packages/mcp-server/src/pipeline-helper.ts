@@ -2,6 +2,8 @@
  * Shared helpers for building the scan pipeline from config.
  */
 
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { ScanPipeline } from "@kodeaman/core";
 import { loadConfig } from "@kodeaman/config";
 import type { KodeamanConfig } from "@kodeaman/config";
@@ -10,9 +12,24 @@ export type { KodeamanConfig };
 
 /**
  * Load KodeAman configuration from a project directory.
+ * Falls back to sensible defaults when no .kodeaman.yml exists,
+ * including auto-detecting npm projects to enable npm-audit.
  */
 export function loadProjectConfig(repoRoot: string): KodeamanConfig {
-  return loadConfig(repoRoot);
+  const config = loadConfig(repoRoot);
+
+  // Auto-detect: if the project has a package.json or package-lock.json,
+  // enable npmAudit even if not explicitly configured.
+  // This ensures "config-less" scanning works out of the box.
+  const hasPackageJson = existsSync(join(repoRoot, "package.json"));
+  const hasPackageLock = existsSync(join(repoRoot, "package-lock.json"));
+  const hasPnpmLock = existsSync(join(repoRoot, "pnpm-lock.yaml"));
+
+  if ((hasPackageJson || hasPackageLock || hasPnpmLock) && config.scanners.npmAudit === undefined) {
+    config.scanners.npmAudit = true;
+  }
+
+  return config;
 }
 
 /**

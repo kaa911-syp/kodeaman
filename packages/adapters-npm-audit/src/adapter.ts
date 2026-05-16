@@ -12,27 +12,66 @@ import {
   generateFindingId,
 } from "./mapper.js";
 
+/**
+ * Generic scan context compatible with the core ScannerAdapter interface.
+ * Accepts either `targetPath` (npm-audit specific) or `repoRoot` (core pipeline).
+ */
+export interface GenericScanContext {
+  targetPath?: string;
+  repoRoot?: string;
+  packageManager?: "npm" | "pnpm";
+  extraArgs?: string[];
+  timeout?: number;
+  [key: string]: unknown;
+}
+
 export interface ScannerAdapter {
   readonly name: string;
-  scan(context: NpmAuditScanContext, repoContext?: RepoContext): Promise<NormalizedFinding[]>;
+  scan(context: GenericScanContext, repoContext?: RepoContext): Promise<NormalizedFinding[]>;
 }
 
 export class NpmAuditAdapter implements ScannerAdapter {
   readonly name = "npm-audit";
 
   async scan(
-    context: NpmAuditScanContext,
+    context: GenericScanContext,
     repoContext?: RepoContext,
   ): Promise<NormalizedFinding[]> {
+    // Support both NpmAuditScanContext.targetPath and core ScanContext.repoRoot
+    const targetPath = context.targetPath ?? context.repoRoot;
+    if (!targetPath) {
+      throw new Error(
+        "npm-audit adapter requires either 'targetPath' or 'repoRoot' in scan context. " +
+        "Provide the path to the project directory containing package.json.",
+      );
+    }
+
+    // Verify package.json exists at the target path
+    const { existsSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    const pkgJsonPath = join(targetPath, "package.json");
+    if (!existsSync(pkgJsonPath)) {
+      throw new Error(
+        `No package.json found at ${targetPath}. npm-audit requires a Node.js project with a package.json file.`,
+      );
+    }
+
+    const resolvedContext: NpmAuditScanContext = {
+      targetPath,
+      packageManager: context.packageManager,
+      extraArgs: context.extraArgs,
+      timeout: context.timeout as number | undefined,
+    };
+
     const { execFile } = await import("node:child_process");
     const { promisify } = await import("node:util");
     const execFileAsync = promisify(execFile);
 
-    const pm = context.packageManager ?? (await this.detectPackageManager(context.targetPath));
+    const pm = resolvedContext.packageManager ?? (await this.detectPackageManager(targetPath));
     let stdout: string;
 
     try {
-      const result = await this.runAudit(execFileAsync, pm, context);
+      const result = await this.runAudit(execFileAsync, pm, resolvedContext);
       stdout = result;
     } catch (error: unknown) {
       if (error && typeof error === "object" && "stdout" in error) {
@@ -46,7 +85,7 @@ export class NpmAuditAdapter implements ScannerAdapter {
     const raw: NpmAuditResult = JSON.parse(stdout);
     return this.parseAuditOutput(raw, repoContext, {
       packageManager: pm,
-      targetPath: context.targetPath,
+      targetPath,
     });
   }
 

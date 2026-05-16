@@ -13,7 +13,7 @@ Thank you for your interest in contributing to KodeAman! This guide will help yo
 ### Setup
 
 ```bash
-git clone https://github.com/kodeaman/kodeaman.git
+git clone https://github.com/vibellabbs-code/kodeaman.git
 cd kodeaman
 pnpm install
 pnpm build

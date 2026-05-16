@@ -5,7 +5,7 @@ export const DEFAULT_CONFIG: KodeamanConfig = {
   scanners: {
     semgrep: true,
     zapBaseline: false,
-    npmAudit: false,
+    npmAudit: true,
     playwright: false,
   },
   presets: [],

@@ -1,78 +1,90 @@
 # Roadmap
 
-This roadmap tracks product milestones and repository-organization work for KodeAman. Source code should remain in the owning `apps/*/src` or `packages/*/src` folder, generated output should stay out of source edits, and package/app-level documentation should live beside the package or app it describes.
+This roadmap tracks product milestones for KodeAman. Each sprint represents roughly one week of development.
 
-## Sprint 0 — Repo Ready (Week 0)
+---
 
-- [x] Initialize monorepo with pnpm + turbo + TypeScript
+## Sprint 0 -- Repository Foundation
+
+- [x] Initialize monorepo with pnpm workspaces, Turborepo, and TypeScript strict mode
 - [x] Add Apache 2.0 license and governance files
-- [x] Create schema package with NormalizedFinding
-- [x] Set up CI workflow
+- [x] Create `@kodeaman/schema` with `NormalizedFinding` types and validators
+- [x] Set up CI workflow with GitHub Actions
 - [x] Create issue templates and labels
-- [x] Add README and ROADMAP
-- [x] Add repository agent instructions in `AGENTS.md`
+- [x] Add README, ROADMAP, CONTRIBUTING, and AGENTS.md
 
-## Sprint 1 — Core Scan Flow (Week 1)
+## Sprint 1 -- Core Scan Pipeline
 
-- [x] Build CLI skeleton `kodeaman scan`
-- [x] Add Semgrep adapter parser
-- [x] Add markdown output package
-- [x] Add prioritizer v0
-- [x] Add 10 Bahasa coaching templates
-- [x] Add package-level documentation for core scan packages
-- [x] Add demo project under `examples/demo-node-express`
+- [x] Build CLI skeleton with `kodeaman scan` command
+- [x] Implement Semgrep SAST adapter and parser
+- [x] Add markdown output package for PR comments and console reports
+- [x] Build prioritizer v0 with severity and confidence scoring
+- [x] Write 10 bilingual coaching templates (Bahasa Indonesia + English)
+- [x] Add `examples/demo-node-express` demo project
 
-## Sprint 2 — PR Bot First Usable Version (Week 2)
+## Sprint 2 -- GitHub PR Bot
 
-- [x] GitHub bot app scaffold (Probot)
-- [x] Connect bot to CLI/core pipeline
-- [x] Comment formatting with top 3 findings
-- [x] Add badges and XP note to comment
-- [x] Add config file support `.kodeaman.yml`
-- [x] Add app-level documentation for CLI and bot apps
-- [ ] Pilot dry run on 2 demo repos
-- [ ] Fix noise and false positive presentation
+- [x] Scaffold GitHub bot app with Probot
+- [x] Connect bot to core scan pipeline
+- [x] Implement PR comment formatting with top 3 prioritized findings
+- [x] Add badges and XP notes to PR comments
+- [x] Add `.kodeaman.yml` configuration file support
+- [ ] Pilot dry run on 2 demo repositories
+- [ ] Improve false positive presentation and noise reduction
 
-## Sprint 3 — GitLab + Lessons + Self-Hosting (Week 3)
+## Sprint 3 -- GitLab, Lessons, and Self-Hosting
 
-- [x] GitLab webhook service scaffold
+- [x] Scaffold GitLab webhook service with Hono
 - [x] Reuse core pipeline in GitLab bot
-- [x] Add Docker Compose deployment
-- [x] Add micro-lesson registry and links
-- [x] Add Laravel preset v0
-- [x] Add package-level documentation for lessons, presets, i18n, config, and gamification
+- [x] Add Docker Compose deployment configuration
+- [x] Build micro-lesson registry with lesson linking
+- [x] Create Laravel preset v0
 - [ ] Add validation telemetry file output
-- [ ] Pilot with 3–4 external repos
+- [ ] Pilot with 3-4 external repositories
 
-## Sprint 4 — OWASP, Polish, and Pilot Execution (Week 4)
+## Sprint 4 -- OWASP Top 10 and npm Audit
 
-- [x] Add ZAP baseline adapter
-- [x] Add OWASP Top 10 scan mode and HTML evidence report output
-- [x] Add npm audit adapter for vulnerable dependency findings
+- [x] Add ZAP DAST baseline adapter
+- [x] Build OWASP Top 10 scan mode with per-category orchestration
+- [x] Add HTML evidence report output with OWASP dashboard
+- [x] Implement npm audit adapter for SCA (OWASP A06)
 - [x] Document OWASP evidence policy and scanner coverage expectations
-- [x] Add package-level documentation for OWASP, output, and scanner adapter packages
-- [ ] Improve prioritizer with context flags
-- [ ] Add 10 more Bahasa lessons/templates
-- [x] Write detailed onboarding docs under `docs/` for GitHub, GitLab, CLI, and self-hosting
-- [ ] Run 15 interviews and collect repo pilots
-- [ ] Triage pilot feedback into roadmap
+- [x] Write onboarding documentation for GitHub, GitLab, CLI, and self-hosting
+- [ ] Improve prioritizer with context flags (direct vs transitive dependency, fix availability)
+- [ ] Add 10 more bilingual coaching templates
+- [ ] Run 15 developer interviews and collect pilot feedback
 
-## Repository Organization Backlog
+## Sprint 5 -- MCP Server and Vibe Coding
 
-- [x] Keep source-of-truth code in `apps/*/src` and `packages/*/src`
-- [x] Keep root operational files at repository root: `package.json`, `pnpm-workspace.yaml`, `turbo.json`, `biome.json`, `tsconfig.base.json`, `docker-compose.yml`, and governance docs
-- [x] Keep GitHub issue templates, workflows, and CODEOWNERS under `.github/`
-- [x] Add README files beside important app and package folders so responsibilities are discoverable without opening implementation files
-- [x] Add `docs/` guides for onboarding, deployment, CI usage, and bot setup
-- [x] Add `examples/` demo repositories for Node/Express, Laravel, and WordPress pilot flows
-- [x] Add `.kodeaman.yml` example configurations for local CLI, GitHub bot, GitLab bot, and OWASP mode
+- [x] Build `@kodeaman/mcp-server` with 8 MCP tools
+- [x] Fix npm-audit adapter interface mismatch (`repoRoot` vs `targetPath`)
+- [x] Enable config-less scanning with auto-detection of npm projects
+- [x] Validate adapter resilience when scanning projects without `.kodeaman.yml`
+- [ ] Add MCP server documentation to docs site
+- [ ] Publish MCP server to npm registry
+- [ ] Test MCP integration with Cursor, Windsurf, and other AI coding assistants
+
+## Repository Organization
+
+- [x] Source code lives in `apps/*/src` and `packages/*/src`
+- [x] Root operational files: `package.json`, `pnpm-workspace.yaml`, `turbo.json`, `biome.json`, `tsconfig.base.json`, `docker-compose.yml`
+- [x] GitHub configuration under `.github/` (issue templates, workflows, CODEOWNERS)
+- [x] README files beside all app and package folders
+- [x] Onboarding guides under `docs/`
+- [x] Demo projects under `examples/`
+- [x] Example `.kodeaman.yml` configurations under `examples/configs/`
+
+---
 
 ## Future
 
-- VS Code extension
-- Advanced autofix patches
+- SARIF output for IDE integration (VS Code, JetBrains)
+- VS Code extension with inline coaching
+- Advanced autofix patch generation
 - Team leaderboard and challenge quests
 - Lightweight analytics dashboard
-- Gitea support
-- Multi-language support beyond Bahasa and English
-- Enterprise policy engine
+- Gitea and Forgejo support
+- Multi-language support beyond Bahasa Indonesia and English
+- Enterprise policy engine with custom rule authoring
+- npm registry publishing for all packages
+- Plugin system for community-contributed scanner adapters

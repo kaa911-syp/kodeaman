@@ -6,116 +6,225 @@
 
 ---
 
-## The Problem
+## Overview
 
-Most SAST/DAST tools dump hundreds of findings, offer English-only guidance, and assume senior-level security knowledge. Indonesian dev teams — startups, campus labs, government digitisation projects — end up ignoring the noise or copy-pasting fixes they don't understand. Vulnerabilities stay open; learning never happens.
+Most SAST/DAST tools produce hundreds of findings, provide only English guidance, and assume senior-level security expertise. Indonesian development teams -- startups, campus labs, government digitization projects -- end up ignoring noise or copy-pasting fixes they do not understand. Vulnerabilities stay open and learning never happens.
 
-## The Solution
+KodeAman changes that. It is a security coach agent that scans your code, prioritizes findings by real-world risk, and teaches developers how to fix issues -- in Bahasa Indonesia or English -- with contextual explanations, fix suggestions, and micro-lessons.
 
-KodeAman is a **security coach agent** that:
+### Key Capabilities
 
-1. **Scans** your code with pluggable adapters (Semgrep, ZAP, and more).
-2. **Prioritises** findings by real-world risk, not raw severity.
-3. **Coaches** developers in Bahasa Indonesia (or English) with contextual explanations, fix suggestions, and micro-lessons.
-4. **Gamifies** progress — XP, streaks, leaderboards — so secure coding becomes a habit.
-5. **Lives where you work**: GitHub bot, GitLab bot, CLI, or CI pipeline.
+- **Scan** code with pluggable adapters: Semgrep (SAST), ZAP (DAST), npm audit (SCA), Playwright (browser).
+- **Prioritize** findings by real-world risk using CVSS context and reachability heuristics.
+- **Coach** developers in Bahasa Indonesia or English with per-finding explanations and remediation steps.
+- **Gamify** secure coding habits with XP, streaks, badges, and leaderboards.
+- **Integrate** into your workflow: MCP server (Vibe Coding), GitHub bot, GitLab bot, CLI, or CI pipeline.
 
-## Who It's For
+### Who It Is For
 
-- Indonesian startups shipping fast and worried about OWASP Top 10.
+- Indonesian startups shipping fast and concerned about OWASP Top 10.
 - University CS programs teaching secure development.
 - Government digital-service teams meeting compliance requirements.
-- Any dev team that wants actionable, educational security feedback — not just a wall of CVEs.
+- Any team that wants actionable, educational security feedback -- not a wall of CVEs.
 
-## v0.1 Features (Sprint 0-2)
+---
 
-- Semgrep SAST adapter with finding normalisation.
-- Risk-based prioritiser (CVSS context + reachability heuristics).
-- Coaching engine with Bahasa Indonesia micro-lessons for OWASP Top 10.
-- GitHub PR bot that posts inline coaching comments.
-- CLI for local scans with Markdown reports.
-- XP and streak tracking (local JSON, upgradeable to Postgres).
-- Community preset packs: `laravel-id`, `express-id`, `wordpress-id`.
+## Architecture
 
-## Open-Core Model
+KodeAman is a TypeScript monorepo using pnpm workspaces and Turborepo. It contains 19 packages and 4 apps organized as follows:
 
-| Layer | License | What's included |
-|-------|---------|----------------|
-| **Core engine** | Apache 2.0 | Scan pipeline, adapters, coaching, CLI, GitHub/GitLab bots |
-| **Community presets** | Apache 2.0 | Rule packs and lesson sets contributed by the community |
-| **Pro (future)** | Commercial | Org dashboard, SSO, advanced analytics, priority support |
+### Core Packages
 
-## Principles
+| Package | Description |
+|---------|-------------|
+| `@kodeaman/schema` | Canonical `NormalizedFinding` types and Zod validators |
+| `@kodeaman/core` | Scan pipeline orchestrator with adapter registration and deduplication |
+| `@kodeaman/config` | `.kodeaman.yml` config loader with defaults and validation |
+| `@kodeaman/prioritizer` | Priority scoring engine with severity, confidence, and context heuristics |
 
-- **Education over alerts** — every finding is a teaching moment.
-- **Bahasa-first, global-ready** — i18n from day one.
-- **Pluggable** — bring your own scanner, LLM, or lesson pack.
-- **Privacy-respecting** — your code stays on your infra.
-- **Community-driven** — presets, lessons, and translations are open contributions.
+### Scanner Adapters
 
-## Getting Started
+| Package | Description |
+|---------|-------------|
+| `@kodeaman/adapters-semgrep` | Semgrep SAST JSON output parser and normalizer |
+| `@kodeaman/adapters-zap` | ZAP DAST baseline report parser and normalizer |
+| `@kodeaman/adapters-npm-audit` | npm/pnpm audit SCA adapter (OWASP A06) with bilingual coaching |
+| `@kodeaman/adapters-playwright` | Playwright browser-based scanner adapter |
 
-```bash
-# Clone the repo
-git clone https://github.com/kodeaman/kodeaman.git
-cd kodeaman
+### Education and Gamification
 
-# Install dependencies
-pnpm install
+| Package | Description |
+|---------|-------------|
+| `@kodeaman/coaching` | 20 bilingual coaching templates for common vulnerabilities |
+| `@kodeaman/lessons` | 10 bilingual micro-lessons for OWASP Top 10 categories |
+| `@kodeaman/i18n` | Translator with en/id locale files and security glossary |
+| `@kodeaman/gamification` | XP, badges, quests, and streak tracking |
+| `@kodeaman/presets` | Framework presets: Laravel, Node/Express, WordPress |
 
-# Build all packages
-pnpm run build
+### Output and Reporting
 
-# Run the CLI
-pnpm --filter @kodeaman/cli start -- scan ./my-project
+| Package | Description |
+|---------|-------------|
+| `@kodeaman/output-markdown` | PR comment renderer and CLI console renderer |
+| `@kodeaman/output-html` | Self-contained HTML report with OWASP dashboard and theme support |
+| `@kodeaman/output-sarif` | SARIF output for IDE and CI integration |
+| `@kodeaman/owasp` | OWASP Top 10 scan orchestrator with per-category scanning and evidence gates |
 
-# Run the OWASP Top 10 2021 scanner in A01-A10 order
-pnpm --filter @kodeaman/cli start -- owasp-scan --format html --output kodeaman-owasp-report.html
+### Integration Layer
+
+| Package | Description |
+|---------|-------------|
+| `@kodeaman/mcp-server` | Model Context Protocol server for AI-assisted security scanning |
+
+### Applications
+
+| App | Description |
+|-----|-------------|
+| `@kodeaman/cli` | Command-line tool: `kodeaman scan`, `kodeaman owasp-scan`, `kodeaman init` |
+| `@kodeaman/bot-github` | GitHub PR reviewer bot (Probot) |
+| `@kodeaman/bot-gitlab` | GitLab MR reviewer bot (Hono) |
+| `@kodeaman/docs-site` | Documentation website |
+
+---
+
+## MCP Server (Vibe Coding)
+
+The `@kodeaman/mcp-server` package exposes KodeAman as a Model Context Protocol server, allowing AI coding assistants (Claude Code, Cursor, Windsurf, and others) to run security scans directly from the IDE.
+
+### Available MCP Tools
+
+| Tool | Description |
+|------|-------------|
+| `scan` | Run a full security scan on a project directory |
+| `owasp-scan` | Run an OWASP Top 10 structured scan |
+| `preflight` | Check scanner availability before scanning |
+| `list-scanners` | List all registered scanner adapters |
+| `explain-finding` | Get a detailed bilingual explanation of a finding |
+| `suggest-fix` | Get fix suggestions with code examples |
+| `convert-sarif` | Convert scan results to SARIF format |
+| `coverage-report` | Generate an OWASP category coverage report |
+
+### Configuration
+
+Add the MCP server to your AI coding assistant. For Claude Code, add to your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "kodeaman": {
+      "command": "node",
+      "args": ["path/to/kodeaman/packages/mcp-server/dist/index.js"]
+    }
+  }
+}
 ```
 
-### OWASP Top 10 evidence policy
+The MCP server works without configuration files. When scanning a project that contains `package.json`, `package-lock.json`, or `pnpm-lock.yaml`, the npm audit adapter activates automatically.
 
-`owasp-scan` scans and reports OWASP Top 10 2021 categories in canonical order: A01 Broken Access Control through A10 Server-Side Request Forgery. Findings are not invented by AI: by default, a finding must include scanner evidence before it appears in the report. Use `--no-evidence-gate` only when you intentionally want to inspect raw scanner output that may be incomplete.
+---
 
-For web findings, KodeAman highlights the need for screenshot-equivalent proof: an HTML report artifact, terminal snapshot, HTTP request, or HTTP response evidence. These artifacts let users verify that the finding came from a real scanner run instead of a generated claim.
+## OWASP Top 10 Scan Mode
 
-On Windows, if Linux/WSL is not available, `owasp-scan` asks whether to show WSL setup guidance so deeper Semgrep/ZAP-style scanning can run in a Linux-compatible environment. In non-interactive CI, it skips the prompt and continues with available scanners; pass `--yes` to show the guidance automatically.
+KodeAman supports structured security scanning organized by OWASP Top 10 (2021) categories A01 through A10. Findings are backed by scanner evidence -- a finding must include real scanner output before it appears in the report.
 
-Example focused scan:
+### Evidence Policy
+
+- Findings require scanner evidence by default (`--no-evidence-gate` to override).
+- Web findings require proof artifacts: HTML report, terminal snapshot, HTTP request, or HTTP response evidence.
+- Evidence artifacts let users verify that findings came from real scanner runs.
+
+### Usage
 
 ```bash
+# Full OWASP Top 10 scan with HTML report
+pnpm --filter @kodeaman/cli start -- owasp-scan --format html --output report.html
+
+# Scan specific categories with confidence gate
 pnpm --filter @kodeaman/cli start -- owasp-scan --categories A01,A03,A10 --confidence medium --format json
 ```
 
-Known limitations: KodeAman only reports what configured scanners can observe, so missing scanner coverage can produce blind spots. Screenshots are treated as required stakeholder evidence for web findings, but capture depends on scanner adapters providing HTML, terminal, or HTTP evidence blocks.
+### Limitations
 
-> Full setup guide coming soon in `docs/`.
+KodeAman only reports what configured scanners can observe. Missing scanner coverage produces blind spots. Screenshot evidence for web findings depends on scanner adapters providing HTML, terminal, or HTTP evidence blocks.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js >= 20
+- pnpm >= 10
+- Git
+
+### Installation
+
+```bash
+git clone https://github.com/vibellabbs-code/kodeaman.git
+cd kodeaman
+pnpm install
+pnpm run build
+```
+
+### Run a Local Scan
+
+```bash
+# Scan a project directory
+pnpm --filter @kodeaman/cli start -- scan ./my-project
+
+# OWASP Top 10 scan with HTML output
+pnpm --filter @kodeaman/cli start -- owasp-scan --format html --output report.html
+```
+
+### Run Tests
+
+```bash
+pnpm test          # Run all tests
+pnpm run typecheck # Type-check all packages
+pnpm lint          # Lint all packages
+```
+
+---
+
+## Open-Core Model
+
+| Layer | License | Contents |
+|-------|---------|----------|
+| Core engine | Apache 2.0 | Scan pipeline, adapters, coaching, CLI, GitHub/GitLab bots, MCP server |
+| Community presets | Apache 2.0 | Rule packs and lesson sets contributed by the community |
+| Pro (future) | Commercial | Org dashboard, SSO, advanced analytics, priority support |
+
+---
+
+## Principles
+
+- **Education over alerts** -- every finding is a teaching moment.
+- **Bahasa-first, global-ready** -- internationalization from day one.
+- **Pluggable** -- bring your own scanner, LLM, or lesson pack.
+- **Privacy-respecting** -- your code stays on your infrastructure.
+- **Community-driven** -- presets, lessons, and translations are open contributions.
+
+---
 
 ## Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+We welcome contributions. See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-## Early Contributors Wanted
+We are looking for:
 
-KodeAman is in its earliest days. We're looking for:
-
-- **Indonesian developers** who want to shape the coaching content.
-- **Security engineers** who can help curate and validate rule packs.
+- **Indonesian developers** to shape coaching content.
+- **Security engineers** to curate and validate rule packs.
 - **Translators** for Bahasa Indonesia lesson content.
 - **Educators** teaching secure coding at Indonesian universities.
-- **Open-source enthusiasts** who want to build developer tools.
+- **Open-source contributors** interested in developer tooling.
 
-If any of this sounds like you, open an issue, start a discussion, or reach out!
+---
 
 ## Pilot Program
 
-We're running early pilot programs with Indonesian dev teams. If your team wants to:
+We are running early pilot programs with Indonesian development teams. If your team wants early access, roadmap influence, or hands-on setup support, open a [Pilot Feedback issue](../../issues/new?template=pilot_feedback.yml) or contact the maintainers.
 
-- Get early access to KodeAman.
-- Shape the product roadmap with direct feedback.
-- Receive hands-on support setting up your security coaching pipeline.
-
-Open a [Pilot Feedback issue](../../issues/new?template=pilot_feedback.yml) or reach out to the maintainers.
+---
 
 ## License
 
