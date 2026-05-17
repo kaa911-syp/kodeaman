@@ -3,7 +3,10 @@ node_modules/
 
 # Build output
 dist/
+out/
 *.tsbuildinfo
+*.tgz
+*.vsix
 
 # Turbo
 .turbo/
@@ -12,9 +15,13 @@ dist/
 .env
 .env.local
 .env.*.local
+.env.production.local
 
 # Coverage
 coverage/
+
+# Cache
+.cache/
 
 # IDE
 .vscode/
