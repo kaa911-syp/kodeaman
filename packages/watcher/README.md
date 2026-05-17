@@ -1,17 +1,17 @@
-# @kodeaman/watcher
+# @aspidasec/watcher
 
-Real-time file watcher for KodeAman scans. It monitors a project path recursively, filters changes with include/exclude globs, debounces rapid filesystem events, and emits change events suitable for triggering scans.
+Real-time file watcher for AspidaSec scans. It monitors a project path recursively, filters changes with include/exclude globs, debounces rapid filesystem events, and emits change events suitable for triggering scans.
 
 ## Installation
 
 ```bash
-pnpm add @kodeaman/watcher
+pnpm add @aspidasec/watcher
 ```
 
 ## Usage
 
 ```ts
-import { FileWatcher } from "@kodeaman/watcher";
+import { FileWatcher } from "@aspidasec/watcher";
 
 const watcher = new FileWatcher({
   path: process.cwd(),
@@ -27,10 +27,10 @@ watcher.on("change", (event) => {
 watcher.start();
 ```
 
-From the KodeAman CLI:
+From the AspidaSec CLI:
 
 ```bash
-kodeaman watch .
+aspidasec watch .
 ```
 
 ## API

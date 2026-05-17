@@ -1,4 +1,4 @@
-import type { ConfidenceLevel, SeverityLevel } from "@kodeaman/schema";
+import type { ConfidenceLevel, SeverityLevel } from "@aspidasec/schema";
 
 export interface OwaspScanConfig {
   enabled: boolean;
@@ -53,7 +53,7 @@ export interface CustomRulesConfig {
   rules?: CustomRuleConfig[];
 }
 
-export interface KodeamanConfig {
+export interface AspidasecConfig {
   language: "en" | "id";
   scanners: {
     semgrep: boolean;

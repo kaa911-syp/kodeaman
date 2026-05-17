@@ -1,10 +1,10 @@
 # Demo: Node/Express Security Scan
 
-This demo shows how to use KodeAman to scan a Node.js/Express project for security issues.
+This demo shows how to use AspidaSec to scan a Node.js/Express project for security issues.
 
 ## What's included
 
-- `.kodeaman.yml` — KodeAman configuration with the `node-express` preset
+- `.aspidasec.yml` — AspidaSec configuration with the `node-express` preset
 - `server.js` — A deliberately vulnerable Express server for testing
 - `package.json` — Project metadata with an outdated dependency for npm audit testing
 
@@ -17,11 +17,11 @@ cd examples/demo-node-express
 # Install dependencies
 npm install
 
-# Run KodeAman scan
-kodeaman scan --preset node-express
+# Run AspidaSec scan
+aspidasec scan --preset node-express
 
 # Run OWASP scan with HTML report
-kodeaman owasp-scan --preset node-express --format html
+aspidasec owasp-scan --preset node-express --format html
 ```
 
 ## Expected findings
@@ -35,10 +35,10 @@ kodeaman owasp-scan --preset node-express --format html
 
 ## Configuration
 
-See `.kodeaman.yml` in this directory for the full configuration with inline comments.
+See `.aspidasec.yml` in this directory for the full configuration with inline comments.
 
 ## Notes
 
 - This is a **demo project** with intentional vulnerabilities for testing
 - Do not deploy this code to production
-- The vulnerabilities demonstrate what KodeAman detects and how it coaches remediation
+- The vulnerabilities demonstrate what AspidaSec detects and how it coaches remediation

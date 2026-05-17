@@ -1,11 +1,11 @@
 {
-  "name": "@kodeaman/mcp-server",
+  "name": "@aspidasec/mcp-server",
   "version": "0.1.0",
-  "description": "MCP (Model Context Protocol) server for KodeAman security coach — enables AI coding assistants to perform security scanning",
+  "description": "MCP (Model Context Protocol) server for AspidaSec security coach \u00e2\u20ac\u201d enables AI coding assistants to perform security scanning",
   "license": "Apache-2.0",
   "type": "module",
   "bin": {
-    "kodeaman-mcp": "./dist/index.js"
+    "aspidasec-mcp": "./dist/index.js"
   },
   "exports": {
     ".": {
@@ -22,23 +22,23 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
-    "@kodeaman/config": "workspace:*",
-    "@kodeaman/core": "workspace:*",
-    "@kodeaman/schema": "workspace:*",
-    "@kodeaman/owasp": "workspace:*",
-    "@kodeaman/adapters-semgrep": "workspace:*",
-    "@kodeaman/adapters-zap": "workspace:*",
-    "@kodeaman/adapters-npm-audit": "workspace:*",
-    "@kodeaman/adapters-playwright": "workspace:*",
-    "@kodeaman/output-sarif": "workspace:*",
-    "@kodeaman/output-html": "workspace:*",
-    "@kodeaman/output-markdown": "workspace:*",
+    "@aspidasec/config": "workspace:*",
+    "@aspidasec/core": "workspace:*",
+    "@aspidasec/schema": "workspace:*",
+    "@aspidasec/owasp": "workspace:*",
+    "@aspidasec/adapters-semgrep": "workspace:*",
+    "@aspidasec/adapters-zap": "workspace:*",
+    "@aspidasec/adapters-npm-audit": "workspace:*",
+    "@aspidasec/adapters-playwright": "workspace:*",
+    "@aspidasec/output-sarif": "workspace:*",
+    "@aspidasec/output-html": "workspace:*",
+    "@aspidasec/output-markdown": "workspace:*",
     "zod": "^3.23.0"
   },
   "devDependencies": {
@@ -51,15 +51,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/mcp-server"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "mcp",
     "model-context-protocol",

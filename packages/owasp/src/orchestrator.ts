@@ -11,10 +11,10 @@ import type {
   OwaspScanPhaseResult,
   OwaspScanReport,
   FindingSource,
-} from "@kodeaman/schema";
-import type { ScanContext } from "@kodeaman/core";
-import { ScanPipeline } from "@kodeaman/core";
-import type { KodeamanConfig } from "@kodeaman/config";
+} from "@aspidasec/schema";
+import type { ScanContext } from "@aspidasec/core";
+import { ScanPipeline } from "@aspidasec/core";
+import type { AspidasecConfig } from "@aspidasec/config";
 import { OWASP_CATEGORIES, OWASP_BY_CODE } from "./categories.js";
 import type { OwaspCategoryDefinition } from "./types.js";
 import { mapCweToOwasp } from "./mapper.js";
@@ -48,9 +48,9 @@ export interface OwaspScanOptions {
 
 export class OwaspScanOrchestrator {
   private pipeline: ScanPipeline;
-  private config: KodeamanConfig;
+  private config: AspidasecConfig;
 
-  constructor(pipeline: ScanPipeline, config: KodeamanConfig) {
+  constructor(pipeline: ScanPipeline, config: AspidasecConfig) {
     this.pipeline = pipeline;
     this.config = config;
   }

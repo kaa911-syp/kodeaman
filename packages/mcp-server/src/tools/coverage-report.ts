@@ -1,5 +1,5 @@
 /**
- * kodeaman_coverage_report — Generate OWASP coverage report.
+ * aspidasec_coverage_report — Generate OWASP coverage report.
  *
  * Shows which OWASP Top 10 categories are covered by the configured
  * scanners, which scan surfaces are covered, and the overall coverage %.
@@ -7,13 +7,13 @@
 
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { NormalizedFinding } from "@kodeaman/schema";
-import { buildCoverageReport } from "@kodeaman/core";
-import type { ScannerCoverage } from "@kodeaman/core";
+import type { NormalizedFinding } from "@aspidasec/schema";
+import { buildCoverageReport } from "@aspidasec/core";
+import type { ScannerCoverage } from "@aspidasec/core";
 
 export function registerCoverageReportTool(server: McpServer): void {
   server.tool(
-    "kodeaman_coverage_report",
+    "aspidasec_coverage_report",
     "Generate an OWASP Top 10 coverage report showing which security categories and attack surfaces are covered by the scanners that ran. Provide scanner coverage data and findings from a scan result.",
     {
       scannerCoverage: z
@@ -56,7 +56,7 @@ export function registerCoverageReportTool(server: McpServer): void {
           coverage = JSON.parse(scannerCoverage);
         } else {
           // Build from config defaults
-          const { loadConfig } = await import("@kodeaman/config");
+          const { loadConfig } = await import("@aspidasec/config");
           const config = loadConfig(repoRoot ?? process.cwd());
 
           coverage = [];

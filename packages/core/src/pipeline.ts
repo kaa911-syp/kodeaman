@@ -2,17 +2,17 @@ import type {
   NormalizedFinding,
   SeverityLevel,
   FindingCategory,
-} from "@kodeaman/schema";
-import { Prioritizer } from "@kodeaman/prioritizer";
+} from "@aspidasec/schema";
+import { Prioritizer } from "@aspidasec/prioritizer";
 import type {
   ScannerAdapter,
   ScanContext,
   ScanResult,
   ScanSummary,
   TimingInfo,
-  KodeamanConfig,
+  AspidasecConfig,
   ScannerCoverage,
-  KodeamanPlugin,
+  AspidasecPlugin,
 } from "./types.js";
 import { deduplicateFindings } from "./dedup.js";
 import { buildCoverageReport } from "./coverage.js";
@@ -58,10 +58,10 @@ function buildSummary(findings: NormalizedFinding[]): ScanSummary {
 
 export class ScanPipeline {
   private adapters: ScannerAdapter[] = [];
-  private plugins: KodeamanPlugin[] = [];
-  private config: KodeamanConfig;
+  private plugins: AspidasecPlugin[] = [];
+  private config: AspidasecConfig;
 
-  constructor(config: KodeamanConfig = {}) {
+  constructor(config: AspidasecConfig = {}) {
     this.config = config;
   }
 
@@ -73,7 +73,7 @@ export class ScanPipeline {
     }
   }
 
-  registerPlugin(plugin: KodeamanPlugin): void {
+  registerPlugin(plugin: AspidasecPlugin): void {
     this.plugins.push(plugin);
 
     for (const adapter of plugin.adapters ?? []) {

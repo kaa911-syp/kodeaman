@@ -32,8 +32,8 @@
     "newCount": "{count} baru"
   },
   "pr": {
-    "commentHeader": "## Laporan Keamanan KodeAman",
-    "commentFooter": "---\n_Didukung oleh [KodeAman](https://github.com/kodeaman) — coach keamanan kamu_",
+    "commentHeader": "## Laporan Keamanan AspidaSec",
+    "commentFooter": "---\n_Didukung oleh [AspidaSec](https://github.com/aspidasec) — coach keamanan kamu_",
     "noIssuesFound": "Tidak ada masalah keamanan di PR ini. Lanjutkan!",
     "issuesFound": "Ditemukan {count} masalah keamanan di PR ini.",
     "criticalWarning": "**KRITIS:** PR ini mengandung {count} masalah keamanan kritis yang harus ditangani sebelum merge.",

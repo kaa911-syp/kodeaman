@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/lessons",
+  "name": "@aspidasec/lessons",
   "version": "0.1.0",
-  "description": "Security micro-lessons for KodeAman coaching (bilingual en/id)",
+  "description": "Security micro-lessons for AspidaSec coaching (bilingual en/id)",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -20,7 +20,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
@@ -33,15 +33,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/lessons"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "lessons",
     "training",

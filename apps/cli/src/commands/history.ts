@@ -1,4 +1,4 @@
-import { type DailyTrend, type ScanHistoryEntry, ScanHistoryStore } from "@kodeaman/history";
+import { type DailyTrend, type ScanHistoryEntry, ScanHistoryStore } from "@aspidasec/history";
 import { Command } from "commander";
 
 interface HistoryShowOptions {

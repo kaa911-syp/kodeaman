@@ -1,6 +1,6 @@
 import type { GiteaComment } from "./types.js";
 
-const COMMENT_MARKER = "<!-- kodeaman-security-report -->";
+const COMMENT_MARKER = "<!-- aspidasec-security-report -->";
 
 export class GiteaCommentManager {
   private apiUrl: string;

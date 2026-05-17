@@ -1,8 +1,8 @@
 /**
- * Shared test utilities and fixtures for KodeAman packages.
+ * Shared test utilities and fixtures for AspidaSec packages.
  */
 
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 /**
  * Create a minimal NormalizedFinding for testing purposes.

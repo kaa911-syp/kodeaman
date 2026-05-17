@@ -16,7 +16,7 @@ export interface ScanResult {
   raw: unknown;
 }
 
-export async function runKodeAmanScan(options: ScanRunnerOptions): Promise<ScanResult> {
+export async function runAspidaSecScan(options: ScanRunnerOptions): Promise<ScanResult> {
   const { stdout } = await execFileAsync(
     options.cliPath,
     ["scan", "--format", "json", options.workspaceRoot],

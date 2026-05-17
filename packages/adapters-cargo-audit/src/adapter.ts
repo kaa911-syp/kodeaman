@@ -1,5 +1,5 @@
-import type { ScannerAdapter, ScanContext as CoreScanContext } from "@kodeaman/core";
-import type { NormalizedFinding, RepoContext, SeverityLevel } from "@kodeaman/schema";
+import type { ScannerAdapter, ScanContext as CoreScanContext } from "@aspidasec/core";
+import type { NormalizedFinding, RepoContext, SeverityLevel } from "@aspidasec/schema";
 import { access } from "node:fs/promises";
 import { join } from "node:path";
 import { execFile } from "node:child_process";

@@ -1,6 +1,6 @@
-# @kodeaman/adapters-npm-audit
+# @aspidasec/adapters-npm-audit
 
-npm audit adapter for KodeAman dependency findings.
+npm audit adapter for AspidaSec dependency findings.
 
 ## Responsibility
 
@@ -16,6 +16,6 @@ npm audit adapter for KodeAman dependency findings.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/adapters-npm-audit typecheck
-pnpm --filter @kodeaman/adapters-npm-audit build
+pnpm --filter @aspidasec/adapters-npm-audit typecheck
+pnpm --filter @aspidasec/adapters-npm-audit build
 ```

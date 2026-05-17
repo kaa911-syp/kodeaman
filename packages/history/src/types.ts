@@ -1,4 +1,4 @@
-import type { FindingCategory, SeverityLevel } from "@kodeaman/schema";
+import type { FindingCategory, SeverityLevel } from "@aspidasec/schema";
 
 export type ScanMode = "standard" | "owasp";
 

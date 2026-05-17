@@ -26,22 +26,22 @@ importers:
 
   apps/bot-gitea:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@kodeaman/output-html':
+      '@aspidasec/output-html':
         specifier: workspace:*
         version: link:../../packages/output-html
-      '@kodeaman/output-markdown':
+      '@aspidasec/output-markdown':
         specifier: workspace:*
         version: link:../../packages/output-markdown
-      '@kodeaman/owasp':
+      '@aspidasec/owasp':
         specifier: workspace:*
         version: link:../../packages/owasp
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../../packages/schema
       hono:
@@ -63,22 +63,22 @@ importers:
 
   apps/bot-github:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@kodeaman/output-html':
+      '@aspidasec/output-html':
         specifier: workspace:*
         version: link:../../packages/output-html
-      '@kodeaman/output-markdown':
+      '@aspidasec/output-markdown':
         specifier: workspace:*
         version: link:../../packages/output-markdown
-      '@kodeaman/owasp':
+      '@aspidasec/owasp':
         specifier: workspace:*
         version: link:../../packages/owasp
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../../packages/schema
       probot:
@@ -97,22 +97,22 @@ importers:
 
   apps/bot-gitlab:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@kodeaman/output-html':
+      '@aspidasec/output-html':
         specifier: workspace:*
         version: link:../../packages/output-html
-      '@kodeaman/output-markdown':
+      '@aspidasec/output-markdown':
         specifier: workspace:*
         version: link:../../packages/output-markdown
-      '@kodeaman/owasp':
+      '@aspidasec/owasp':
         specifier: workspace:*
         version: link:../../packages/owasp
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../../packages/schema
       hono:
@@ -134,64 +134,64 @@ importers:
 
   apps/cli:
     dependencies:
-      '@kodeaman/adapters-npm-audit':
+      '@aspidasec/adapters-npm-audit':
         specifier: workspace:*
         version: link:../../packages/adapters-npm-audit
-      '@kodeaman/adapters-playwright':
+      '@aspidasec/adapters-playwright':
         specifier: workspace:*
         version: link:../../packages/adapters-playwright
-      '@kodeaman/adapters-semgrep':
+      '@aspidasec/adapters-semgrep':
         specifier: workspace:*
         version: link:../../packages/adapters-semgrep
-      '@kodeaman/adapters-zap':
+      '@aspidasec/adapters-zap':
         specifier: workspace:*
         version: link:../../packages/adapters-zap
-      '@kodeaman/autofix':
+      '@aspidasec/autofix':
         specifier: workspace:*
         version: link:../../packages/autofix
-      '@kodeaman/coaching':
+      '@aspidasec/coaching':
         specifier: workspace:*
         version: link:../../packages/coaching
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@kodeaman/custom-rules':
+      '@aspidasec/custom-rules':
         specifier: workspace:*
         version: link:../../packages/custom-rules
-      '@kodeaman/dashboard':
+      '@aspidasec/dashboard':
         specifier: workspace:*
         version: link:../../packages/dashboard
-      '@kodeaman/gamification':
+      '@aspidasec/gamification':
         specifier: workspace:*
         version: link:../../packages/gamification
-      '@kodeaman/history':
+      '@aspidasec/history':
         specifier: workspace:*
         version: link:../../packages/history
-      '@kodeaman/output-html':
+      '@aspidasec/output-html':
         specifier: workspace:*
         version: link:../../packages/output-html
-      '@kodeaman/output-markdown':
+      '@aspidasec/output-markdown':
         specifier: workspace:*
         version: link:../../packages/output-markdown
-      '@kodeaman/output-sarif':
+      '@aspidasec/output-sarif':
         specifier: workspace:*
         version: link:../../packages/output-sarif
-      '@kodeaman/owasp':
+      '@aspidasec/owasp':
         specifier: workspace:*
         version: link:../../packages/owasp
-      '@kodeaman/presets':
+      '@aspidasec/presets':
         specifier: workspace:*
         version: link:../../packages/presets
-      '@kodeaman/prioritizer':
+      '@aspidasec/prioritizer':
         specifier: workspace:*
         version: link:../../packages/prioritizer
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../../packages/schema
-      '@kodeaman/watcher':
+      '@aspidasec/watcher':
         specifier: workspace:*
         version: link:../../packages/watcher
       commander:
@@ -212,10 +212,10 @@ importers:
 
   packages/adapters-bandit:
     dependencies:
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -228,10 +228,10 @@ importers:
 
   packages/adapters-cargo-audit:
     dependencies:
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -244,10 +244,10 @@ importers:
 
   packages/adapters-gosec:
     dependencies:
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -260,7 +260,7 @@ importers:
 
   packages/adapters-npm-audit:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -273,7 +273,7 @@ importers:
 
   packages/adapters-playwright:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
       playwright:
@@ -289,7 +289,7 @@ importers:
 
   packages/adapters-semgrep:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -302,10 +302,10 @@ importers:
 
   packages/adapters-spotbugs:
     dependencies:
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -318,7 +318,7 @@ importers:
 
   packages/adapters-zap:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -331,13 +331,13 @@ importers:
 
   packages/autofix:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -353,13 +353,13 @@ importers:
 
   packages/coaching:
     dependencies:
-      '@kodeaman/i18n':
+      '@aspidasec/i18n':
         specifier: workspace:*
         version: link:../i18n
-      '@kodeaman/lessons':
+      '@aspidasec/lessons':
         specifier: workspace:*
         version: link:../lessons
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -372,7 +372,7 @@ importers:
 
   packages/config:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
       yaml:
@@ -388,10 +388,10 @@ importers:
 
   packages/core:
     dependencies:
-      '@kodeaman/prioritizer':
+      '@aspidasec/prioritizer':
         specifier: workspace:*
         version: link:../prioritizer
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -407,13 +407,13 @@ importers:
 
   packages/custom-rules:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
       yaml:
@@ -435,10 +435,10 @@ importers:
 
   packages/dashboard:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
-      '@kodeaman/telemetry':
+      '@aspidasec/telemetry':
         specifier: workspace:*
         version: link:../telemetry
     devDependencies:
@@ -454,7 +454,7 @@ importers:
 
   packages/gamification:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -467,10 +467,10 @@ importers:
 
   packages/history:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -504,37 +504,37 @@ importers:
 
   packages/mcp-server:
     dependencies:
-      '@kodeaman/adapters-npm-audit':
+      '@aspidasec/adapters-npm-audit':
         specifier: workspace:*
         version: link:../adapters-npm-audit
-      '@kodeaman/adapters-playwright':
+      '@aspidasec/adapters-playwright':
         specifier: workspace:*
         version: link:../adapters-playwright
-      '@kodeaman/adapters-semgrep':
+      '@aspidasec/adapters-semgrep':
         specifier: workspace:*
         version: link:../adapters-semgrep
-      '@kodeaman/adapters-zap':
+      '@aspidasec/adapters-zap':
         specifier: workspace:*
         version: link:../adapters-zap
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/output-html':
+      '@aspidasec/output-html':
         specifier: workspace:*
         version: link:../output-html
-      '@kodeaman/output-markdown':
+      '@aspidasec/output-markdown':
         specifier: workspace:*
         version: link:../output-markdown
-      '@kodeaman/output-sarif':
+      '@aspidasec/output-sarif':
         specifier: workspace:*
         version: link:../output-sarif
-      '@kodeaman/owasp':
+      '@aspidasec/owasp':
         specifier: workspace:*
         version: link:../owasp
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
       '@modelcontextprotocol/sdk':
@@ -556,11 +556,11 @@ importers:
 
   packages/output-html:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -572,20 +572,20 @@ importers:
 
   packages/output-markdown:
     dependencies:
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/gamification':
+      '@aspidasec/gamification':
         specifier: workspace:*
         version: link:../gamification
-      '@kodeaman/i18n':
+      '@aspidasec/i18n':
         specifier: workspace:*
         version: link:../i18n
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -597,7 +597,7 @@ importers:
 
   packages/output-sarif:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -610,13 +610,13 @@ importers:
 
   packages/owasp:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -641,7 +641,7 @@ importers:
 
   packages/prioritizer:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -670,10 +670,10 @@ importers:
 
   packages/telemetry:
     dependencies:
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -689,7 +689,7 @@ importers:
 
   packages/test-utils:
     dependencies:
-      '@kodeaman/schema':
+      '@aspidasec/schema':
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -714,10 +714,10 @@ importers:
 
   packages/watcher:
     dependencies:
-      '@kodeaman/config':
+      '@aspidasec/config':
         specifier: workspace:*
         version: link:../config
-      '@kodeaman/core':
+      '@aspidasec/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

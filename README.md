@@ -1,12 +1,12 @@
-# KodeAman
+# AspidaSec
 
-[![CI](https://github.com/vibellabbs-code/kodeaman/actions/workflows/ci.yml/badge.svg)](https://github.com/vibellabbs-code/kodeaman/actions/workflows/ci.yml)
+[![CI](https://github.com/vibellabbs-code/aspidasec/actions/workflows/ci.yml/badge.svg)](https://github.com/vibellabbs-code/aspidasec/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Release](https://img.shields.io/github/v/tag/vibellabbs-code/kodeaman?label=version&color=green)](https://github.com/vibellabbs-code/kodeaman/tags)
+[![Release](https://img.shields.io/github/v/tag/vibellabbs-code/aspidasec?label=version&color=green)](https://github.com/vibellabbs-code/aspidasec/tags)
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20-339933?logo=node.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)
 ![pnpm](https://img.shields.io/badge/pnpm-workspaces-F69220?logo=pnpm)
-[![Last Commit](https://img.shields.io/github/last-commit/vibellabbs-code/kodeaman)](https://github.com/vibellabbs-code/kodeaman/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/vibellabbs-code/aspidasec)](https://github.com/vibellabbs-code/aspidasec/commits/main)
 
 **Baca dalam bahasa lain**: [Bahasa Indonesia](./README.id.md) _(segera hadir)_
 
@@ -14,15 +14,15 @@ Open-core security coach for Indonesian developers. Scans your code, prioritizes
 
 ![Nano Banana Civilization](assets/concept-art/nano-banana-v1-bioluminescent-jungle.jpg)
 
-![KodeAman demo](docs/demo.gif)
+![AspidaSec demo](docs/demo.gif)
 
-> *"Kode Aman" (Bahasa Indonesia) = "Secure Code"*
+> *"Aspida" (Greek: Ασπίδα) = "Shield" — Security coaching for developers*
 
-## Why KodeAman
+## Why AspidaSec
 
 Most SAST/DAST tools produce hundreds of findings, provide only English guidance, and assume senior-level security expertise. Indonesian development teams — startups, campus labs, government digitization projects — end up ignoring noise or copy-pasting fixes they don't understand. Vulnerabilities stay open and learning never happens.
 
-KodeAman changes that:
+AspidaSec changes that:
 
 - **Educates, not just alerts** — every finding includes a bilingual explanation (Bahasa Indonesia + English) with remediation steps, code examples, and a linked micro-lesson. Developers learn *why* a vulnerability matters, not just that it exists
 - **Prioritizes by real-world risk** — scores findings using severity, confidence, auth-path proximity, internet exposure, dependency directness, fix availability, and production context. The top 3 highest-risk findings surface first
@@ -37,16 +37,16 @@ KodeAman changes that:
 ### CLI (recommended)
 
 ```bash
-git clone https://github.com/vibellabbs-code/kodeaman.git
-cd kodeaman
+git clone https://github.com/vibellabbs-code/aspidasec.git
+cd aspidasec
 pnpm install
 pnpm run build
 
 # Scan a project directory
-pnpm --filter @kodeaman/cli start -- scan ./my-project
+pnpm --filter @aspidasec/cli start -- scan ./my-project
 
 # OWASP Top 10 scan with HTML report
-pnpm --filter @kodeaman/cli start -- owasp-scan --format html --output report.html
+pnpm --filter @aspidasec/cli start -- owasp-scan --format html --output report.html
 ```
 
 ### MCP Server (AI coding assistants)
@@ -56,9 +56,9 @@ Add to your Claude Code, Cursor, or Windsurf MCP config:
 ```json
 {
   "mcpServers": {
-    "kodeaman": {
+    "aspidasec": {
       "command": "node",
-      "args": ["path/to/kodeaman/packages/mcp-server/dist/index.js"]
+      "args": ["path/to/aspidasec/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -91,7 +91,7 @@ See [docs/self-hosting/deployment.md](./docs/self-hosting/deployment.md) for pro
 - **Bilingual coaching** — every finding includes remediation guidance in Bahasa Indonesia and English, with code examples specific to the vulnerability
 - **Micro-lessons** — 10 structured lessons covering OWASP Top 10 categories, linked from findings so developers learn in context
 - **Framework presets** — Laravel, Node/Express, and WordPress presets that tune scanner rules and coaching for your stack
-- **Security glossary** — `@kodeaman/i18n` includes a bilingual security glossary so Indonesian developers can learn standard terminology
+- **Security glossary** — `@aspidasec/i18n` includes a bilingual security glossary so Indonesian developers can learn standard terminology
 
 ### Gamification
 
@@ -129,62 +129,62 @@ See [docs/self-hosting/deployment.md](./docs/self-hosting/deployment.md) for pro
 
 ```bash
 # Core scanning
-kodeaman scan [path]              # Run security scan on a directory
-kodeaman owasp-scan [options]     # OWASP Top 10 structured scan
-kodeaman init                     # Generate .kodeaman.yml config file
+aspidasec scan [path]              # Run security scan on a directory
+aspidasec owasp-scan [options]     # OWASP Top 10 structured scan
+aspidasec init                     # Generate .aspidasec.yml config file
 
 # Development workflow
-kodeaman watch [path]             # Real-time file monitoring with auto-scan
-kodeaman autofix [options]        # Execute fix commands from scan findings
-kodeaman rules list|validate      # Manage custom security rules
+aspidasec watch [path]             # Real-time file monitoring with auto-scan
+aspidasec autofix [options]        # Execute fix commands from scan findings
+aspidasec rules list|validate      # Manage custom security rules
 
 # Reporting and history
-kodeaman dashboard                # Launch web dashboard (port 4800)
-kodeaman history show|trends|export  # View scan history and trends
+aspidasec dashboard                # Launch web dashboard (port 4800)
+aspidasec history show|trends|export  # View scan history and trends
 ```
 
 ### Scan Options
 
 ```bash
 # Output formats
-kodeaman scan ./project --format markdown    # Console/PR output (default)
-kodeaman scan ./project --format json        # Machine-readable JSON
-kodeaman scan ./project --format sarif       # IDE/CI integration
-kodeaman scan ./project --format html        # Self-contained HTML report
+aspidasec scan ./project --format markdown    # Console/PR output (default)
+aspidasec scan ./project --format json        # Machine-readable JSON
+aspidasec scan ./project --format sarif       # IDE/CI integration
+aspidasec scan ./project --format html        # Self-contained HTML report
 
 # Language
-kodeaman scan ./project --language id        # Bahasa Indonesia coaching
-kodeaman scan ./project --language en        # English coaching (default)
+aspidasec scan ./project --language id        # Bahasa Indonesia coaching
+aspidasec scan ./project --language en        # English coaching (default)
 
 # OWASP scan options
-kodeaman owasp-scan --categories A01,A03,A07  # Specific categories only
-kodeaman owasp-scan --confidence medium       # Minimum confidence gate
-kodeaman owasp-scan --no-evidence-gate        # Skip evidence requirement
-kodeaman owasp-scan --parallel                # Run categories in parallel
+aspidasec owasp-scan --categories A01,A03,A07  # Specific categories only
+aspidasec owasp-scan --confidence medium       # Minimum confidence gate
+aspidasec owasp-scan --no-evidence-gate        # Skip evidence requirement
+aspidasec owasp-scan --parallel                # Run categories in parallel
 ```
 
 ## MCP Server
 
-The `@kodeaman/mcp-server` exposes KodeAman as a Model Context Protocol server for AI coding assistants (Claude Code, Cursor, Windsurf, and others).
+The `@aspidasec/mcp-server` exposes AspidaSec as a Model Context Protocol server for AI coding assistants (Claude Code, Cursor, Windsurf, and others).
 
 | Tool | Description |
 |------|-------------|
-| `kodeaman_scan` | Run a full security scan on a project directory |
-| `kodeaman_owasp_scan` | Run an OWASP Top 10 structured scan |
-| `kodeaman_preflight` | Check scanner availability before scanning |
-| `kodeaman_list_scanners` | List all registered scanner adapters |
-| `kodeaman_explain_finding` | Get a detailed bilingual explanation of a finding |
-| `kodeaman_suggest_fix` | Get fix suggestions with code examples |
-| `kodeaman_convert_sarif` | Convert scan results to SARIF format |
-| `kodeaman_coverage_report` | Generate an OWASP category coverage report |
+| `aspidasec_scan` | Run a full security scan on a project directory |
+| `aspidasec_owasp_scan` | Run an OWASP Top 10 structured scan |
+| `aspidasec_preflight` | Check scanner availability before scanning |
+| `aspidasec_list_scanners` | List all registered scanner adapters |
+| `aspidasec_explain_finding` | Get a detailed bilingual explanation of a finding |
+| `aspidasec_suggest_fix` | Get fix suggestions with code examples |
+| `aspidasec_convert_sarif` | Convert scan results to SARIF format |
+| `aspidasec_coverage_report` | Generate an OWASP category coverage report |
 
-Auto-detection: projects with `package.json`, `package-lock.json`, or `pnpm-lock.yaml` automatically get npm audit scanning without any `.kodeaman.yml` configuration.
+Auto-detection: projects with `package.json`, `package-lock.json`, or `pnpm-lock.yaml` automatically get npm audit scanning without any `.aspidasec.yml` configuration.
 
 See [docs/mcp-integration.md](./docs/mcp-integration.md) for setup instructions across different AI assistants.
 
 ## OWASP Top 10 Scan Mode
 
-KodeAman supports structured scanning organized by OWASP Top 10 (2021) categories A01–A10.
+AspidaSec supports structured scanning organized by OWASP Top 10 (2021) categories A01–A10.
 
 ### How It Works
 
@@ -214,12 +214,12 @@ KodeAman supports structured scanning organized by OWASP Top 10 (2021) categorie
 
 ## Architecture
 
-KodeAman is a TypeScript monorepo with **30 packages** and **5 apps** using pnpm workspaces and Turborepo.
+AspidaSec is a TypeScript monorepo with **30 packages** and **5 apps** using pnpm workspaces and Turborepo.
 
 ```
-kodeaman/
+aspidasec/
 ├── apps/
-│   ├── cli/               # kodeaman CLI (8 commands)
+│   ├── cli/               # aspidasec CLI (8 commands)
 │   ├── bot-github/         # GitHub PR reviewer (Probot)
 │   ├── bot-gitlab/         # GitLab MR reviewer (Hono)
 │   ├── bot-gitea/          # Gitea/Forgejo webhook bot
@@ -227,7 +227,7 @@ kodeaman/
 ├── packages/
 │   ├── schema/             # NormalizedFinding types + Zod validators
 │   ├── core/               # Scan pipeline, dedup, plugin system
-│   ├── config/             # .kodeaman.yml loader + validation
+│   ├── config/             # .aspidasec.yml loader + validation
 │   ├── prioritizer/        # Priority scoring engine (10+ heuristics)
 │   ├── owasp/              # OWASP Top 10 orchestrator
 │   ├── adapters-semgrep/   # Semgrep SAST adapter
@@ -262,14 +262,14 @@ kodeaman/
 
 ### Data Flow
 
-![KodeAman Data Flow](docs/diagrams/data-flow.jpg)
+![AspidaSec Data Flow](docs/diagrams/data-flow.jpg)
 
 ## Configuration
 
-KodeAman uses a `.kodeaman.yml` file in your project root. Generate one with `kodeaman init`.
+AspidaSec uses a `.aspidasec.yml` file in your project root. Generate one with `aspidasec init`.
 
 ```yaml
-# .kodeaman.yml
+# .aspidasec.yml
 language: id                    # Coaching language: "en" or "id"
 
 scanners:
@@ -383,7 +383,7 @@ We are looking for:
 
 ## Pilot Program
 
-We are running early pilot programs with Indonesian development teams. If your team wants early access, roadmap influence, or hands-on setup support, open a [Pilot Feedback issue](https://github.com/vibellabbs-code/kodeaman/issues/new?template=pilot_feedback.yml) or contact the maintainers.
+We are running early pilot programs with Indonesian development teams. If your team wants early access, roadmap influence, or hands-on setup support, open a [Pilot Feedback issue](https://github.com/vibellabbs-code/aspidasec/issues/new?template=pilot_feedback.yml) or contact the maintainers.
 
 ## License
 

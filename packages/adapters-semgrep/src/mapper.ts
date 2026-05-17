@@ -3,7 +3,7 @@ import type {
   ConfidenceLevel,
   FindingCategory,
   RuntimeSurface,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 import type { SemgrepResult } from "./types.js";
 import { createHash } from "node:crypto";
 

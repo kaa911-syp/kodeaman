@@ -1,5 +1,5 @@
-import type { ScanResult } from "@kodeaman/core";
-import type { NormalizedFinding, OwaspScanReport, SeverityLevel } from "@kodeaman/schema";
+import type { ScanResult } from "@aspidasec/core";
+import type { NormalizedFinding, OwaspScanReport, SeverityLevel } from "@aspidasec/schema";
 import type { TelemetryEvent, TelemetryInput, TelemetryScanSummary } from "./types.js";
 
 const SEVERITIES: SeverityLevel[] = ["info", "low", "medium", "high", "critical"];

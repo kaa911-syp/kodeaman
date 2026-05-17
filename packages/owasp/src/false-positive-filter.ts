@@ -2,7 +2,7 @@ import type {
   NormalizedFinding,
   FindingSource,
   ConfidenceLevel,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 
 export interface SuppressionPattern {
   /** Glob pattern to match finding rule IDs (e.g. "npm-audit:*") */

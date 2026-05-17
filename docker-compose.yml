@@ -22,9 +22,9 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: kodeaman
-      POSTGRES_USER: kodeaman
-      POSTGRES_PASSWORD: kodeaman
+      POSTGRES_DB: aspidasec
+      POSTGRES_USER: aspidasec
+      POSTGRES_PASSWORD: aspidasec
     ports:
       - "5432:5432"
     volumes:

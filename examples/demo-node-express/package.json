@@ -2,12 +2,12 @@
   "name": "demo-node-express",
   "version": "1.0.0",
   "private": true,
-  "description": "KodeAman demo — intentionally vulnerable Node/Express app",
+  "description": "AspidaSec demo — intentionally vulnerable Node/Express app",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "scan": "kodeaman scan --preset node-express",
-    "owasp-scan": "kodeaman owasp-scan --preset node-express --format html"
+    "scan": "aspidasec scan --preset node-express",
+    "owasp-scan": "aspidasec owasp-scan --preset node-express --format html"
   },
   "dependencies": {
     "express": "4.17.1"

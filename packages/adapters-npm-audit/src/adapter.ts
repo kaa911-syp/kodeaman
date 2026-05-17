@@ -1,4 +1,4 @@
-import type { FixCommand, NormalizedFinding, RepoContext } from "@kodeaman/schema";
+import type { FixCommand, NormalizedFinding, RepoContext } from "@aspidasec/schema";
 import type { NpmAuditResult, NpmAuditScanContext, NpmVulnerability } from "./types.js";
 import {
   mapSeverity,

@@ -1,6 +1,6 @@
-# @kodeaman/owasp
+# @aspidasec/owasp
 
-OWASP Top 10 scan orchestration for KodeAman.
+OWASP Top 10 scan orchestration for AspidaSec.
 
 ## Responsibility
 
@@ -19,7 +19,7 @@ OWASP Top 10 scan orchestration for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/owasp typecheck
-pnpm --filter @kodeaman/owasp test
-pnpm --filter @kodeaman/owasp build
+pnpm --filter @aspidasec/owasp typecheck
+pnpm --filter @aspidasec/owasp test
+pnpm --filter @aspidasec/owasp build
 ```

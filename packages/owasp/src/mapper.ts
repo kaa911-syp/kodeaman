@@ -1,4 +1,4 @@
-import type { OwaspCategory, NormalizedFinding } from "@kodeaman/schema";
+import type { OwaspCategory, NormalizedFinding } from "@aspidasec/schema";
 import { CWE_TO_OWASP, OWASP_BY_ID, OWASP_BY_CODE, type OwaspCategoryId } from "./categories.js";
 import type { OwaspCategoryDefinition } from "./types.js";
 

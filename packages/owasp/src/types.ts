@@ -1,4 +1,4 @@
-import type { OwaspCategory, FindingCategory, FindingSource } from "@kodeaman/schema";
+import type { OwaspCategory, FindingCategory, FindingSource } from "@aspidasec/schema";
 
 export interface OwaspCategoryDefinition {
   code: string;

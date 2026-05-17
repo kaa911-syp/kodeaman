@@ -1,4 +1,4 @@
-import type { OwaspCategory } from "@kodeaman/schema";
+import type { OwaspCategory } from "@aspidasec/schema";
 import type { OwaspCategoryDefinition } from "./types.js";
 
 export const OWASP_CATEGORIES: readonly OwaspCategoryDefinition[] = [

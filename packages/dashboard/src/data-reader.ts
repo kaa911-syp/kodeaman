@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { NormalizedFinding, SeverityLevel } from "@kodeaman/schema";
-import type { TelemetryEvent } from "@kodeaman/telemetry";
+import type { NormalizedFinding, SeverityLevel } from "@aspidasec/schema";
+import type { TelemetryEvent } from "@aspidasec/telemetry";
 
 const SEVERITIES: SeverityLevel[] = ["critical", "high", "medium", "low", "info"];
 const OWASP_CATEGORIES = [

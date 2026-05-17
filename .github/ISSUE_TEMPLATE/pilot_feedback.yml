@@ -1,13 +1,13 @@
 name: Pilot Feedback
-description: Share feedback from your KodeAman pilot experience
+description: Share feedback from your AspidaSec pilot experience
 title: "[Pilot]: "
 labels: ["type:validation"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for piloting KodeAman! Your feedback directly shapes the product.
-        Terima kasih sudah mencoba KodeAman! Feedback kamu sangat berharga.
+        Thank you for piloting AspidaSec! Your feedback directly shapes the product.
+        Terima kasih sudah mencoba AspidaSec! Feedback kamu sangat berharga.
   - type: dropdown
     id: platform
     attributes:

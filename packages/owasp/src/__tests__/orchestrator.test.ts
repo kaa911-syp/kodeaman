@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
-import type { NormalizedFinding } from "@kodeaman/schema";
-import type { ScannerAdapter, ScanContext } from "@kodeaman/core";
-import { ScanPipeline } from "@kodeaman/core";
-import type { KodeamanConfig } from "@kodeaman/config";
+import type { NormalizedFinding } from "@aspidasec/schema";
+import type { ScannerAdapter, ScanContext } from "@aspidasec/core";
+import { ScanPipeline } from "@aspidasec/core";
+import type { AspidasecConfig } from "@aspidasec/config";
 import { OwaspScanOrchestrator, type OwaspScanOptions } from "../orchestrator.js";
 import {
   detectWSL,
@@ -78,7 +78,7 @@ const defaultContext: ScanContext = {
   commitSha: "abc123",
 };
 
-const defaultConfig: KodeamanConfig = {
+const defaultConfig: AspidasecConfig = {
   language: "en",
   scanners: {
     semgrep: true,

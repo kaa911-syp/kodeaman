@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/schema",
+  "name": "@aspidasec/schema",
   "version": "0.1.0",
-  "description": "Canonical NormalizedFinding schema for KodeAman security coach",
+  "description": "Canonical NormalizedFinding schema for AspidaSec security coach",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -19,7 +19,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
@@ -36,15 +36,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/schema"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "schema",
     "validation",

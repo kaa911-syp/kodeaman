@@ -1,6 +1,6 @@
-import type { KodeamanConfig } from "./types.js";
+import type { AspidasecConfig } from "./types.js";
 
-export const DEFAULT_CONFIG: KodeamanConfig = {
+export const DEFAULT_CONFIG: AspidasecConfig = {
   language: "id",
   scanners: {
     semgrep: true,

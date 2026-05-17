@@ -4,7 +4,7 @@ export function generateDashboardHtml(): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KodeAman Security Trends</title>
+  <title>AspidaSec Security Trends</title>
   <style>
     :root { color-scheme: light; --bg:#f7f8fb; --card:#fff; --text:#111827; --muted:#6b7280; --border:#e5e7eb; --accent:#2563eb; --good:#16a34a; --bad:#dc2626; --critical:#7f1d1d; --high:#dc2626; --medium:#f59e0b; --low:#2563eb; --info:#64748b; }
     [data-theme="dark"] { color-scheme: dark; --bg:#0f172a; --card:#111827; --text:#f8fafc; --muted:#94a3b8; --border:#334155; --accent:#60a5fa; --good:#22c55e; --bad:#f87171; }
@@ -43,7 +43,7 @@ export function generateDashboardHtml(): string {
 <body>
   <header>
     <div>
-      <h1>KodeAman Security Trends</h1>
+      <h1>AspidaSec Security Trends</h1>
       <div class="muted">Track scan history, finding severity, and OWASP Top 10 coverage.</div>
     </div>
     <div class="stats">
@@ -84,9 +84,9 @@ export function generateDashboardHtml(): string {
     $('theme-toggle').addEventListener('click', () => {
       const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
       document.documentElement.dataset.theme = next;
-      localStorage.setItem('kodeaman-dashboard-theme', next);
+      localStorage.setItem('aspidasec-dashboard-theme', next);
     });
-    document.documentElement.dataset.theme = localStorage.getItem('kodeaman-dashboard-theme') || 'light';
+    document.documentElement.dataset.theme = localStorage.getItem('aspidasec-dashboard-theme') || 'light';
     $('period').addEventListener('change', loadTrends);
 
     async function load() {

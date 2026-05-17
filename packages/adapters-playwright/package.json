@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/adapters-playwright",
+  "name": "@aspidasec/adapters-playwright",
   "version": "0.1.0",
-  "description": "Playwright DAST scanner adapter for KodeAman",
+  "description": "Playwright DAST scanner adapter for AspidaSec",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -19,12 +19,12 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/schema": "workspace:*"
+    "@aspidasec/schema": "workspace:*"
   },
   "peerDependencies": {
     "playwright": "^1.49.0"
@@ -43,15 +43,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/adapters-playwright"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "playwright",
     "dast",

@@ -6,7 +6,7 @@
 
 import { execSync } from "node:child_process";
 import { readFileSync, existsSync } from "node:fs";
-import type { FindingSource } from "@kodeaman/schema";
+import type { FindingSource } from "@aspidasec/schema";
 
 export interface ScannerInfo {
   name: string;
@@ -266,7 +266,7 @@ export function getInstallInstructions(
         locale,
         title: "Petunjuk Instalasi ZAP Baseline",
         commands: ["docker pull ghcr.io/zaproxy/zaproxy:stable"],
-        note: "KodeAman dapat menjalankan ZAP Baseline lewat Docker, jadi pastikan perintah docker tersedia di PATH dan daemon Docker sedang berjalan.",
+        note: "AspidaSec dapat menjalankan ZAP Baseline lewat Docker, jadi pastikan perintah docker tersedia di PATH dan daemon Docker sedang berjalan.",
       };
     }
 
@@ -275,7 +275,7 @@ export function getInstallInstructions(
       locale,
       title: "ZAP Baseline Installation Instructions",
       commands: ["docker pull ghcr.io/zaproxy/zaproxy:stable"],
-      note: "KodeAman can run ZAP Baseline through Docker, so make sure the docker command is on PATH and the Docker daemon is running.",
+      note: "AspidaSec can run ZAP Baseline through Docker, so make sure the docker command is on PATH and the Docker daemon is running.",
     };
   }
 

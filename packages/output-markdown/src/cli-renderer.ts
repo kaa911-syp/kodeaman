@@ -1,4 +1,4 @@
-import type { NormalizedFinding, SeverityLevel } from "@kodeaman/schema";
+import type { NormalizedFinding, SeverityLevel } from "@aspidasec/schema";
 import type { ScanResult, OwaspScanReport, CoverageReport } from "./renderer.js";
 
 const SEVERITY_COLORS: Record<SeverityLevel, string> = {
@@ -23,7 +23,7 @@ export class CLIRenderer {
 
     lines.push("");
     lines.push(
-      `${BOLD}  KodeAman Security Report${RESET}`,
+      `${BOLD}  AspidaSec Security Report${RESET}`,
     );
     lines.push(`${DIM}${"─".repeat(50)}${RESET}`);
     lines.push("");
@@ -145,7 +145,7 @@ export class CLIRenderer {
 
     lines.push("");
     lines.push(
-      `${BOLD}  KodeAman OWASP Top 10 Report${RESET}`,
+      `${BOLD}  AspidaSec OWASP Top 10 Report${RESET}`,
     );
     lines.push(`${DIM}${"─".repeat(60)}${RESET}`);
     lines.push("");

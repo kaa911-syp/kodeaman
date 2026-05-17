@@ -9,7 +9,7 @@ import {
   isDependencyDirect,
   hasFixAvailable,
 } from "../heuristics.js";
-import type { NormalizedFinding, RepoContext } from "@kodeaman/schema";
+import type { NormalizedFinding, RepoContext } from "@aspidasec/schema";
 
 function makeFinding(overrides: Partial<NormalizedFinding> = {}): NormalizedFinding {
   return {

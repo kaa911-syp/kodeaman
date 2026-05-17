@@ -1,10 +1,10 @@
 import { Command } from "commander";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { loadConfig } from "@kodeaman/config";
-import type { NormalizedFinding, SeverityLevel } from "@kodeaman/schema";
-import { MarkdownRenderer, CLIRenderer } from "@kodeaman/output-markdown";
-import type { ScanResult } from "@kodeaman/output-markdown";
+import { loadConfig } from "@aspidasec/config";
+import type { NormalizedFinding, SeverityLevel } from "@aspidasec/schema";
+import { MarkdownRenderer, CLIRenderer } from "@aspidasec/output-markdown";
+import type { ScanResult } from "@aspidasec/output-markdown";
 import * as logger from "../utils/logger.js";
 
 const SEVERITY_ORDER: SeverityLevel[] = [
@@ -87,14 +87,14 @@ export function createScanCommand(): Command {
             : "Starting security scan...",
         );
 
-        const { preflightCheck } = await import("@kodeaman/owasp");
+        const { preflightCheck } = await import("@aspidasec/owasp");
         const preflight = preflightCheck(config.language);
         if (preflight.warnings.length > 0) {
           reportPreflightWarnings(preflight.warnings, preflight.installInstructions);
         }
 
         let findings: NormalizedFinding[] = [];
-        let coverageReport: import("@kodeaman/core").CoverageReport | undefined;
+        let coverageReport: import("@aspidasec/core").CoverageReport | undefined;
 
         if (opts.input) {
           logger.debug(`Reading input file: ${opts.input}`);
@@ -116,28 +116,28 @@ export function createScanCommand(): Command {
         } else {
           // Dynamic pipeline: import core and register adapters
           try {
-            const { ScanPipeline } = await import("@kodeaman/core");
+            const { ScanPipeline } = await import("@aspidasec/core");
             const pipeline = new ScanPipeline(config as never);
 
             if (config.scanners.semgrep) {
               const { SemgrepAdapter } = await import(
-                "@kodeaman/adapters-semgrep"
+                "@aspidasec/adapters-semgrep"
               );
               pipeline.registerAdapter(new SemgrepAdapter() as never);
             }
 
             if (config.scanners.zapBaseline) {
-              const { ZapBaselineAdapter } = await import("@kodeaman/adapters-zap");
+              const { ZapBaselineAdapter } = await import("@aspidasec/adapters-zap");
               pipeline.registerAdapter(new ZapBaselineAdapter() as never);
             }
 
             if (config.scanners.playwright) {
-              const { PlaywrightAdapter } = await import("@kodeaman/adapters-playwright");
+              const { PlaywrightAdapter } = await import("@aspidasec/adapters-playwright");
               pipeline.registerAdapter(new PlaywrightAdapter() as never);
             }
 
             if (config.customRules) {
-              const { CustomRuleScanner } = await import("@kodeaman/custom-rules");
+              const { CustomRuleScanner } = await import("@aspidasec/custom-rules");
               pipeline.registerAdapter(new CustomRuleScanner() as never);
             }
 
@@ -179,7 +179,7 @@ export function createScanCommand(): Command {
           },
         };
 
-        const { ScanHistoryStore } = await import("@kodeaman/history");
+        const { ScanHistoryStore } = await import("@aspidasec/history");
         await new ScanHistoryStore().append({
           timestamp: new Date().toISOString(),
           projectPath: repoRoot,
@@ -217,7 +217,7 @@ export function createScanCommand(): Command {
             break;
           }
           case "sarif": {
-            const { SarifConverter } = await import("@kodeaman/output-sarif");
+            const { SarifConverter } = await import("@aspidasec/output-sarif");
             const converter = new SarifConverter();
             console.log(JSON.stringify(converter.convert(findings), null, 2));
             break;

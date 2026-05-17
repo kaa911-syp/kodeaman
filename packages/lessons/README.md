@@ -1,6 +1,6 @@
-# @kodeaman/lessons
+# @aspidasec/lessons
 
-Security micro-lessons for KodeAman developer coaching.
+Security micro-lessons for AspidaSec developer coaching.
 
 ## Responsibility
 
@@ -17,6 +17,6 @@ Security micro-lessons for KodeAman developer coaching.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/lessons typecheck
-pnpm --filter @kodeaman/lessons build
+pnpm --filter @aspidasec/lessons typecheck
+pnpm --filter @aspidasec/lessons build
 ```

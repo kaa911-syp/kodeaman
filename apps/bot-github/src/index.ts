@@ -1,7 +1,7 @@
 import { Probot } from "probot";
 import { PRHandler } from "./handler.js";
 
-export default function kodeamanBot(app: Probot): void {
+export default function aspidasecBot(app: Probot): void {
   const handler = new PRHandler();
 
   app.on(
@@ -11,5 +11,5 @@ export default function kodeamanBot(app: Probot): void {
     },
   );
 
-  app.log.info("KodeAman GitHub bot loaded");
+  app.log.info("AspidaSec GitHub bot loaded");
 }

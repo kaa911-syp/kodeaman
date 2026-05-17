@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # ============================================================================
-# KodeAman Demo Recording Script
+# AspidaSec Demo Recording Script
 # ============================================================================
 #
-# Creates an animated terminal recording of KodeAman in action.
+# Creates an animated terminal recording of AspidaSec in action.
 # Uses `asciinema` to record and `agg` to convert to GIF.
 #
 # Prerequisites:
 #   - asciinema: pip install asciinema  (or: brew install asciinema)
 #   - agg:       cargo install --git https://github.com/asciinema/agg
-#   - KodeAman built: pnpm install && pnpm run build
+#   - AspidaSec built: pnpm install && pnpm run build
 #
 # Usage:
 #   chmod +x scripts/record-demo.sh
@@ -79,12 +79,12 @@ run_demo() {
   section "1. Scan a vulnerable Node.js project"
 
   echo -e "\033[0;32m$\033[0m \c"
-  type_command "kodeaman scan examples/demo-node-express --language id"
+  type_command "aspidasec scan examples/demo-node-express --language id"
   sleep "$PAUSE_SHORT"
 
   # Simulate scan output
   echo ""
-  echo -e "\033[1;33m🔍 KodeAman v0.5.0\033[0m — Scanning examples/demo-node-express"
+  echo -e "\033[1;33m🔍 AspidaSec v0.5.0\033[0m — Scanning examples/demo-node-express"
   echo -e "   Language: \033[1mBahasa Indonesia\033[0m"
   echo ""
   sleep "$PAUSE_SHORT"
@@ -139,7 +139,7 @@ run_demo() {
   section "2. OWASP Top 10 scan with HTML report"
 
   echo -e "\033[0;32m$\033[0m \c"
-  type_command "kodeaman owasp-scan --format html --output report.html --language id"
+  type_command "aspidasec owasp-scan --format html --output report.html --language id"
   sleep "$PAUSE_SHORT"
 
   echo ""
@@ -182,7 +182,7 @@ run_demo() {
   section "3. Real-time watch mode"
 
   echo -e "\033[0;32m$\033[0m \c"
-  type_command "kodeaman watch examples/demo-node-express"
+  type_command "aspidasec watch examples/demo-node-express"
   sleep "$PAUSE_SHORT"
 
   echo ""
@@ -202,7 +202,7 @@ run_demo() {
   section "4. Autofix vulnerable dependencies"
 
   echo -e "\033[0;32m$\033[0m \c"
-  type_command "kodeaman autofix --dry-run"
+  type_command "aspidasec autofix --dry-run"
   sleep "$PAUSE_SHORT"
 
   echo ""
@@ -224,9 +224,9 @@ run_demo() {
   echo ""
   echo -e "\033[1;35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
   echo ""
-  echo -e "  \033[1mKodeAman\033[0m — Secure Code, Taught Right"
+  echo -e "  \033[1mAspidaSec\033[0m — Secure Code, Taught Right"
   echo ""
-  echo -e "  \033[2mhttps://github.com/vibellabbs-code/kodeaman\033[0m"
+  echo -e "  \033[2mhttps://github.com/vibellabbs-code/aspidasec\033[0m"
   echo -e "  \033[2mLicense: Apache 2.0\033[0m"
   echo ""
   echo -e "\033[1;35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
@@ -238,7 +238,7 @@ run_demo() {
 # Main: record with asciinema, then convert to GIF
 # ============================================================================
 main() {
-  echo "KodeAman Demo Recorder"
+  echo "AspidaSec Demo Recorder"
   echo "======================"
   echo ""
 
@@ -262,7 +262,7 @@ main() {
   # Record
   asciinema rec \
     --overwrite \
-    --title "KodeAman — Security Coach Demo" \
+    --title "AspidaSec — Security Coach Demo" \
     --cols 80 \
     --rows 32 \
     --command "bash -c run_demo" \
@@ -292,7 +292,7 @@ main() {
 
   echo ""
   echo "Done! Add the GIF to your README:"
-  echo '  ![KodeAman demo](docs/demo.gif)'
+  echo '  ![AspidaSec demo](docs/demo.gif)'
 }
 
 main "$@"

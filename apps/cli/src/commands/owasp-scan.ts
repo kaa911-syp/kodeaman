@@ -3,8 +3,8 @@ import { writeFileSync } from "node:fs";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { resolve } from "node:path";
-import { loadConfig } from "@kodeaman/config";
-import type { SeverityLevel, ConfidenceLevel } from "@kodeaman/schema";
+import { loadConfig } from "@aspidasec/config";
+import type { SeverityLevel, ConfidenceLevel } from "@aspidasec/schema";
 import * as logger from "../utils/logger.js";
 
 const SEVERITY_ORDER: SeverityLevel[] = [
@@ -124,8 +124,8 @@ export function createOwaspScanCommand(): Command {
 
         // Step 2: Detect environment
         const { detectEnvironment, checkWSLAvailability, getWSLInstallInstructions, preflightCheck } =
-          await import("@kodeaman/owasp");
-        const { OwaspProgressReporter } = await import("@kodeaman/owasp");
+          await import("@aspidasec/owasp");
+        const { OwaspProgressReporter } = await import("@aspidasec/owasp");
 
         const env = detectEnvironment();
         const progress = new OwaspProgressReporter(locale, (msg) => logger.info(msg));
@@ -205,13 +205,13 @@ export function createOwaspScanCommand(): Command {
         const failOnSeverity = owaspConfig.failOnSeverity;
 
         // Step 5: Create pipeline and orchestrator
-        const { ScanPipeline } = await import("@kodeaman/core");
+        const { ScanPipeline } = await import("@aspidasec/core");
         const pipeline = new ScanPipeline(config as never);
 
         // Register adapters based on config
         if (config.scanners.semgrep) {
           try {
-            const { SemgrepAdapter } = await import("@kodeaman/adapters-semgrep");
+            const { SemgrepAdapter } = await import("@aspidasec/adapters-semgrep");
             pipeline.registerAdapter(new SemgrepAdapter() as never);
             logger.debug("Registered Semgrep adapter");
           } catch {
@@ -221,7 +221,7 @@ export function createOwaspScanCommand(): Command {
 
         if (config.scanners.zapBaseline) {
           try {
-            const { ZapBaselineAdapter } = await import("@kodeaman/adapters-zap");
+            const { ZapBaselineAdapter } = await import("@aspidasec/adapters-zap");
             pipeline.registerAdapter(new ZapBaselineAdapter() as never);
             logger.debug("Registered ZAP baseline adapter");
           } catch {
@@ -231,7 +231,7 @@ export function createOwaspScanCommand(): Command {
 
         if (config.scanners.npmAudit) {
           try {
-            const { NpmAuditAdapter } = await import("@kodeaman/adapters-npm-audit");
+            const { NpmAuditAdapter } = await import("@aspidasec/adapters-npm-audit");
             pipeline.registerAdapter(new NpmAuditAdapter() as never);
             logger.debug("Registered npm-audit adapter");
           } catch {
@@ -241,7 +241,7 @@ export function createOwaspScanCommand(): Command {
 
         if (config.scanners.playwright) {
           try {
-            const { PlaywrightAdapter } = await import("@kodeaman/adapters-playwright");
+            const { PlaywrightAdapter } = await import("@aspidasec/adapters-playwright");
             pipeline.registerAdapter(new PlaywrightAdapter() as never);
             logger.debug("Registered Playwright adapter");
           } catch {
@@ -249,7 +249,7 @@ export function createOwaspScanCommand(): Command {
           }
         }
 
-        const { OwaspScanOrchestrator } = await import("@kodeaman/owasp");
+        const { OwaspScanOrchestrator } = await import("@aspidasec/owasp");
         const orchestrator = new OwaspScanOrchestrator(pipeline, config);
 
         // Step 6: Run scan with progress callbacks
@@ -306,7 +306,7 @@ export function createOwaspScanCommand(): Command {
         switch (opts.format) {
           case "html": {
             const { HtmlReportGenerator, DEFAULT_REPORT_CONFIG } = await import(
-              "@kodeaman/output-html"
+              "@aspidasec/output-html"
             );
             const generator = new HtmlReportGenerator();
 
@@ -345,7 +345,7 @@ export function createOwaspScanCommand(): Command {
               gamificationEnabled: config.gamification.enabled,
             });
 
-            const outputPath = opts.output ?? resolve(repoRoot, "kodeaman-owasp-report.html");
+            const outputPath = opts.output ?? resolve(repoRoot, "aspidasec-owasp-report.html");
             writeFileSync(outputPath, html, "utf-8");
             logger.success(
               locale === "id"
@@ -371,7 +371,7 @@ export function createOwaspScanCommand(): Command {
           }
 
           case "markdown": {
-            const { MarkdownRenderer } = await import("@kodeaman/output-markdown");
+            const { MarkdownRenderer } = await import("@aspidasec/output-markdown");
             const mdRenderer = new MarkdownRenderer();
 
             const mdBySeverity: Record<SeverityLevel, number> = {
@@ -412,7 +412,7 @@ export function createOwaspScanCommand(): Command {
           }
 
           case "sarif": {
-            const { SarifConverter } = await import("@kodeaman/output-sarif");
+            const { SarifConverter } = await import("@aspidasec/output-sarif");
             const converter = new SarifConverter();
             const sarif = JSON.stringify(converter.convert(allFindings), null, 2);
             if (opts.output) {
@@ -434,7 +434,7 @@ export function createOwaspScanCommand(): Command {
         }
 
         // Step 9: OWASP coverage report
-        const { buildCoverageReport } = await import("@kodeaman/core");
+        const { buildCoverageReport } = await import("@aspidasec/core");
         const coverageReport = buildCoverageReport(
           [
             ...(config.scanners.semgrep ? [{ scannerName: "semgrep", status: "ran" as const, findingsCount: 0, durationMs: 0 }] : [{ scannerName: "semgrep", status: "skipped-disabled" as const, reason: "Disabled in configuration", findingsCount: 0, durationMs: 0 }]),
@@ -444,7 +444,7 @@ export function createOwaspScanCommand(): Command {
           allFindings,
           { scanMode: "owasp", scannedCategories: scanResult.scannedCategories },
         );
-        const { CLIRenderer } = await import("@kodeaman/output-markdown");
+        const { CLIRenderer } = await import("@aspidasec/output-markdown");
         console.log(new CLIRenderer().renderCoverageReport(coverageReport, locale));
 
         // Step 10: Exit code 1 if findings >= failOnSeverity

@@ -32,8 +32,8 @@
     "newCount": "{count} new"
   },
   "pr": {
-    "commentHeader": "## KodeAman Security Report",
-    "commentFooter": "---\n_Powered by [KodeAman](https://github.com/kodeaman) — your security coach_",
+    "commentHeader": "## AspidaSec Security Report",
+    "commentFooter": "---\n_Powered by [AspidaSec](https://github.com/aspidasec) — your security coach_",
     "noIssuesFound": "No security issues found in this PR. Keep it up!",
     "issuesFound": "Found {count} security issue(s) in this PR.",
     "criticalWarning": "**CRITICAL:** This PR contains {count} critical security issue(s) that must be addressed before merging.",

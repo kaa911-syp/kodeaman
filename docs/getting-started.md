@@ -1,6 +1,6 @@
-# Getting Started with KodeAman
+# Getting Started with AspidaSec
 
-KodeAman is a security coach agent for developers. It scans your code with established tools (Semgrep, ZAP, npm audit), normalizes findings into a single format, and delivers prioritized remediation coaching in English and Bahasa Indonesia.
+AspidaSec is a security coach agent for developers. It scans your code with established tools (Semgrep, ZAP, npm audit), normalizes findings into a single format, and delivers prioritized remediation coaching in English and Bahasa Indonesia.
 
 This guide covers local CLI setup. For PR bot setup see [GitHub Bot Setup](./github-bot-setup.md) or [GitLab Bot Setup](./gitlab-bot-setup.md).
 
@@ -17,8 +17,8 @@ This guide covers local CLI setup. For PR bot setup see [GitHub Bot Setup](./git
 
 ```bash
 # Clone the repository
-git clone https://github.com/kodeaman/kodeaman.git
-cd kodeaman
+git clone https://github.com/aspidasec/aspidasec.git
+cd aspidasec
 
 # Install dependencies
 pnpm install
@@ -34,10 +34,10 @@ pnpm build
 Run the interactive init wizard in your project directory:
 
 ```bash
-kodeaman init
+aspidasec init
 ```
 
-This creates a `.kodeaman.yml` file with your chosen language, scanners, and preset. Example output:
+This creates a `.aspidasec.yml` file with your chosen language, scanners, and preset. Example output:
 
 ```yaml
 language: id
@@ -59,39 +59,39 @@ output:
 
 ```bash
 # Basic scan with Semgrep
-kodeaman scan
+aspidasec scan
 
 # Scan with JSON output
-kodeaman scan --format json
+aspidasec scan --format json
 
 # Scan with Bahasa Indonesia output
-kodeaman scan --language id
+aspidasec scan --language id
 
 # Scan using a framework preset
-kodeaman scan --preset laravel
+aspidasec scan --preset laravel
 ```
 
 ### 3. Run an OWASP Top 10 scan
 
 ```bash
 # Full OWASP scan with HTML report
-kodeaman owasp-scan
+aspidasec owasp-scan
 
 # Scan specific categories only
-kodeaman owasp-scan --categories A01,A03,A06
+aspidasec owasp-scan --categories A01,A03,A06
 
 # Scan with Markdown output in Bahasa Indonesia
-kodeaman owasp-scan --format markdown --language id
+aspidasec owasp-scan --format markdown --language id
 
 # Scan with high confidence gate
-kodeaman owasp-scan --confidence high
+aspidasec owasp-scan --confidence high
 
 # Parallel category scanning
-kodeaman owasp-scan --parallel
+aspidasec owasp-scan --parallel
 ```
 
 The OWASP scan produces:
-- An HTML evidence report (default) saved to `kodeaman-owasp-report.html`
+- An HTML evidence report (default) saved to `aspidasec-owasp-report.html`
 - A coverage dashboard showing findings per OWASP category
 - Evidence-backed findings only (no AI-fabricated results)
 
@@ -101,40 +101,40 @@ If you already have Semgrep or ZAP JSON output, pass it directly:
 
 ```bash
 # From Semgrep JSON
-kodeaman scan --input semgrep-results.json
+aspidasec scan --input semgrep-results.json
 
 # From ZAP baseline JSON
-kodeaman scan --input zap-baseline.json
+aspidasec scan --input zap-baseline.json
 ```
 
 ## CLI Commands
 
 | Command | Description |
 |---------|-------------|
-| `kodeaman init` | Interactive config wizard — creates `.kodeaman.yml` |
-| `kodeaman scan` | Run security scan with configured scanners |
-| `kodeaman owasp-scan` | Run structured OWASP Top 10 scan |
+| `aspidasec init` | Interactive config wizard — creates `.aspidasec.yml` |
+| `aspidasec scan` | Run security scan with configured scanners |
+| `aspidasec owasp-scan` | Run structured OWASP Top 10 scan |
 
-### `kodeaman scan` options
+### `aspidasec scan` options
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `-c, --config <path>` | Path to config file | `.kodeaman.yml` in cwd |
+| `-c, --config <path>` | Path to config file | `.aspidasec.yml` in cwd |
 | `-f, --format <fmt>` | Output format: `markdown`, `json`, `sarif` | `markdown` |
 | `-i, --input <file>` | Pre-existing scanner output file | — |
 | `-l, --language <lang>` | Language: `en` or `id` | from config |
 | `-p, --preset <name>` | Framework preset: `laravel`, `node-express`, `wordpress` | — |
 | `-v, --verbose` | Verbose output | `false` |
 
-### `kodeaman owasp-scan` options
+### `aspidasec owasp-scan` options
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `-c, --config <path>` | Path to config file | `.kodeaman.yml` in cwd |
+| `-c, --config <path>` | Path to config file | `.aspidasec.yml` in cwd |
 | `-f, --format <fmt>` | Output format: `html`, `markdown`, `json` | `html` |
 | `-l, --language <lang>` | Language: `en` or `id` | from config |
 | `-p, --preset <name>` | Framework preset | — |
-| `-o, --output <file>` | Output file path | `kodeaman-owasp-report.html` |
+| `-o, --output <file>` | Output file path | `aspidasec-owasp-report.html` |
 | `--parallel` | Run categories in parallel | `false` |
 | `--categories <list>` | Comma-separated categories (e.g. `A01,A03,A06`) | all A01–A10 |
 | `--confidence <level>` | Confidence gate: `low`, `medium`, `high` | `low` |
@@ -152,11 +152,11 @@ kodeaman scan --input zap-baseline.json
 
 ## Configuration
 
-KodeAman reads `.kodeaman.yml` from the project root. See [example configurations](../examples/configs/) for annotated templates covering CLI, GitHub bot, GitLab bot, and OWASP mode.
+AspidaSec reads `.aspidasec.yml` from the project root. See [example configurations](../examples/configs/) for annotated templates covering CLI, GitHub bot, GitLab bot, and OWASP mode.
 
 ## Next Steps
 
 - [GitHub Bot Setup](./github-bot-setup.md) — automated PR security reviews
 - [GitLab Bot Setup](./gitlab-bot-setup.md) — automated MR security reviews
 - [Self-Hosting & Deployment](./self-hosting/deployment.md) — Docker Compose deployment
-- [Example Configurations](../examples/configs/) — annotated `.kodeaman.yml` templates
+- [Example Configurations](../examples/configs/) — annotated `.aspidasec.yml` templates

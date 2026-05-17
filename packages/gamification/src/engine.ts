@@ -3,7 +3,7 @@ import type {
   GamificationMeta,
   SeverityLevel,
   FindingCategory,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 import { badges } from "./badges.js";
 import { quests, type Quest } from "./quests.js";
 

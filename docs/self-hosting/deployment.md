@@ -1,6 +1,6 @@
 # Self-Hosting & Deployment
 
-This guide covers deploying KodeAman's GitHub and GitLab bots using Docker Compose.
+This guide covers deploying AspidaSec's GitHub and GitLab bots using Docker Compose.
 
 ## Architecture
 
@@ -41,8 +41,8 @@ GITLAB_WEBHOOK_SECRET=gitlab-webhook-secret
 # GITLAB_URL=https://gitlab.yourcompany.com   # For self-hosted GitLab
 
 # ── Database ──
-POSTGRES_DB=kodeaman
-POSTGRES_USER=kodeaman
+POSTGRES_DB=aspidasec
+POSTGRES_USER=aspidasec
 POSTGRES_PASSWORD=change-this-in-production
 
 # ── General ──
@@ -78,9 +78,9 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: kodeaman
-      POSTGRES_USER: kodeaman
-      POSTGRES_PASSWORD: kodeaman
+      POSTGRES_DB: aspidasec
+      POSTGRES_USER: aspidasec
+      POSTGRES_PASSWORD: aspidasec
     ports:
       - "5432:5432"
     volumes:
@@ -150,7 +150,7 @@ Point your GitHub App or GitLab webhook URL directly:
 ```nginx
 server {
     listen 443 ssl;
-    server_name kodeaman.yourcompany.com;
+    server_name aspidasec.yourcompany.com;
 
     location /api/github/ {
         proxy_pass http://localhost:3000;

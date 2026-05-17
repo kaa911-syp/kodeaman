@@ -1,5 +1,5 @@
 /**
- * kodeaman_preflight — Check environment readiness for scanning.
+ * aspidasec_preflight — Check environment readiness for scanning.
  *
  * Detects platform, WSL status, available scanners, and provides
  * actionable install instructions for missing tools.
@@ -10,7 +10,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 export function registerPreflightTool(server: McpServer): void {
   server.tool(
-    "kodeaman_preflight",
+    "aspidasec_preflight",
     "Check if the environment is ready for security scanning. Detects available scanners (semgrep, ZAP, npm-audit), WSL status on Windows, and provides bilingual install instructions for missing tools.",
     {
       language: z
@@ -26,7 +26,7 @@ export function registerPreflightTool(server: McpServer): void {
           detectEnvironment,
           checkWSLAvailability,
           getWSLInstallInstructions,
-        } = await import("@kodeaman/owasp");
+        } = await import("@aspidasec/owasp");
 
         const environment = detectEnvironment();
         const preflight = preflightCheck(locale, environment);

@@ -1,6 +1,6 @@
 import type { Context } from "probot";
 
-const COMMENT_MARKER = "<!-- kodeaman-security-report -->";
+const COMMENT_MARKER = "<!-- aspidasec-security-report -->";
 
 export class GitHubCommentManager {
   async findExistingComment(

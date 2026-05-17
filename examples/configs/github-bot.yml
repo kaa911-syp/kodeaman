@@ -1,6 +1,6 @@
-# .kodeaman.yml — GitHub Bot (Probot)
+# .aspidasec.yml — GitHub Bot (Probot)
 #
-# Use this configuration in repositories connected to the KodeAman GitHub bot.
+# Use this configuration in repositories connected to the AspidaSec GitHub bot.
 # The bot reads this file on every PR event and runs the configured scan.
 #
 # See docs/github-bot-setup.md for bot installation and webhook setup.

@@ -1,4 +1,4 @@
-import type { NormalizedFinding, RepoContext } from "@kodeaman/schema";
+import type { NormalizedFinding, RepoContext } from "@aspidasec/schema";
 import type { ZapRawReport, ZapAlert, ZapAlertInstance, ZapScanContext } from "./types.js";
 import {
   mapRiskCode,

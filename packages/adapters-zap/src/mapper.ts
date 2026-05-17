@@ -2,7 +2,7 @@ import type {
   SeverityLevel,
   ConfidenceLevel,
   FindingCategory,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 import type { ZapAlert, ZapAlertInstance } from "./types.js";
 import { createHash } from "node:crypto";
 

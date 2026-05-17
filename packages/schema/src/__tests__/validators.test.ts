@@ -86,7 +86,7 @@ describe("NormalizedFinding validators", () => {
 
       expect(result.repoContext).toBeDefined();
       expect(result.repoContext!.provider).toBe("github");
-      expect(result.repoContext!.repoFullName).toBe("kodeaman/demo-laravel");
+      expect(result.repoContext!.repoFullName).toBe("aspidasec/demo-laravel");
       expect(result.repoContext!.pullRequestNumber).toBe(18);
       expect(result.repoContext!.framework).toContain("laravel");
     });

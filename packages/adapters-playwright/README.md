@@ -1,11 +1,11 @@
-# @kodeaman/adapters-playwright
+# @aspidasec/adapters-playwright
 
-Playwright-based DAST adapter for KodeAman. It crawls a target site with Chromium, checks runtime browser security controls, and converts missing headers, unsafe forms, and weak cookie attributes into `NormalizedFinding` results.
+Playwright-based DAST adapter for AspidaSec. It crawls a target site with Chromium, checks runtime browser security controls, and converts missing headers, unsafe forms, and weak cookie attributes into `NormalizedFinding` results.
 
 ## Installation
 
 ```bash
-pnpm add @kodeaman/adapters-playwright
+pnpm add @aspidasec/adapters-playwright
 pnpm add -D playwright
 pnpm exec playwright install chromium
 ```
@@ -13,7 +13,7 @@ pnpm exec playwright install chromium
 ## Usage
 
 ```ts
-import { PlaywrightAdapter } from "@kodeaman/adapters-playwright";
+import { PlaywrightAdapter } from "@aspidasec/adapters-playwright";
 
 const adapter = new PlaywrightAdapter();
 const findings = await adapter.scan({

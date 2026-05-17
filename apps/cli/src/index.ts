@@ -12,8 +12,8 @@ import { createWatchCommand } from "./commands/watch.js";
 const program = new Command();
 
 program
-  .name("kodeaman")
-  .description("KodeAman — Security coach for Indonesian developers")
+  .name("aspidasec")
+  .description("AspidaSec — Security coach for Indonesian developers")
   .version("0.2.0");
 
 program.addCommand(createScanCommand());

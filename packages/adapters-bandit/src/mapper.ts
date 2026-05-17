@@ -1,4 +1,4 @@
-import type { FindingCategory, OwaspCategory, SeverityLevel } from "@kodeaman/schema";
+import type { FindingCategory, OwaspCategory, SeverityLevel } from "@aspidasec/schema";
 import { createHash } from "node:crypto";
 
 export function mapSeverity(rawSeverity?: string): SeverityLevel {

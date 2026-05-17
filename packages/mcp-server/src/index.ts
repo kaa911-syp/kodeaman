@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 /**
- * KodeAman MCP Server
+ * AspidaSec MCP Server
  *
- * Model Context Protocol server that exposes KodeAman security scanning
+ * Model Context Protocol server that exposes AspidaSec security scanning
  * capabilities as tools for AI coding assistants (Vibe Coding).
  *
  * Tools provided:
- *   - kodeaman_scan            Run a security scan on a project directory
- *   - kodeaman_owasp_scan      Run OWASP Top 10 security scan with evidence
- *   - kodeaman_preflight       Check environment readiness (scanners, WSL, etc.)
- *   - kodeaman_list_scanners   List available security scanners
- *   - kodeaman_explain_finding Explain a finding with coaching content
- *   - kodeaman_suggest_fix     Get fix suggestions for a finding
- *   - kodeaman_convert_sarif   Convert findings to SARIF format
- *   - kodeaman_coverage_report Generate OWASP coverage report
+ *   - aspidasec_scan            Run a security scan on a project directory
+ *   - aspidasec_owasp_scan      Run OWASP Top 10 security scan with evidence
+ *   - aspidasec_preflight       Check environment readiness (scanners, WSL, etc.)
+ *   - aspidasec_list_scanners   List available security scanners
+ *   - aspidasec_explain_finding Explain a finding with coaching content
+ *   - aspidasec_suggest_fix     Get fix suggestions for a finding
+ *   - aspidasec_convert_sarif   Convert findings to SARIF format
+ *   - aspidasec_coverage_report Generate OWASP coverage report
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -28,7 +28,7 @@ import { registerSuggestFixTool } from "./tools/suggest-fix.js";
 import { registerConvertSarifTool } from "./tools/convert-sarif.js";
 import { registerCoverageReportTool } from "./tools/coverage-report.js";
 
-const SERVER_NAME = "kodeaman";
+const SERVER_NAME = "aspidasec";
 const SERVER_VERSION = "0.1.0";
 
 async function main(): Promise<void> {
@@ -53,6 +53,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error("KodeAman MCP server failed to start:", err);
+  console.error("AspidaSec MCP server failed to start:", err);
   process.exit(1);
 });

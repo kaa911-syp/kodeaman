@@ -27,10 +27,10 @@ function promptYN(question: string, defaultYes = true): Promise<boolean> {
 
 export function createInitCommand(): Command {
   const cmd = new Command("init")
-    .description("Initialize KodeAman configuration in current directory")
+    .description("Initialize AspidaSec configuration in current directory")
     .action(async () => {
       try {
-        logger.info("Initializing KodeAman configuration...\n");
+        logger.info("Initializing AspidaSec configuration...\n");
 
         const language = await prompt(
           "Language / Bahasa (en/id) [id]: ",
@@ -56,8 +56,8 @@ export function createInitCommand(): Command {
         );
 
         const lines: string[] = [
-          "# KodeAman Configuration",
-          "# https://github.com/kodeaman/kodeaman",
+          "# AspidaSec Configuration",
+          "# https://github.com/aspidasec/aspidasec",
           "",
           `language: ${lang}`,
           "",
@@ -93,14 +93,14 @@ export function createInitCommand(): Command {
         lines.push("  json: false");
         lines.push("");
 
-        const configPath = resolve(process.cwd(), ".kodeaman.yml");
+        const configPath = resolve(process.cwd(), ".aspidasec.yml");
         writeFileSync(configPath, lines.join("\n"), "utf-8");
 
         logger.success(`Configuration written to ${configPath}`);
         logger.info(
           lang === "id"
-            ? 'Jalankan "kodeaman scan" untuk memulai pemindaian.'
-            : 'Run "kodeaman scan" to start scanning.',
+            ? 'Jalankan "aspidasec scan" untuk memulai pemindaian.'
+            : 'Run "aspidasec scan" to start scanning.',
         );
       } catch (err) {
         logger.error(String(err));

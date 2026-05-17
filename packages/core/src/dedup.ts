@@ -1,4 +1,4 @@
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 function occurrenceFor(finding: NormalizedFinding) {
   return {

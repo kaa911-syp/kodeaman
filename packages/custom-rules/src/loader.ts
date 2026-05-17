@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { parse as parseYaml } from "yaml";
 import { z } from "zod";
-import type { CustomRulesConfig, KodeamanRule, RuleValidationResult } from "./types.js";
+import type { CustomRulesConfig, AspidasecRule, RuleValidationResult } from "./types.js";
 
 const severitySchema = z.enum(["info", "low", "medium", "high", "critical"]);
 const categorySchema = z.enum([
@@ -36,7 +36,7 @@ const owaspCategorySchema = z.enum([
   "A10-ssrf",
 ]);
 
-export const kodeamanRuleSchema = z.object({
+export const aspidasecRuleSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   titleId: z.string().min(1),
@@ -53,7 +53,7 @@ export const kodeamanRuleSchema = z.object({
 });
 
 export class RuleLoader {
-  loadFromDirectory(rulesDir: string): KodeamanRule[] {
+  loadFromDirectory(rulesDir: string): AspidasecRule[] {
     if (!existsSync(rulesDir) || !statSync(rulesDir).isDirectory()) {
       return [];
     }
@@ -63,7 +63,7 @@ export class RuleLoader {
       .flatMap((entry) => this.loadRuleFile(resolve(rulesDir, entry)));
   }
 
-  loadFromConfig(config: { customRules?: CustomRulesConfig | KodeamanRule[] }): KodeamanRule[] {
+  loadFromConfig(config: { customRules?: CustomRulesConfig | AspidasecRule[] }): AspidasecRule[] {
     const customRules = config.customRules;
     if (!customRules) {
       return [];
@@ -73,8 +73,8 @@ export class RuleLoader {
     return inlineRules.map((rule) => this.validate(rule));
   }
 
-  validate(rule: unknown): KodeamanRule {
-    const parsed = kodeamanRuleSchema.safeParse(rule);
+  validate(rule: unknown): AspidasecRule {
+    const parsed = aspidasecRuleSchema.safeParse(rule);
     if (!parsed.success) {
       throw new Error(parsed.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join("; "));
     }
@@ -124,7 +124,7 @@ export class RuleLoader {
       .flatMap((entry) => this.validateRuleFile(resolve(rulesDir, entry)));
   }
 
-  private loadRuleFile(filePath: string): KodeamanRule[] {
+  private loadRuleFile(filePath: string): AspidasecRule[] {
     const raw = readFileSync(filePath, "utf-8");
     const parsed = parseYaml(raw) as unknown;
     const documents = Array.isArray(parsed) ? parsed : [parsed];

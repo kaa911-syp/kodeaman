@@ -1,6 +1,6 @@
-# Contributing to KodeAman
+# Contributing to AspidaSec
 
-Thank you for your interest in contributing to KodeAman! This guide will help you get started.
+Thank you for your interest in contributing to AspidaSec! This guide will help you get started.
 
 ## Getting Started
 
@@ -13,8 +13,8 @@ Thank you for your interest in contributing to KodeAman! This guide will help yo
 ### Setup
 
 ```bash
-git clone https://github.com/vibellabbs-code/kodeaman.git
-cd kodeaman
+git clone https://github.com/vibellabbs-code/aspidasec.git
+cd aspidasec
 pnpm install
 pnpm build
 ```
@@ -84,7 +84,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 - Be respectful and inclusive.
 - Follow our [Code of Conduct](CODE_OF_CONDUCT.md).
-- Questions? Open a [Discussion](https://github.com/kodeaman/kodeaman/discussions).
+- Questions? Open a [Discussion](https://github.com/aspidasec/aspidasec/discussions).
 
 ## License
 

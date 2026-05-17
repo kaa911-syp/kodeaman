@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/output-markdown",
+  "name": "@aspidasec/output-markdown",
   "version": "0.1.0",
-  "description": "Markdown output renderer for KodeAman security reports",
+  "description": "Markdown output renderer for AspidaSec security reports",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -19,18 +19,18 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/core": "workspace:*",
-    "@kodeaman/schema": "workspace:*",
-    "@kodeaman/i18n": "workspace:*",
-    "@kodeaman/gamification": "workspace:*"
+    "@aspidasec/core": "workspace:*",
+    "@aspidasec/schema": "workspace:*",
+    "@aspidasec/i18n": "workspace:*",
+    "@aspidasec/gamification": "workspace:*"
   },
   "devDependencies": {
-    "@kodeaman/config": "workspace:*",
+    "@aspidasec/config": "workspace:*",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
   },
@@ -39,15 +39,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/output-markdown"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "markdown",
     "reports",

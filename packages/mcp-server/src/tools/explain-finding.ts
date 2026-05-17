@@ -1,5 +1,5 @@
 /**
- * kodeaman_explain_finding — Explain a security finding with coaching content.
+ * aspidasec_explain_finding — Explain a security finding with coaching content.
  *
  * Given a finding ID or finding JSON, returns bilingual coaching content:
  * what the issue is, why it matters, and how to fix it.
@@ -7,11 +7,11 @@
 
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 export function registerExplainFindingTool(server: McpServer): void {
   server.tool(
-    "kodeaman_explain_finding",
+    "aspidasec_explain_finding",
     "Explain a security finding in detail. Provide the finding JSON and get back bilingual (English + Indonesian) coaching content including: what the vulnerability is, why it matters, step-by-step remediation, safe code examples, OWASP/CWE classification, and gamification rewards.",
     {
       finding: z

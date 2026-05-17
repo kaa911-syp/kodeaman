@@ -1,4 +1,4 @@
-import type { SeverityLevel, ConfidenceLevel } from "@kodeaman/schema";
+import type { SeverityLevel, ConfidenceLevel } from "@aspidasec/schema";
 import type { NpmVulnerability, NpmVulnerabilityVia } from "./types.js";
 import { createHash } from "node:crypto";
 

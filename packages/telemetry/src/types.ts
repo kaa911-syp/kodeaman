@@ -1,5 +1,5 @@
-import type { ScanResult } from "@kodeaman/core";
-import type { NormalizedFinding, OwaspScanReport } from "@kodeaman/schema";
+import type { ScanResult } from "@aspidasec/core";
+import type { NormalizedFinding, OwaspScanReport } from "@aspidasec/schema";
 
 export type TelemetryFormat = "json" | "jsonl";
 

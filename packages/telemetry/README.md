@@ -1,20 +1,20 @@
-# @kodeaman/telemetry
+# @aspidasec/telemetry
 
-Local scan telemetry writer for KodeAman validation output. It collects scan result summaries, scanner names, finding counts, timing data, and findings, then writes them as JSON or append-friendly JSONL events.
+Local scan telemetry writer for AspidaSec validation output. It collects scan result summaries, scanner names, finding counts, timing data, and findings, then writes them as JSON or append-friendly JSONL events.
 
 ## Installation
 
 ```bash
-pnpm add @kodeaman/telemetry
+pnpm add @aspidasec/telemetry
 ```
 
 ## Usage
 
 ```ts
-import { TelemetryWriter } from "@kodeaman/telemetry";
+import { TelemetryWriter } from "@aspidasec/telemetry";
 
 const writer = new TelemetryWriter({
-  outputPath: ".kodeaman/telemetry/scans.jsonl",
+  outputPath: ".aspidasec/telemetry/scans.jsonl",
   append: true,
 });
 

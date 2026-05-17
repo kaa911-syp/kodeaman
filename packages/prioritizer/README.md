@@ -1,6 +1,6 @@
-# @kodeaman/prioritizer
+# @aspidasec/prioritizer
 
-Risk prioritization for KodeAman normalized findings.
+Risk prioritization for AspidaSec normalized findings.
 
 ## Responsibility
 
@@ -16,7 +16,7 @@ Risk prioritization for KodeAman normalized findings.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/prioritizer typecheck
-pnpm --filter @kodeaman/prioritizer test
-pnpm --filter @kodeaman/prioritizer build
+pnpm --filter @aspidasec/prioritizer typecheck
+pnpm --filter @aspidasec/prioritizer test
+pnpm --filter @aspidasec/prioritizer build
 ```

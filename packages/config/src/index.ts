@@ -1,5 +1,5 @@
 export type {
-  KodeamanConfig,
+  AspidasecConfig,
   OwaspScanConfig,
   EnvironmentConfig,
   TeamConfig,

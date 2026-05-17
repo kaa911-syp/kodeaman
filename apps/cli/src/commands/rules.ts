@@ -1,8 +1,8 @@
 import { existsSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { Command } from "commander";
-import { loadConfig } from "@kodeaman/config";
-import { RuleLoader } from "@kodeaman/custom-rules";
+import { loadConfig } from "@aspidasec/config";
+import { RuleLoader } from "@aspidasec/custom-rules";
 import * as logger from "../utils/logger.js";
 
 interface RulesOptions {
@@ -11,7 +11,7 @@ interface RulesOptions {
 }
 
 function defaultRulesDir(repoRoot: string): string {
-  return resolve(repoRoot, ".kodeaman", "rules");
+  return resolve(repoRoot, ".aspidasec", "rules");
 }
 
 function configuredRulesDir(repoRoot: string, config: { customRules?: { directory?: string } }, opts: RulesOptions): string {
@@ -28,7 +28,7 @@ function ruleFiles(rulesDir: string): string[] {
 }
 
 export function createRulesCommand(): Command {
-  const cmd = new Command("rules").description("Manage custom KodeAman security rules");
+  const cmd = new Command("rules").description("Manage custom AspidaSec security rules");
 
   cmd
     .command("list")

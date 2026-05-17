@@ -2,13 +2,13 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in KodeAman, please report it responsibly.
+If you discover a security vulnerability in AspidaSec, please report it responsibly.
 
 **DO NOT** open a public GitHub issue for security vulnerabilities.
 
 ### How to Report
 
-Email: **security@kodeaman.dev**
+Email: **security@aspidasec.dev**
 
 Please include:
 
@@ -27,10 +27,10 @@ Please include:
 
 The following are in scope:
 
-- KodeAman CLI (`@kodeaman/cli`)
-- KodeAman GitHub Bot (`@kodeaman/bot-github`)
-- KodeAman GitLab Bot (`@kodeaman/bot-gitlab`)
-- All `@kodeaman/*` packages
+- AspidaSec CLI (`@aspidasec/cli`)
+- AspidaSec GitHub Bot (`@aspidasec/bot-github`)
+- AspidaSec GitLab Bot (`@aspidasec/bot-gitlab`)
+- All `@aspidasec/*` packages
 - Official Docker images
 
 ### Out of Scope

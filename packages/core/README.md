@@ -1,6 +1,6 @@
-# @kodeaman/core
+# @aspidasec/core
 
-Core scan pipeline orchestration for KodeAman.
+Core scan pipeline orchestration for AspidaSec.
 
 ## Responsibility
 
@@ -17,7 +17,7 @@ Core scan pipeline orchestration for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/core typecheck
-pnpm --filter @kodeaman/core test
-pnpm --filter @kodeaman/core build
+pnpm --filter @aspidasec/core typecheck
+pnpm --filter @aspidasec/core test
+pnpm --filter @aspidasec/core build
 ```

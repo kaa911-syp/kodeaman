@@ -1,6 +1,6 @@
 # GitLab Bot Setup
 
-KodeAman's GitLab bot (`@kodeaman/bot-gitlab`) automatically reviews merge requests for security issues using a Hono-based webhook service. When an MR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation coaching.
+AspidaSec's GitLab bot (`@aspidasec/bot-gitlab`) automatically reviews merge requests for security issues using a Hono-based webhook service. When an MR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation coaching.
 
 ## Prerequisites
 
@@ -33,9 +33,9 @@ LOG_LEVEL=info
 PORT=3001
 ```
 
-## 3. Configure `.kodeaman.yml`
+## 3. Configure `.aspidasec.yml`
 
-Add a `.kodeaman.yml` file to each repository you want the bot to review:
+Add a `.aspidasec.yml` file to each repository you want the bot to review:
 
 ```yaml
 language: id
@@ -147,4 +147,4 @@ The bot uses this URL for all API calls instead of `https://gitlab.com`.
 
 - [Getting Started](./getting-started.md) — local CLI usage
 - [Self-Hosting & Deployment](./self-hosting/deployment.md) — production Docker setup
-- [Example Configurations](../examples/configs/) — annotated `.kodeaman.yml` for GitLab bot
+- [Example Configurations](../examples/configs/) — annotated `.aspidasec.yml` for GitLab bot

@@ -2,9 +2,9 @@ import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { parse as parseYaml } from "yaml";
 import { DEFAULT_CONFIG } from "./defaults.js";
-import type { KodeamanConfig } from "./types.js";
+import type { AspidasecConfig } from "./types.js";
 
-const CONFIG_FILENAME = ".kodeaman.yml";
+const CONFIG_FILENAME = ".aspidasec.yml";
 
 function deepMerge(
   base: Record<string, unknown>,
@@ -34,7 +34,7 @@ function deepMerge(
   return result;
 }
 
-function validateConfig(config: KodeamanConfig): void {
+function validateConfig(config: AspidasecConfig): void {
   const validLanguages = ["en", "id"];
   if (!validLanguages.includes(config.language)) {
     throw new Error(
@@ -68,7 +68,7 @@ function validateConfig(config: KodeamanConfig): void {
   }
 }
 
-export function loadConfig(repoRoot: string): KodeamanConfig {
+export function loadConfig(repoRoot: string): AspidasecConfig {
   const configPath = resolve(repoRoot, CONFIG_FILENAME);
 
   if (!existsSync(configPath)) {
@@ -76,7 +76,7 @@ export function loadConfig(repoRoot: string): KodeamanConfig {
   }
 
   const raw = readFileSync(configPath, "utf-8");
-  const parsed = parseYaml(raw) as Partial<KodeamanConfig> | null;
+  const parsed = parseYaml(raw) as Partial<AspidasecConfig> | null;
 
   if (!parsed || typeof parsed !== "object") {
     return { ...DEFAULT_CONFIG };
@@ -85,14 +85,14 @@ export function loadConfig(repoRoot: string): KodeamanConfig {
   const merged = deepMerge(
     DEFAULT_CONFIG as unknown as Record<string, unknown>,
     parsed as Record<string, unknown>,
-  ) as unknown as KodeamanConfig;
+  ) as unknown as AspidasecConfig;
   validateConfig(merged);
 
   return merged;
 }
 
-export function loadConfigFromString(content: string): KodeamanConfig {
-  const parsed = parseYaml(content) as Partial<KodeamanConfig> | null;
+export function loadConfigFromString(content: string): AspidasecConfig {
+  const parsed = parseYaml(content) as Partial<AspidasecConfig> | null;
 
   if (!parsed || typeof parsed !== "object") {
     return { ...DEFAULT_CONFIG };
@@ -101,7 +101,7 @@ export function loadConfigFromString(content: string): KodeamanConfig {
   const merged = deepMerge(
     DEFAULT_CONFIG as unknown as Record<string, unknown>,
     parsed as Record<string, unknown>,
-  ) as unknown as KodeamanConfig;
+  ) as unknown as AspidasecConfig;
   validateConfig(merged);
 
   return merged;

@@ -1,31 +1,31 @@
-# @kodeaman/history
+# @aspidasec/history
 
-Scan history storage and team collaboration types for KodeAman. It persists scan summaries as JSONL, supports date and project filtering, aggregates daily trends, and summarizes project scan history.
+Scan history storage and team collaboration types for AspidaSec. It persists scan summaries as JSONL, supports date and project filtering, aggregates daily trends, and summarizes project scan history.
 
 ## Installation
 
 ```bash
-pnpm add @kodeaman/history
+pnpm add @aspidasec/history
 ```
 
 ## Usage
 
 ```ts
-import { ScanHistoryStore } from "@kodeaman/history";
+import { ScanHistoryStore } from "@aspidasec/history";
 
-const store = new ScanHistoryStore(".kodeaman/history.jsonl");
+const store = new ScanHistoryStore(".aspidasec/history.jsonl");
 await store.append(scanHistoryEntry);
 
 const recent = await store.query({ since: new Date("2026-01-01") });
 const trends = await store.getTrends(30);
 ```
 
-From the KodeAman CLI:
+From the AspidaSec CLI:
 
 ```bash
-kodeaman history show
-kodeaman history trends
-kodeaman history export
+aspidasec history show
+aspidasec history trends
+aspidasec history export
 ```
 
 ## API

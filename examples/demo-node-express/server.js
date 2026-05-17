@@ -1,4 +1,4 @@
-// Demo: Intentionally vulnerable Express server for KodeAman testing
+// Demo: Intentionally vulnerable Express server for AspidaSec testing
 // DO NOT deploy this code — it contains deliberate security issues
 
 const express = require("express");

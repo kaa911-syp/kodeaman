@@ -1,6 +1,6 @@
-# @kodeaman/output-markdown
+# @aspidasec/output-markdown
 
-Markdown report and review-comment rendering for KodeAman.
+Markdown report and review-comment rendering for AspidaSec.
 
 ## Responsibility
 
@@ -16,7 +16,7 @@ Markdown report and review-comment rendering for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/output-markdown typecheck
-pnpm --filter @kodeaman/output-markdown test
-pnpm --filter @kodeaman/output-markdown build
+pnpm --filter @aspidasec/output-markdown typecheck
+pnpm --filter @aspidasec/output-markdown test
+pnpm --filter @aspidasec/output-markdown build
 ```

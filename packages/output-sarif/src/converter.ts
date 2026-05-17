@@ -1,7 +1,7 @@
-import type { NormalizedFinding, SeverityLevel } from "@kodeaman/schema";
+import type { NormalizedFinding, SeverityLevel } from "@aspidasec/schema";
 import type { SarifLevel, SarifLocation, SarifLog, SarifResult, SarifRule } from "./types.js";
 
-const TOOL_NAME = "kodeaman";
+const TOOL_NAME = "aspidasec";
 const TOOL_VERSION = "0.1.0";
 
 function severityToLevel(severity: SeverityLevel): SarifLevel {

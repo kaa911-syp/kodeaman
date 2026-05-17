@@ -1,11 +1,11 @@
 {
-  "name": "@kodeaman/cli",
+  "name": "@aspidasec/cli",
   "version": "0.1.0",
-  "description": "CLI for KodeAman security coach",
+  "description": "CLI for AspidaSec security coach",
   "license": "Apache-2.0",
   "type": "module",
   "bin": {
-    "kodeaman": "./dist/index.js"
+    "aspidasec": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -14,31 +14,31 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/config": "workspace:*",
-    "@kodeaman/core": "workspace:*",
-    "@kodeaman/history": "workspace:*",
-    "@kodeaman/schema": "workspace:*",
-    "@kodeaman/adapters-semgrep": "workspace:*",
-    "@kodeaman/adapters-zap": "workspace:*",
-    "@kodeaman/adapters-npm-audit": "workspace:*",
-    "@kodeaman/adapters-playwright": "workspace:*",
-    "@kodeaman/owasp": "workspace:*",
-    "@kodeaman/prioritizer": "workspace:*",
-    "@kodeaman/coaching": "workspace:*",
-    "@kodeaman/gamification": "workspace:*",
-    "@kodeaman/output-markdown": "workspace:*",
-    "@kodeaman/output-html": "workspace:*",
-    "@kodeaman/output-sarif": "workspace:*",
-    "@kodeaman/presets": "workspace:*",
-    "@kodeaman/watcher": "workspace:*",
-    "@kodeaman/autofix": "workspace:*",
-    "@kodeaman/custom-rules": "workspace:*",
-    "@kodeaman/dashboard": "workspace:*",
+    "@aspidasec/config": "workspace:*",
+    "@aspidasec/core": "workspace:*",
+    "@aspidasec/history": "workspace:*",
+    "@aspidasec/schema": "workspace:*",
+    "@aspidasec/adapters-semgrep": "workspace:*",
+    "@aspidasec/adapters-zap": "workspace:*",
+    "@aspidasec/adapters-npm-audit": "workspace:*",
+    "@aspidasec/adapters-playwright": "workspace:*",
+    "@aspidasec/owasp": "workspace:*",
+    "@aspidasec/prioritizer": "workspace:*",
+    "@aspidasec/coaching": "workspace:*",
+    "@aspidasec/gamification": "workspace:*",
+    "@aspidasec/output-markdown": "workspace:*",
+    "@aspidasec/output-html": "workspace:*",
+    "@aspidasec/output-sarif": "workspace:*",
+    "@aspidasec/presets": "workspace:*",
+    "@aspidasec/watcher": "workspace:*",
+    "@aspidasec/autofix": "workspace:*",
+    "@aspidasec/custom-rules": "workspace:*",
+    "@aspidasec/dashboard": "workspace:*",
     "commander": "^12.1.0"
   },
   "devDependencies": {
@@ -51,15 +51,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "apps/cli"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "cli",
     "command-line",

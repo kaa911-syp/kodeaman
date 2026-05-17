@@ -1,17 +1,17 @@
-# KodeAman Configuration — Laravel Demo
-# Preset: laravel
+# AspidaSec Configuration — WordPress Demo
+# Preset: wordpress
 # Language: Bahasa Indonesia
 
 language: id
 
 # Scanner selection
 scanners:
-  semgrep: true        # SAST — analisis statis untuk injeksi, auth, konfigurasi
+  semgrep: true        # SAST — analisis statis untuk injeksi, XSS, akses kontrol
   zapBaseline: false   # DAST — dinonaktifkan (tidak ada server berjalan di demo ini)
 
 # Preset framework
 presets:
-  - laravel
+  - wordpress
 
 # Prioritas temuan
 prioritization:
@@ -32,7 +32,7 @@ output:
 # Pemindaian OWASP Top 10
 owasp:
   enabled: true
-  categories: [A01, A02, A03, A04, A05, A07]   # Paling relevan untuk Laravel
+  categories: [A01, A03, A05, A07]   # Paling relevan untuk WordPress plugin
   parallel: false
   confidenceGate: low
   evidenceGate: true

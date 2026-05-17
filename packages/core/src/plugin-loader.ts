@@ -1,12 +1,12 @@
-import type { KodeamanPlugin, PluginConfig } from "./types.js";
+import type { AspidasecPlugin, PluginConfig } from "./types.js";
 
-type PluginFactory = () => KodeamanPlugin | Promise<KodeamanPlugin>;
-type PluginExport = KodeamanPlugin | PluginFactory;
-type PluginModule = KodeamanPlugin | { default?: PluginExport; plugin?: PluginExport };
+type PluginFactory = () => AspidasecPlugin | Promise<AspidasecPlugin>;
+type PluginExport = AspidasecPlugin | PluginFactory;
+type PluginModule = AspidasecPlugin | { default?: PluginExport; plugin?: PluginExport };
 
 export class PluginLoader {
-  async load(configs: PluginConfig[] = []): Promise<KodeamanPlugin[]> {
-    const plugins: KodeamanPlugin[] = [];
+  async load(configs: PluginConfig[] = []): Promise<AspidasecPlugin[]> {
+    const plugins: AspidasecPlugin[] = [];
 
     for (const config of configs) {
       if (config.enabled === false) {
@@ -21,19 +21,19 @@ export class PluginLoader {
     return plugins;
   }
 
-  private async loadPlugin(config: PluginConfig): Promise<KodeamanPlugin> {
+  private async loadPlugin(config: PluginConfig): Promise<AspidasecPlugin> {
     const moduleName = config.package ?? config.name;
     const imported = (await import(moduleName)) as PluginModule;
     const candidate = await this.resolvePlugin(imported);
 
     if (!candidate || typeof candidate.name !== "string") {
-      throw new Error(`Plugin ${config.name} did not export a valid KodeamanPlugin`);
+      throw new Error(`Plugin ${config.name} did not export a valid AspidasecPlugin`);
     }
 
     return candidate;
   }
 
-  private async resolvePlugin(module: PluginModule): Promise<KodeamanPlugin | undefined> {
+  private async resolvePlugin(module: PluginModule): Promise<AspidasecPlugin | undefined> {
     if ("name" in module && typeof module.name === "string") {
       return module;
     }

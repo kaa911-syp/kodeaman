@@ -1,5 +1,5 @@
 /**
- * kodeaman_owasp_scan — Run OWASP Top 10 security scan with evidence reports.
+ * aspidasec_owasp_scan — Run OWASP Top 10 security scan with evidence reports.
  *
  * Executes a structured OWASP Top 10 scan, running each category
  * independently and returning per-category findings with evidence.
@@ -11,7 +11,7 @@ import { buildPipeline, loadProjectConfig } from "../pipeline-helper.js";
 
 export function registerOwaspScanTool(server: McpServer): void {
   server.tool(
-    "kodeaman_owasp_scan",
+    "aspidasec_owasp_scan",
     "Run an OWASP Top 10 security scan with evidence reports. Scans each OWASP category independently and returns structured findings with coaching, remediation, and OWASP classification.",
     {
       repoRoot: z
@@ -57,7 +57,7 @@ export function registerOwaspScanTool(server: McpServer): void {
 
         const pipeline = await buildPipeline(config);
 
-        const { OwaspScanOrchestrator } = await import("@kodeaman/owasp");
+        const { OwaspScanOrchestrator } = await import("@aspidasec/owasp");
         const orchestrator = new OwaspScanOrchestrator(pipeline, config);
 
         const owaspCategories =
@@ -85,7 +85,7 @@ export function registerOwaspScanTool(server: McpServer): void {
 
         // Format output
         if (format === "sarif") {
-          const { SarifConverter } = await import("@kodeaman/output-sarif");
+          const { SarifConverter } = await import("@aspidasec/output-sarif");
           const converter = new SarifConverter();
           return {
             content: [
@@ -103,7 +103,7 @@ export function registerOwaspScanTool(server: McpServer): void {
 
         if (format === "markdown") {
           const { MarkdownRenderer } = await import(
-            "@kodeaman/output-markdown"
+            "@aspidasec/output-markdown"
           );
           const mdRenderer = new MarkdownRenderer();
           const bySeverity = { info: 0, low: 0, medium: 0, high: 0, critical: 0 };

@@ -1,6 +1,6 @@
 # GitHub Bot Setup
 
-KodeAman's GitHub bot (`@kodeaman/bot-github`) automatically reviews pull requests for security issues using Probot. When a PR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation coaching.
+AspidaSec's GitHub bot (`@aspidasec/bot-github`) automatically reviews pull requests for security issues using Probot. When a PR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation coaching.
 
 ## Prerequisites
 
@@ -38,9 +38,9 @@ LOG_LEVEL=info
 PORT=3000
 ```
 
-## 3. Configure `.kodeaman.yml`
+## 3. Configure `.aspidasec.yml`
 
-Add a `.kodeaman.yml` file to each repository you want the bot to review:
+Add a `.aspidasec.yml` file to each repository you want the bot to review:
 
 ```yaml
 language: id
@@ -133,4 +133,4 @@ The bot comment includes:
 
 - [Getting Started](./getting-started.md) — local CLI usage
 - [Self-Hosting & Deployment](./self-hosting/deployment.md) — production Docker setup
-- [Example Configurations](../examples/configs/) — annotated `.kodeaman.yml` for GitHub bot
+- [Example Configurations](../examples/configs/) — annotated `.aspidasec.yml` for GitHub bot

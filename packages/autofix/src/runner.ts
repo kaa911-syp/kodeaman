@@ -1,6 +1,6 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import type { FixCommand, NormalizedFinding } from "@kodeaman/schema";
+import type { FixCommand, NormalizedFinding } from "@aspidasec/schema";
 import type { AutofixReport, AutofixResult } from "./types.js";
 
 const execFileAsync = promisify(execFile);

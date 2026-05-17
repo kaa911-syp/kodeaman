@@ -1,5 +1,5 @@
-import type { NormalizedFinding, CoachingContent } from "@kodeaman/schema";
-import { LessonRegistry } from "@kodeaman/lessons";
+import type { NormalizedFinding, CoachingContent } from "@aspidasec/schema";
+import { LessonRegistry } from "@aspidasec/lessons";
 import {
   getTemplateByRuleId,
   getTemplatesByCategory,

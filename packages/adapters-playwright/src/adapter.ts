@@ -1,4 +1,4 @@
-import type { NormalizedFinding, RepoContext, SeverityLevel } from "@kodeaman/schema";
+import type { NormalizedFinding, RepoContext, SeverityLevel } from "@aspidasec/schema";
 import { PlaywrightCrawler } from "./crawler.js";
 import type { CookieInfo, CrawlResult, FormInfo, PlaywrightScanContext, SecurityHeaderCheck } from "./types.js";
 

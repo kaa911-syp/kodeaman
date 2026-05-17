@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import type { SeverityLevel } from "@kodeaman/schema";
+import type { SeverityLevel } from "@aspidasec/schema";
 import type {
   DailyTrend,
   ProjectStats,
@@ -8,7 +8,7 @@ import type {
   ScanHistoryQueryOptions,
 } from "./types.js";
 
-const DEFAULT_HISTORY_PATH = ".kodeaman/history.jsonl";
+const DEFAULT_HISTORY_PATH = ".aspidasec/history.jsonl";
 
 function emptySeverityCounts(): Record<SeverityLevel, number> {
   return { info: 0, low: 0, medium: 0, high: 0, critical: 0 };

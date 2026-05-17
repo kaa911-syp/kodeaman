@@ -1,6 +1,6 @@
-# @kodeaman/adapters-zap
+# @aspidasec/adapters-zap
 
-ZAP baseline adapter for KodeAman web and DAST findings.
+ZAP baseline adapter for AspidaSec web and DAST findings.
 
 ## Responsibility
 
@@ -18,7 +18,7 @@ ZAP baseline adapter for KodeAman web and DAST findings.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/adapters-zap typecheck
-pnpm --filter @kodeaman/adapters-zap test
-pnpm --filter @kodeaman/adapters-zap build
+pnpm --filter @aspidasec/adapters-zap typecheck
+pnpm --filter @aspidasec/adapters-zap test
+pnpm --filter @aspidasec/adapters-zap build
 ```

@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
 
-export type KodeAmanSeverity = "info" | "low" | "medium" | "high" | "critical";
+export type AspidaSecSeverity = "info" | "low" | "medium" | "high" | "critical";
 
 export interface NormalizedFinding {
   findingId: string;
   title: string;
   description?: string;
-  severity: KodeAmanSeverity;
+  severity: AspidaSecSeverity;
   category?: string;
   owaspCategory?: string;
   location: {
@@ -34,7 +34,7 @@ export function findingsToDiagnostics(findings: NormalizedFinding[], workspaceRo
         diagnosticSeverity(finding.severity),
       );
 
-      diagnostic.source = "KodeAman";
+      diagnostic.source = "AspidaSec";
       diagnostic.code = finding.findingId;
 
       return { uri, diagnostic };
@@ -80,7 +80,7 @@ function diagnosticMessage(finding: NormalizedFinding): string {
   return parts.join(" — ");
 }
 
-function diagnosticSeverity(severity: KodeAmanSeverity): vscode.DiagnosticSeverity {
+function diagnosticSeverity(severity: AspidaSecSeverity): vscode.DiagnosticSeverity {
   switch (severity) {
     case "critical":
     case "high":

@@ -1,14 +1,14 @@
-# KodeAman Gitea and Forgejo Bot
+# AspidaSec Gitea and Forgejo Bot
 
-Webhook bot that scans Gitea and Forgejo pull requests with KodeAman and posts a persistent security report comment back to the pull request.
+Webhook bot that scans Gitea and Forgejo pull requests with AspidaSec and posts a persistent security report comment back to the pull request.
 
 ## What it does
 
 - Receives `pull_request` webhooks from Gitea or Forgejo at `POST /webhook`.
 - Validates `X-Gitea-Signature` with HMAC-SHA256 when `GITEA_WEBHOOK_SECRET` is configured.
 - Clones the pull request head branch into a temporary directory.
-- Loads the repository KodeAman configuration and runs either the standard scan pipeline or OWASP scan mode.
-- Renders the findings as Markdown and creates or updates one pull request comment marked with `<!-- kodeaman-security-report -->`.
+- Loads the repository AspidaSec configuration and runs either the standard scan pipeline or OWASP scan mode.
+- Renders the findings as Markdown and creates or updates one pull request comment marked with `<!-- aspidasec-security-report -->`.
 - Exposes `GET /health` for container and platform health checks.
 
 Forgejo is API-compatible with Gitea for this bot, including the pull request webhook shape and issue comment API.
@@ -42,11 +42,11 @@ The bot responds immediately with `202 Processing` and runs the scan asynchronou
 
 ```bash
 pnpm install
-pnpm --filter @kodeaman/bot-gitea build
+pnpm --filter @aspidasec/bot-gitea build
 GITEA_TOKEN=your-token \
 GITEA_API_URL=https://git.example.com/api/v1 \
 GITEA_WEBHOOK_SECRET=your-secret \
-pnpm --filter @kodeaman/bot-gitea start
+pnpm --filter @aspidasec/bot-gitea start
 ```
 
 ## Docker deployment
@@ -58,7 +58,7 @@ docker run --rm -p 3000:3000 \
   -e GITEA_TOKEN=your-token \
   -e GITEA_API_URL=https://git.example.com/api/v1 \
   -e GITEA_WEBHOOK_SECRET=your-secret \
-  kodeaman-bot-gitea
+  aspidasec-bot-gitea
 ```
 
 Health checks can call:
@@ -70,7 +70,7 @@ GET /health
 Expected response:
 
 ```json
-{"status":"ok","service":"kodeaman-bot-gitea"}
+{"status":"ok","service":"aspidasec-bot-gitea"}
 ```
 
 ## Comment behavior
@@ -81,4 +81,4 @@ Gitea and Forgejo expose pull request comments through the issue comments API:
 /repos/{owner}/{repo}/issues/{index}/comments
 ```
 
-Pull request numbers are issue indexes in this API. The bot searches the first 100 comments for the KodeAman marker and updates that comment when it exists. If no marked comment exists, it creates a new one.
+Pull request numbers are issue indexes in this API. The bot searches the first 100 comments for the AspidaSec marker and updates that comment when it exists. If no marked comment exists, it creates a new one.

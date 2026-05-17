@@ -1,10 +1,10 @@
-# .kodeaman.yml — Local CLI Usage
+# .aspidasec.yml — Local CLI Usage
 #
 # Use this configuration for local development scanning with the CLI.
-# Place this file as `.kodeaman.yml` in your project root.
+# Place this file as `.aspidasec.yml` in your project root.
 #
-# Run: kodeaman scan
-# Run: kodeaman owasp-scan
+# Run: aspidasec scan
+# Run: aspidasec owasp-scan
 
 # Language for user-facing output and coaching
 # Options: "en" (English), "id" (Bahasa Indonesia)

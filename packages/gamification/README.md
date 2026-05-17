@@ -1,6 +1,6 @@
-# @kodeaman/gamification
+# @aspidasec/gamification
 
-Optional learning incentives for KodeAman findings and lessons.
+Optional learning incentives for AspidaSec findings and lessons.
 
 ## Responsibility
 
@@ -17,7 +17,7 @@ Optional learning incentives for KodeAman findings and lessons.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/gamification typecheck
-pnpm --filter @kodeaman/gamification test
-pnpm --filter @kodeaman/gamification build
+pnpm --filter @aspidasec/gamification typecheck
+pnpm --filter @aspidasec/gamification test
+pnpm --filter @aspidasec/gamification build
 ```

@@ -2,7 +2,7 @@ import type {
   NormalizedFinding,
   SeverityLevel,
   RepoContext,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 import {
   isAuthRelatedPath,
   isPublicRoute,

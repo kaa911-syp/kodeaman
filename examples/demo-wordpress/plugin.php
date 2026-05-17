@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Demo Vulnerable Plugin
- * Description: KodeAman demo — intentionally vulnerable WordPress plugin for testing
+ * Description: AspidaSec demo — intentionally vulnerable WordPress plugin for testing
  * Version: 1.0.0
  *
  * DO NOT deploy this plugin — it contains deliberate security issues.

@@ -1,6 +1,6 @@
-# @kodeaman/output-sarif
+# @aspidasec/output-sarif
 
-SARIF output formatter for KodeAman (placeholder).
+SARIF output formatter for AspidaSec (placeholder).
 
 ## Responsibility
 
@@ -14,4 +14,4 @@ This package is a **placeholder** — `src/` is empty and no `package.json` exis
 ## Source of truth
 
 - SARIF generator will live in `src/` once implemented.
-- Output schema contracts are defined in `@kodeaman/schema`.
+- Output schema contracts are defined in `@aspidasec/schema`.

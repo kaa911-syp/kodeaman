@@ -3,7 +3,7 @@ import type {
   SeverityLevel,
   FindingCategory,
   RepoContext,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 
 export interface ScannerAdapter {
   name: string;
@@ -23,7 +23,7 @@ export interface PluginHooks {
   onAdapterRegistered?(adapter: ScannerAdapter): Promise<void> | void;
 }
 
-export interface KodeamanPlugin {
+export interface AspidasecPlugin {
   name: string;
   adapters?: ScannerAdapter[];
   hooks?: PluginHooks;
@@ -108,7 +108,7 @@ export interface OutputConfig {
   sarif?: boolean;
 }
 
-export interface KodeamanConfig {
+export interface AspidasecConfig {
   language?: "id" | "en";
   scanners?: Record<string, boolean>;
   presets?: string[];

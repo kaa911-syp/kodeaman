@@ -1,7 +1,7 @@
 /**
- * kodeaman_scan — Run security scan on a project directory.
+ * aspidasec_scan — Run security scan on a project directory.
  *
- * Executes the KodeAman ScanPipeline with all configured adapters
+ * Executes the AspidaSec ScanPipeline with all configured adapters
  * and returns deduplicated, prioritized findings.
  */
 
@@ -11,7 +11,7 @@ import { buildPipeline, loadProjectConfig } from "../pipeline-helper.js";
 
 export function registerScanTool(server: McpServer): void {
   server.tool(
-    "kodeaman_scan",
+    "aspidasec_scan",
     "Run a security scan on a project directory. Returns deduplicated findings sorted by priority with coaching content, OWASP classification, and fix suggestions.",
     {
       repoRoot: z
@@ -64,7 +64,7 @@ export function registerScanTool(server: McpServer): void {
         }
 
         // Run preflight to warn about missing scanners
-        const { preflightCheck } = await import("@kodeaman/owasp");
+        const { preflightCheck } = await import("@aspidasec/owasp");
         const preflight = preflightCheck(config.language);
 
         const pipeline = await buildPipeline(config);
@@ -76,7 +76,7 @@ export function registerScanTool(server: McpServer): void {
 
         // Build response based on format
         if (format === "sarif") {
-          const { SarifConverter } = await import("@kodeaman/output-sarif");
+          const { SarifConverter } = await import("@aspidasec/output-sarif");
           const converter = new SarifConverter();
           const sarif = converter.convert(result.findings);
           return {
@@ -91,7 +91,7 @@ export function registerScanTool(server: McpServer): void {
 
         if (format === "markdown") {
           const { MarkdownRenderer } = await import(
-            "@kodeaman/output-markdown"
+            "@aspidasec/output-markdown"
           );
           const mdRenderer = new MarkdownRenderer();
 

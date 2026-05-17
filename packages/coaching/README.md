@@ -1,6 +1,6 @@
-# @kodeaman/coaching
+# @aspidasec/coaching
 
-Developer-facing remediation guidance for KodeAman findings.
+Developer-facing remediation guidance for AspidaSec findings.
 
 ## Responsibility
 
@@ -15,6 +15,6 @@ Developer-facing remediation guidance for KodeAman findings.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/coaching typecheck
-pnpm --filter @kodeaman/coaching build
+pnpm --filter @aspidasec/coaching typecheck
+pnpm --filter @aspidasec/coaching build
 ```

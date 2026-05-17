@@ -1,11 +1,11 @@
-# @kodeaman/bot-github
+# @aspidasec/bot-github
 
-GitHub pull request integration for KodeAman.
+GitHub pull request integration for AspidaSec.
 
 ## Responsibility
 
 - Receive GitHub app events.
-- Run configured KodeAman scan modes for pull requests.
+- Run configured AspidaSec scan modes for pull requests.
 - Render and update deterministic PR comments.
 - Avoid duplicate comments and avoid exposing secrets in public PR output.
 
@@ -18,6 +18,6 @@ GitHub pull request integration for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/bot-github typecheck
-pnpm --filter @kodeaman/bot-github build
+pnpm --filter @aspidasec/bot-github typecheck
+pnpm --filter @aspidasec/bot-github build
 ```

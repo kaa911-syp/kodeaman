@@ -10,8 +10,8 @@
 
 ### Community
 
-- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/kodeaman/kodeaman/discussions)
-- **GitHub Issues**: [Report bugs or request features](https://github.com/kodeaman/kodeaman/issues)
+- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/aspidasec/aspidasec/discussions)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/aspidasec/aspidasec/issues)
 
 ### Indonesian Developer Communities
 
@@ -20,17 +20,17 @@
 
 ## Frequently Asked Questions
 
-**Q: Do I need Semgrep/ZAP installed to use KodeAman?**
-A: KodeAman can run with `--input` flag to process pre-existing scanner output. For full automated scanning, you need Semgrep installed. ZAP is optional.
+**Q: Do I need Semgrep/ZAP installed to use AspidaSec?**
+A: AspidaSec can run with `--input` flag to process pre-existing scanner output. For full automated scanning, you need Semgrep installed. ZAP is optional.
 
-**Q: Can I use KodeAman with self-hosted GitLab?**
-A: Yes! KodeAman supports self-hosted GitLab via webhook integration. See the self-hosting guide.
+**Q: Can I use AspidaSec with self-hosted GitLab?**
+A: Yes! AspidaSec supports self-hosted GitLab via webhook integration. See the self-hosting guide.
 
-**Q: Is KodeAman free?**
+**Q: Is AspidaSec free?**
 A: The open-source core is free under Apache License 2.0. Optional team features may be offered as a paid service in the future.
 
 **Q: Can I add my own scanner?**
-A: Yes! Implement the `ScannerAdapter` interface from `@kodeaman/core` and register it with the pipeline.
+A: Yes! Implement the `ScannerAdapter` interface from `@aspidasec/core` and register it with the pipeline.
 
 ## Security Issues
 

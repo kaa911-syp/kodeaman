@@ -1,6 +1,6 @@
 {
     "name": "demo-laravel",
-    "description": "KodeAman demo — intentionally vulnerable Laravel app",
+    "description": "AspidaSec demo — intentionally vulnerable Laravel app",
     "type": "project",
     "require": {
         "laravel/framework": "^10.0"

@@ -2,10 +2,10 @@ import { execSync } from "node:child_process";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { loadConfig } from "@kodeaman/config";
-import { MarkdownRenderer } from "@kodeaman/output-markdown";
-import type { ScanResult } from "@kodeaman/output-markdown";
-import type { SeverityLevel } from "@kodeaman/schema";
+import { loadConfig } from "@aspidasec/config";
+import { MarkdownRenderer } from "@aspidasec/output-markdown";
+import type { ScanResult } from "@aspidasec/output-markdown";
+import type { SeverityLevel } from "@aspidasec/schema";
 import { GitLabCommentManager } from "./comment.js";
 
 interface MergeRequestEvent {
@@ -35,7 +35,7 @@ export class MRHandler {
       `Processing MR !${mr.iid} in ${project.path_with_namespace}`,
     );
 
-    const workDir = mkdtempSync(join(tmpdir(), "kodeaman-"));
+    const workDir = mkdtempSync(join(tmpdir(), "aspidasec-"));
 
     try {
       execSync(
@@ -47,12 +47,12 @@ export class MRHandler {
       const isOwaspMode = config.owasp?.enabled === true;
 
       try {
-        const { ScanPipeline } = await import("@kodeaman/core");
+        const { ScanPipeline } = await import("@aspidasec/core");
         const pipeline = new ScanPipeline(config as never);
 
         if (isOwaspMode) {
           // OWASP mode: use OwaspScanOrchestrator
-          const { OwaspScanOrchestrator } = await import("@kodeaman/owasp");
+          const { OwaspScanOrchestrator } = await import("@aspidasec/owasp");
           const orchestrator = new OwaspScanOrchestrator(pipeline, config);
 
           const owaspResult = await orchestrator.scan(
@@ -107,7 +107,7 @@ export class MRHandler {
           if (config.output.html) {
             try {
               const { HtmlReportGenerator, DEFAULT_REPORT_CONFIG } = await import(
-                "@kodeaman/output-html"
+                "@aspidasec/output-html"
               );
               const generator = new HtmlReportGenerator();
               const html = generator.generateReport(
@@ -136,7 +136,7 @@ export class MRHandler {
                 },
               );
 
-              const htmlPath = join(workDir, "kodeaman-owasp-report.html");
+              const htmlPath = join(workDir, "aspidasec-owasp-report.html");
               writeFileSync(htmlPath, html, "utf-8");
               console.log(`OWASP HTML report generated at ${htmlPath}`);
             } catch (htmlErr) {

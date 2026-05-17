@@ -1,6 +1,6 @@
-# @kodeaman/schema
+# @aspidasec/schema
 
-Shared data contracts for KodeAman findings, evidence, OWASP reports, repository context, coaching, and gamification metadata.
+Shared data contracts for AspidaSec findings, evidence, OWASP reports, repository context, coaching, and gamification metadata.
 
 ## Responsibility
 
@@ -21,7 +21,7 @@ Do not put scanner-specific parser behavior here. Adapter packages own raw scann
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/schema typecheck
-pnpm --filter @kodeaman/schema test
-pnpm --filter @kodeaman/schema build
+pnpm --filter @aspidasec/schema typecheck
+pnpm --filter @aspidasec/schema test
+pnpm --filter @aspidasec/schema build
 ```

@@ -24,7 +24,7 @@ export class DashboardServer {
 
   constructor(options: DashboardServerOptions = {}) {
     this.port = options.port ?? 4800;
-    this.dataDir = resolve(options.dataDir ?? ".kodeaman/telemetry");
+    this.dataDir = resolve(options.dataDir ?? ".aspidasec/telemetry");
   }
 
   async start(): Promise<void> {

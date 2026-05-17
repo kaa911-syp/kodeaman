@@ -1,6 +1,6 @@
-# @kodeaman/adapters-semgrep
+# @aspidasec/adapters-semgrep
 
-Semgrep adapter for KodeAman.
+Semgrep adapter for AspidaSec.
 
 ## Responsibility
 
@@ -18,7 +18,7 @@ Semgrep adapter for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/adapters-semgrep typecheck
-pnpm --filter @kodeaman/adapters-semgrep test
-pnpm --filter @kodeaman/adapters-semgrep build
+pnpm --filter @aspidasec/adapters-semgrep typecheck
+pnpm --filter @aspidasec/adapters-semgrep test
+pnpm --filter @aspidasec/adapters-semgrep build
 ```

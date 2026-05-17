@@ -1,5 +1,5 @@
 <?php
-// Demo: Intentionally vulnerable Laravel routes for KodeAman testing
+// Demo: Intentionally vulnerable Laravel routes for AspidaSec testing
 // DO NOT deploy this code — it contains deliberate security issues
 
 use Illuminate\Support\Facades\Route;

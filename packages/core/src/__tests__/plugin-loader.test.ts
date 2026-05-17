@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 import { PluginLoader } from "../plugin-loader.js";
 import { ScanPipeline } from "../pipeline.js";
-import type { KodeamanPlugin, ScanContext, ScannerAdapter } from "../types.js";
+import type { AspidasecPlugin, ScanContext, ScannerAdapter } from "../types.js";
 
-vi.mock("kodeaman-test-plugin", () => ({
+vi.mock("aspidasec-test-plugin", () => ({
   default: {
     name: "test-plugin",
     adapters: [
@@ -16,7 +16,7 @@ vi.mock("kodeaman-test-plugin", () => ({
   },
 }));
 
-vi.mock("kodeaman-factory-plugin", () => ({
+vi.mock("aspidasec-factory-plugin", () => ({
   plugin: () => ({
     name: "factory-plugin",
   }),
@@ -82,7 +82,7 @@ describe("PluginLoader", () => {
     const plugins = await loader.load([
       {
         name: "test-plugin",
-        package: "kodeaman-test-plugin",
+        package: "aspidasec-test-plugin",
         options: { ruleset: "community" },
       },
     ]);
@@ -95,7 +95,7 @@ describe("PluginLoader", () => {
   it("skips disabled plugins", async () => {
     const loader = new PluginLoader();
     const plugins = await loader.load([
-      { name: "test-plugin", package: "kodeaman-test-plugin", enabled: false },
+      { name: "test-plugin", package: "aspidasec-test-plugin", enabled: false },
     ]);
 
     expect(plugins).toHaveLength(0);
@@ -104,7 +104,7 @@ describe("PluginLoader", () => {
   it("loads plugins exported from a factory", async () => {
     const loader = new PluginLoader();
     const plugins = await loader.load([
-      { name: "factory-plugin", package: "kodeaman-factory-plugin" },
+      { name: "factory-plugin", package: "aspidasec-factory-plugin" },
     ]);
 
     expect(plugins[0].name).toBe("factory-plugin");
@@ -118,7 +118,7 @@ describe("ScanPipeline plugins", () => {
       name: "community-scanner",
       scan: async () => [finding],
     };
-    const plugin: KodeamanPlugin = {
+    const plugin: AspidasecPlugin = {
       name: "community-plugin",
       adapters: [adapter],
     };
@@ -134,7 +134,7 @@ describe("ScanPipeline plugins", () => {
 
   it("executes plugin hooks around scans", async () => {
     const events: string[] = [];
-    const plugin: KodeamanPlugin = {
+    const plugin: AspidasecPlugin = {
       name: "hook-plugin",
       hooks: {
         beforeScan: (context) => {

@@ -1,6 +1,6 @@
-# @kodeaman/presets
+# @aspidasec/presets
 
-Framework-specific scanning presets for KodeAman.
+Framework-specific scanning presets for AspidaSec.
 
 ## Responsibility
 
@@ -17,7 +17,7 @@ Framework-specific scanning presets for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/presets typecheck
-pnpm --filter @kodeaman/presets test
-pnpm --filter @kodeaman/presets build
+pnpm --filter @aspidasec/presets typecheck
+pnpm --filter @aspidasec/presets test
+pnpm --filter @aspidasec/presets build
 ```

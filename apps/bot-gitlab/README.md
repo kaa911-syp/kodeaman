@@ -1,11 +1,11 @@
-# @kodeaman/bot-gitlab
+# @aspidasec/bot-gitlab
 
-GitLab merge request integration for KodeAman.
+GitLab merge request integration for AspidaSec.
 
 ## Responsibility
 
 - Receive GitLab webhook events.
-- Run configured KodeAman scan modes for merge requests.
+- Run configured AspidaSec scan modes for merge requests.
 - Render and update MR comments with actionable security coaching.
 - Keep scanner output safe for review contexts.
 
@@ -18,6 +18,6 @@ GitLab merge request integration for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/bot-gitlab typecheck
-pnpm --filter @kodeaman/bot-gitlab build
+pnpm --filter @aspidasec/bot-gitlab typecheck
+pnpm --filter @aspidasec/bot-gitlab build
 ```

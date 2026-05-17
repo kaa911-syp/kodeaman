@@ -33,55 +33,55 @@ describe("MCP Server Tool Registration", () => {
     mockTool.mockClear();
   });
 
-  it("registers kodeaman_scan tool", () => {
+  it("registers aspidasec_scan tool", () => {
     registerScanTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_scan");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_scan");
     expect(typeof mockTool.mock.calls[0][1]).toBe("string"); // description
     expect(typeof mockTool.mock.calls[0][2]).toBe("object"); // schema
     expect(typeof mockTool.mock.calls[0][3]).toBe("function"); // handler
   });
 
-  it("registers kodeaman_owasp_scan tool", () => {
+  it("registers aspidasec_owasp_scan tool", () => {
     registerOwaspScanTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_owasp_scan");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_owasp_scan");
   });
 
-  it("registers kodeaman_preflight tool", () => {
+  it("registers aspidasec_preflight tool", () => {
     registerPreflightTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_preflight");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_preflight");
   });
 
-  it("registers kodeaman_list_scanners tool", () => {
+  it("registers aspidasec_list_scanners tool", () => {
     registerListScannersTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_list_scanners");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_list_scanners");
   });
 
-  it("registers kodeaman_explain_finding tool", () => {
+  it("registers aspidasec_explain_finding tool", () => {
     registerExplainFindingTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_explain_finding");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_explain_finding");
   });
 
-  it("registers kodeaman_suggest_fix tool", () => {
+  it("registers aspidasec_suggest_fix tool", () => {
     registerSuggestFixTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_suggest_fix");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_suggest_fix");
   });
 
-  it("registers kodeaman_convert_sarif tool", () => {
+  it("registers aspidasec_convert_sarif tool", () => {
     registerConvertSarifTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_convert_sarif");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_convert_sarif");
   });
 
-  it("registers kodeaman_coverage_report tool", () => {
+  it("registers aspidasec_coverage_report tool", () => {
     registerCoverageReportTool(mockServer as never);
     expect(mockTool).toHaveBeenCalledOnce();
-    expect(mockTool.mock.calls[0][0]).toBe("kodeaman_coverage_report");
+    expect(mockTool.mock.calls[0][0]).toBe("aspidasec_coverage_report");
   });
 
   it("registers all 8 tools total", () => {
@@ -362,6 +362,6 @@ describe("Convert SARIF Handler", () => {
     expect(sarif.$schema).toContain("sarif");
     expect(sarif.runs).toHaveLength(1);
     expect(sarif.runs[0].results).toHaveLength(1);
-    expect(sarif.runs[0].tool.driver.name).toBe("kodeaman");
+    expect(sarif.runs[0].tool.driver.name).toBe("aspidasec");
   });
 });

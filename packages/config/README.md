@@ -1,10 +1,10 @@
-# @kodeaman/config
+# @aspidasec/config
 
-Configuration loading, defaults, and validation for KodeAman.
+Configuration loading, defaults, and validation for AspidaSec.
 
 ## Responsibility
 
-- Load `.kodeaman.yml` when present.
+- Load `.aspidasec.yml` when present.
 - Merge repository configuration with safe defaults.
 - Validate known configuration values before apps run scans.
 
@@ -17,7 +17,7 @@ Configuration loading, defaults, and validation for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/config typecheck
-pnpm --filter @kodeaman/config test
-pnpm --filter @kodeaman/config build
+pnpm --filter @aspidasec/config typecheck
+pnpm --filter @aspidasec/config test
+pnpm --filter @aspidasec/config build
 ```

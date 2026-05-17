@@ -16,25 +16,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `@kodeaman/adapters-bandit` -- Python SAST adapter using Bandit with JSON output parsing, CWE mapping (B101-B610), bilingual coaching, and auto-detection via `requirements.txt`, `pyproject.toml`, `setup.py`, or `Pipfile`
-- `@kodeaman/adapters-gosec` -- Go SAST adapter using gosec with JSON output parsing, CWE mapping (G101-G601), bilingual coaching, and auto-detection via `go.mod` or `go.sum`
-- `@kodeaman/adapters-cargo-audit` -- Rust SCA adapter using cargo-audit with JSON output parsing, RUSTSEC advisory mapping, bilingual coaching, and auto-detection via `Cargo.toml` or `Cargo.lock`
-- `@kodeaman/adapters-spotbugs` -- Java SAST adapter using SpotBugs with XML output parsing, bug pattern to CWE mapping, bilingual coaching, and auto-detection via `pom.xml`, `build.gradle`, or `build.gradle.kts`
+- `@aspidasec/adapters-bandit` -- Python SAST adapter using Bandit with JSON output parsing, CWE mapping (B101-B610), bilingual coaching, and auto-detection via `requirements.txt`, `pyproject.toml`, `setup.py`, or `Pipfile`
+- `@aspidasec/adapters-gosec` -- Go SAST adapter using gosec with JSON output parsing, CWE mapping (G101-G601), bilingual coaching, and auto-detection via `go.mod` or `go.sum`
+- `@aspidasec/adapters-cargo-audit` -- Rust SCA adapter using cargo-audit with JSON output parsing, RUSTSEC advisory mapping, bilingual coaching, and auto-detection via `Cargo.toml` or `Cargo.lock`
+- `@aspidasec/adapters-spotbugs` -- Java SAST adapter using SpotBugs with XML output parsing, bug pattern to CWE mapping, bilingual coaching, and auto-detection via `pom.xml`, `build.gradle`, or `build.gradle.kts`
 - `repoContext` field on `ScanContext` interface for passing repository metadata (framework, environment, public repo status) to the prioritizer during pipeline execution
 - `scannedCategories` field on `OwaspScanReport` for tracking which OWASP categories were actually scanned by the orchestrator
-- `"bandit"`, `"gosec"`, `"cargo-audit"`, `"spotbugs"` added to `FindingSource` union type in `@kodeaman/schema`
-- `@kodeaman/watcher` -- Real-time file watching with debounced scan triggers, configurable include/exclude globs, and `kodeaman watch` CLI command for continuous security monitoring during development
-- `@kodeaman/autofix` -- Automated fix runner that executes `FixCommand` entries from scan findings, with dry-run mode, breaking-change safety gates, command deduplication, and `kodeaman autofix` CLI command
-- `@kodeaman/custom-rules` -- Custom rule authoring engine with YAML rule definitions, regex pattern matching, zod schema validation, `CustomRuleScanner` adapter, and `kodeaman rules list|validate` CLI commands
-- `@kodeaman/dashboard` -- Lightweight web dashboard serving self-contained HTML with SVG trend charts, OWASP coverage grid, recent scans table, light/dark theme, and `kodeaman dashboard` CLI command (default port 4800)
-- `@kodeaman/history` -- Scan history storage with JSONL persistence, date/project filtering, trend aggregation, team collaboration config, and `kodeaman history show|trends|export` CLI commands
+- `"bandit"`, `"gosec"`, `"cargo-audit"`, `"spotbugs"` added to `FindingSource` union type in `@aspidasec/schema`
+- `@aspidasec/watcher` -- Real-time file watching with debounced scan triggers, configurable include/exclude globs, and `aspidasec watch` CLI command for continuous security monitoring during development
+- `@aspidasec/autofix` -- Automated fix runner that executes `FixCommand` entries from scan findings, with dry-run mode, breaking-change safety gates, command deduplication, and `aspidasec autofix` CLI command
+- `@aspidasec/custom-rules` -- Custom rule authoring engine with YAML rule definitions, regex pattern matching, zod schema validation, `CustomRuleScanner` adapter, and `aspidasec rules list|validate` CLI commands
+- `@aspidasec/dashboard` -- Lightweight web dashboard serving self-contained HTML with SVG trend charts, OWASP coverage grid, recent scans table, light/dark theme, and `aspidasec dashboard` CLI command (default port 4800)
+- `@aspidasec/history` -- Scan history storage with JSONL persistence, date/project filtering, trend aggregation, team collaboration config, and `aspidasec history show|trends|export` CLI commands
 
 ### Changed
 
-- `ScanPipeline` now depends on `@kodeaman/prioritizer` and automatically scores all findings during the scan pipeline run
+- `ScanPipeline` now depends on `@aspidasec/prioritizer` and automatically scores all findings during the scan pipeline run
 - `OwaspScanOrchestrator.scanCategory()` replaced with `buildCategoryPhase()` -- a synchronous method that filters from pre-computed findings instead of re-running the pipeline
 - `buildCoverageReport()` signature extended with optional `owaspOptions` parameter (backward compatible)
-- MCP `kodeaman_coverage_report` tool accepts optional `scanMode` and `owaspCategories` parameters for OWASP-aware coverage reporting
+- MCP `aspidasec_coverage_report` tool accepts optional `scanMode` and `owaspCategories` parameters for OWASP-aware coverage reporting
 - Workspace expanded from 27 to 36 packages with 4 language adapters and 5 feature packages
 - CLI expanded from 3 commands (`scan`, `init`, `owasp-scan`) to 8 commands with `watch`, `autofix`, `rules`, `dashboard`, `history`
 
@@ -42,15 +42,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `@kodeaman/bot-gitea` -- Gitea and Forgejo webhook bot with HMAC-SHA256 signature validation, PR comment management, and scan pipeline integration via Hono
-- `@kodeaman/telemetry` -- Scan telemetry collector and JSONL file writer for validation output, tracking scanner performance, finding counts, and timing data
-- `@kodeaman/test-utils` -- Shared test utilities with `createMockFinding()` and `createMockFindings()` helpers for consistent test fixtures across packages
-- `@kodeaman/vscode-extension` -- VS Code extension providing inline diagnostic overlays from KodeAman scan results, with severity mapping to VS Code diagnostic levels and one-click scan triggering
-- Plugin system in `@kodeaman/core` with `KodeamanPlugin`, `PluginHooks`, and `PluginLoader` for community-contributed scanner adapters, supporting `beforeScan`, `afterScan`, `onFinding`, and `onError` lifecycle hooks
+- `@aspidasec/bot-gitea` -- Gitea and Forgejo webhook bot with HMAC-SHA256 signature validation, PR comment management, and scan pipeline integration via Hono
+- `@aspidasec/telemetry` -- Scan telemetry collector and JSONL file writer for validation output, tracking scanner performance, finding counts, and timing data
+- `@aspidasec/test-utils` -- Shared test utilities with `createMockFinding()` and `createMockFindings()` helpers for consistent test fixtures across packages
+- `@aspidasec/vscode-extension` -- VS Code extension providing inline diagnostic overlays from AspidaSec scan results, with severity mapping to VS Code diagnostic levels and one-click scan triggering
+- Plugin system in `@aspidasec/core` with `AspidaSecPlugin`, `PluginHooks`, and `PluginLoader` for community-contributed scanner adapters, supporting `beforeScan`, `afterScan`, `onFinding`, and `onError` lifecycle hooks
 - `docs/mcp-integration.md` -- MCP server integration guide covering configuration for Claude Code, Cursor, Windsurf, and other AI coding assistants
 - `docs/sarif-ide-integration.md` -- SARIF output format documentation with VS Code, JetBrains, and GitHub Code Scanning integration instructions
-- `isDependencyDirect()` heuristic in `@kodeaman/prioritizer` -- detects direct dependencies in `dependencies`, `optionalDependencies`, and `peerDependencies` sections (+7 priority boost)
-- `hasFixAvailable()` heuristic in `@kodeaman/prioritizer` -- detects findings with available fix commands or autofix eligibility (+6 priority boost)
+- `isDependencyDirect()` heuristic in `@aspidasec/prioritizer` -- detects direct dependencies in `dependencies`, `optionalDependencies`, and `peerDependencies` sections (+7 priority boost)
+- `hasFixAvailable()` heuristic in `@aspidasec/prioritizer` -- detects findings with available fix commands or autofix eligibility (+6 priority boost)
 - npm registry metadata (`publishConfig`, `repository`, `homepage`, `bugs`, `keywords`) across all 19 packages and 4 apps for npm publishing readiness
 
 ### Changed
@@ -62,12 +62,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `@kodeaman/mcp-server` -- Model Context Protocol server for AI-assisted security scanning with 8 tools: `scan`, `owasp-scan`, `preflight`, `list-scanners`, `explain-finding`, `suggest-fix`, `convert-sarif`, `coverage-report`
-- MCP server auto-detection of npm projects: when a project contains `package.json`, `package-lock.json`, or `pnpm-lock.yaml`, the npm audit adapter activates automatically without requiring a `.kodeaman.yml` configuration file
+- `@aspidasec/mcp-server` -- Model Context Protocol server for AI-assisted security scanning with 8 tools: `scan`, `owasp-scan`, `preflight`, `list-scanners`, `explain-finding`, `suggest-fix`, `convert-sarif`, `coverage-report`
+- MCP server auto-detection of npm projects: when a project contains `package.json`, `package-lock.json`, or `pnpm-lock.yaml`, the npm audit adapter activates automatically without requiring a `.aspidasec.yml` configuration file
 
 ### Fixed
 
-- npm-audit adapter crash (`Cannot convert undefined or null to object`) when scanning projects without a `.kodeaman.yml` configuration file. The adapter now accepts both `targetPath` (npm-audit specific) and `repoRoot` (core pipeline) in its scan context, resolving the interface mismatch between the core `ScanContext` and the adapter's `NpmAuditScanContext`.
+- npm-audit adapter crash (`Cannot convert undefined or null to object`) when scanning projects without a `.aspidasec.yml` configuration file. The adapter now accepts both `targetPath` (npm-audit specific) and `repoRoot` (core pipeline) in its scan context, resolving the interface mismatch between the core `ScanContext` and the adapter's `NpmAuditScanContext`.
 - npm-audit adapter now validates that `package.json` exists at the target path before running `npm audit`, providing a clear error message instead of an opaque crash when the file is missing.
 
 ### Changed
@@ -87,23 +87,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `examples/demo-node-express/` -- Vulnerable Express server demo with expected findings documentation
 - `examples/demo-laravel/` -- Vulnerable Laravel demo with expected findings documentation
 - `examples/demo-wordpress/` -- Vulnerable WordPress plugin demo with expected findings documentation
-- `examples/configs/` -- Four annotated `.kodeaman.yml` example configurations: `cli-local.yml`, `github-bot.yml`, `gitlab-bot.yml`, `owasp-mode.yml`
-- `@kodeaman/owasp` -- OWASP Top 10 scan orchestrator with per-category scanning, confidence gates, evidence gates, multi-scanner correlation, environment detection, and bilingual progress reporting
-- `@kodeaman/adapters-npm-audit` -- npm/pnpm audit adapter mapping vulnerabilities to OWASP A06 with bilingual coaching
-- `@kodeaman/output-html` -- Self-contained HTML evidence report with OWASP dashboard, severity breakdowns, evidence cards, gamification section, and light/dark/auto theme support
-- `kodeaman owasp-scan` CLI command with options for format, language, categories, confidence gate, evidence gate, parallelism, and output path
-- OWASP mode support in GitHub bot (Probot) and GitLab bot (Hono), activated via `owasp.enabled: true` in `.kodeaman.yml`
-- `owasp` configuration section in `.kodeaman.yml` with `enabled`, `categories`, `parallel`, `confidenceGate`, `evidenceGate`, and `failOnSeverity` options
-- `environment` configuration section in `.kodeaman.yml` with `skipWslCheck` and `scannerTimeout` options
-- `npmAudit` scanner toggle and `html` output toggle in `.kodeaman.yml`
+- `examples/configs/` -- Four annotated `.aspidasec.yml` example configurations: `cli-local.yml`, `github-bot.yml`, `gitlab-bot.yml`, `owasp-mode.yml`
+- `@aspidasec/owasp` -- OWASP Top 10 scan orchestrator with per-category scanning, confidence gates, evidence gates, multi-scanner correlation, environment detection, and bilingual progress reporting
+- `@aspidasec/adapters-npm-audit` -- npm/pnpm audit adapter mapping vulnerabilities to OWASP A06 with bilingual coaching
+- `@aspidasec/output-html` -- Self-contained HTML evidence report with OWASP dashboard, severity breakdowns, evidence cards, gamification section, and light/dark/auto theme support
+- `aspidasec owasp-scan` CLI command with options for format, language, categories, confidence gate, evidence gate, parallelism, and output path
+- OWASP mode support in GitHub bot (Probot) and GitLab bot (Hono), activated via `owasp.enabled: true` in `.aspidasec.yml`
+- `owasp` configuration section in `.aspidasec.yml` with `enabled`, `categories`, `parallel`, `confidenceGate`, `evidenceGate`, and `failOnSeverity` options
+- `environment` configuration section in `.aspidasec.yml` with `skipWslCheck` and `scannerTimeout` options
+- `npmAudit` scanner toggle and `html` output toggle in `.aspidasec.yml`
 - `owaspCategory` optional field on `ScanContext` for per-category pipeline runs
-- `OwaspScanPhaseResult` and `OwaspScanReport` types in `@kodeaman/schema`
+- `OwaspScanPhaseResult` and `OwaspScanReport` types in `@aspidasec/schema`
 - Package and app README files for all workspace folders
 
 ### Changed
 
 - CLI version bumped to 0.2.0
-- `@kodeaman/config` types extended with `OwaspScanConfig` and `EnvironmentConfig` interfaces
+- `@aspidasec/config` types extended with `OwaspScanConfig` and `EnvironmentConfig` interfaces
 - Config defaults include OWASP and environment sections
 - Config validation covers `owasp.confidenceGate` and `owasp.failOnSeverity`
 - GitHub and GitLab bot handlers check `config.owasp.enabled` to select scan mode
@@ -113,20 +113,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial monorepo setup with pnpm workspaces and Turborepo
-- `@kodeaman/schema` -- Canonical `NormalizedFinding` TypeScript interfaces and Zod validators
-- `@kodeaman/core` -- Scan pipeline orchestrator with adapter registration, deduplication, and summary
-- `@kodeaman/adapters-semgrep` -- Semgrep JSON output parser and normalizer
-- `@kodeaman/adapters-zap` -- ZAP baseline JSON report parser and normalizer
-- `@kodeaman/prioritizer` -- Priority scoring engine with severity, confidence, and context-aware heuristics
-- `@kodeaman/coaching` -- 20 bilingual coaching templates (English + Bahasa Indonesia)
-- `@kodeaman/i18n` -- Translator with en/id locale files and security glossary
-- `@kodeaman/lessons` -- 10 bilingual micro-lessons for common security issues
-- `@kodeaman/gamification` -- XP, badges, quests, and streak tracking
-- `@kodeaman/presets` -- Laravel, Node/Express, and WordPress framework presets
-- `@kodeaman/config` -- `.kodeaman.yml` config loader with defaults and validation
-- `@kodeaman/output-markdown` -- PR comment renderer and CLI console renderer
-- `@kodeaman/cli` -- CLI tool with `kodeaman scan` and `kodeaman init` commands
-- `@kodeaman/bot-github` -- GitHub PR reviewer bot (Probot)
-- `@kodeaman/bot-gitlab` -- GitLab MR reviewer bot (Hono)
+- `@aspidasec/schema` -- Canonical `NormalizedFinding` TypeScript interfaces and Zod validators
+- `@aspidasec/core` -- Scan pipeline orchestrator with adapter registration, deduplication, and summary
+- `@aspidasec/adapters-semgrep` -- Semgrep JSON output parser and normalizer
+- `@aspidasec/adapters-zap` -- ZAP baseline JSON report parser and normalizer
+- `@aspidasec/prioritizer` -- Priority scoring engine with severity, confidence, and context-aware heuristics
+- `@aspidasec/coaching` -- 20 bilingual coaching templates (English + Bahasa Indonesia)
+- `@aspidasec/i18n` -- Translator with en/id locale files and security glossary
+- `@aspidasec/lessons` -- 10 bilingual micro-lessons for common security issues
+- `@aspidasec/gamification` -- XP, badges, quests, and streak tracking
+- `@aspidasec/presets` -- Laravel, Node/Express, and WordPress framework presets
+- `@aspidasec/config` -- `.aspidasec.yml` config loader with defaults and validation
+- `@aspidasec/output-markdown` -- PR comment renderer and CLI console renderer
+- `@aspidasec/cli` -- CLI tool with `aspidasec scan` and `aspidasec init` commands
+- `@aspidasec/bot-github` -- GitHub PR reviewer bot (Probot)
+- `@aspidasec/bot-gitlab` -- GitLab MR reviewer bot (Hono)
 - Docker Compose deployment setup
 - Apache License 2.0

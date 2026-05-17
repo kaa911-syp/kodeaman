@@ -5,7 +5,7 @@ FROM base AS build
 WORKDIR /app
 COPY . .
 RUN pnpm install --frozen-lockfile
-RUN pnpm --filter @kodeaman/bot-gitea... build
+RUN pnpm --filter @aspidasec/bot-gitea... build
 
 FROM base AS runtime
 WORKDIR /app

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 import { ScanPipeline } from "../pipeline.js";
 import type { ScannerAdapter, ScanContext } from "../types.js";
 

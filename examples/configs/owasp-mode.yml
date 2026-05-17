@@ -1,10 +1,10 @@
-# .kodeaman.yml — OWASP Top 10 Scan Mode
+# .aspidasec.yml — OWASP Top 10 Scan Mode
 #
 # Use this configuration for structured OWASP Top 10 scanning.
 # Produces evidence-backed reports organized by OWASP category (A01–A10).
 #
-# Run: kodeaman owasp-scan
-# Run: kodeaman owasp-scan --format html --output report.html
+# Run: aspidasec owasp-scan
+# Run: aspidasec owasp-scan --format html --output report.html
 
 # Language for reports and coaching
 language: id

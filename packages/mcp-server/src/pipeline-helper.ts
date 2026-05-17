@@ -4,18 +4,18 @@
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { ScanPipeline } from "@kodeaman/core";
-import { loadConfig } from "@kodeaman/config";
-import type { KodeamanConfig } from "@kodeaman/config";
+import { ScanPipeline } from "@aspidasec/core";
+import { loadConfig } from "@aspidasec/config";
+import type { AspidasecConfig } from "@aspidasec/config";
 
-export type { KodeamanConfig };
+export type { AspidasecConfig };
 
 /**
- * Load KodeAman configuration from a project directory.
- * Falls back to sensible defaults when no .kodeaman.yml exists,
+ * Load AspidaSec configuration from a project directory.
+ * Falls back to sensible defaults when no .aspidasec.yml exists,
  * including auto-detecting npm projects to enable npm-audit.
  */
-export function loadProjectConfig(repoRoot: string): KodeamanConfig {
+export function loadProjectConfig(repoRoot: string): AspidasecConfig {
   const config = loadConfig(repoRoot);
 
   // Auto-detect: if the project has a package.json or package-lock.json,
@@ -36,13 +36,13 @@ export function loadProjectConfig(repoRoot: string): KodeamanConfig {
  * Build a ScanPipeline with adapters registered based on config.
  */
 export async function buildPipeline(
-  config: KodeamanConfig,
+  config: AspidasecConfig,
 ): Promise<ScanPipeline> {
   const pipeline = new ScanPipeline(config as never);
 
   if (config.scanners.semgrep) {
     try {
-      const { SemgrepAdapter } = await import("@kodeaman/adapters-semgrep");
+      const { SemgrepAdapter } = await import("@aspidasec/adapters-semgrep");
       pipeline.registerAdapter(new SemgrepAdapter() as never);
     } catch {
       // Semgrep adapter not available
@@ -51,7 +51,7 @@ export async function buildPipeline(
 
   if (config.scanners.zapBaseline) {
     try {
-      const { ZapBaselineAdapter } = await import("@kodeaman/adapters-zap");
+      const { ZapBaselineAdapter } = await import("@aspidasec/adapters-zap");
       pipeline.registerAdapter(new ZapBaselineAdapter() as never);
     } catch {
       // ZAP adapter not available
@@ -61,7 +61,7 @@ export async function buildPipeline(
   if (config.scanners.npmAudit) {
     try {
       const { NpmAuditAdapter } = await import(
-        "@kodeaman/adapters-npm-audit"
+        "@aspidasec/adapters-npm-audit"
       );
       pipeline.registerAdapter(new NpmAuditAdapter() as never);
     } catch {
@@ -72,7 +72,7 @@ export async function buildPipeline(
   if (config.scanners.playwright) {
     try {
       const { PlaywrightAdapter } = await import(
-        "@kodeaman/adapters-playwright"
+        "@aspidasec/adapters-playwright"
       );
       pipeline.registerAdapter(new PlaywrightAdapter() as never);
     } catch {

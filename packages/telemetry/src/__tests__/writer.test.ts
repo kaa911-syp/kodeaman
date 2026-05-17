@@ -3,8 +3,8 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { afterEach, describe, expect, it } from "vitest";
 import { TelemetryCollector, TelemetryWriter } from "../index.js";
-import type { ScanResult } from "@kodeaman/core";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { ScanResult } from "@aspidasec/core";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 const tempDirs: string[] = [];
 
@@ -69,7 +69,7 @@ function makeScanResult(findings: NormalizedFinding[]): ScanResult {
 }
 
 async function makeTempDir(): Promise<string> {
-  const dir = await mkdtemp(join(tmpdir(), "kodeaman-telemetry-"));
+  const dir = await mkdtemp(join(tmpdir(), "aspidasec-telemetry-"));
   tempDirs.push(dir);
   return dir;
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 import { SarifConverter } from "../converter.js";
 
 function makeFinding(overrides: Partial<NormalizedFinding> = {}): NormalizedFinding {
@@ -64,7 +64,7 @@ describe("SarifConverter", () => {
 
     expect(sarif.version).toBe("2.1.0");
     expect(sarif.runs).toHaveLength(1);
-    expect(sarif.runs[0].tool.driver.name).toBe("kodeaman");
+    expect(sarif.runs[0].tool.driver.name).toBe("aspidasec");
     expect(sarif.runs[0].results).toHaveLength(1);
   });
 

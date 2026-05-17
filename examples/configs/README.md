@@ -1,6 +1,6 @@
-# KodeAman Example Configurations
+# AspidaSec Example Configurations
 
-Annotated `.kodeaman.yml` templates for common deployment scenarios. Copy the relevant file to your project root as `.kodeaman.yml` and adjust to your needs.
+Annotated `.aspidasec.yml` templates for common deployment scenarios. Copy the relevant file to your project root as `.aspidasec.yml` and adjust to your needs.
 
 ## Available Configurations
 
@@ -15,10 +15,10 @@ Annotated `.kodeaman.yml` templates for common deployment scenarios. Copy the re
 
 ```bash
 # Copy a config to your project
-cp examples/configs/cli-local.yml /path/to/your/project/.kodeaman.yml
+cp examples/configs/cli-local.yml /path/to/your/project/.aspidasec.yml
 
 # Or use the interactive wizard
-kodeaman init
+aspidasec init
 ```
 
 ## Configuration Reference

@@ -1,6 +1,6 @@
-# @kodeaman/i18n
+# @aspidasec/i18n
 
-Internationalization helpers and locale dictionaries for KodeAman.
+Internationalization helpers and locale dictionaries for AspidaSec.
 
 ## Responsibility
 
@@ -17,6 +17,6 @@ Internationalization helpers and locale dictionaries for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/i18n typecheck
-pnpm --filter @kodeaman/i18n build
+pnpm --filter @aspidasec/i18n typecheck
+pnpm --filter @aspidasec/i18n build
 ```

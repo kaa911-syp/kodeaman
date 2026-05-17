@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { MarkdownRenderer } from "../renderer.js";
 import type { ScanResult, OwaspScanReport } from "../renderer.js";
 import { CLIRenderer } from "../cli-renderer.js";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 function makeFinding(overrides: Partial<NormalizedFinding> = {}): NormalizedFinding {
   return {
@@ -80,7 +80,7 @@ function makeScanResult(findings: NormalizedFinding[]): ScanResult {
 describe("MarkdownRenderer", () => {
   const renderer = new MarkdownRenderer();
 
-  it("should render PR comment header with KodeAman branding", () => {
+  it("should render PR comment header with AspidaSec branding", () => {
     const result = makeScanResult([makeFinding()]);
     const output = renderer.renderPRComment(result, {
       language: "id",
@@ -88,8 +88,8 @@ describe("MarkdownRenderer", () => {
       gamification: { enabled: true },
     });
 
-    expect(output).toContain("KodeAman Security Report");
-    expect(output).toContain("KodeAman");
+    expect(output).toContain("AspidaSec Security Report");
+    expect(output).toContain("AspidaSec");
   });
 
   it("should render findings in Bahasa Indonesia", () => {
@@ -228,7 +228,7 @@ describe("MarkdownRenderer.renderOwaspReport", () => {
       gamification: { enabled: false },
     });
 
-    expect(output).toContain("KodeAman OWASP Top 10 Report");
+    expect(output).toContain("AspidaSec OWASP Top 10 Report");
   });
 
   it("should render A01-A10 dashboard table", () => {
@@ -304,7 +304,7 @@ describe("CLIRenderer.renderOwaspConsole", () => {
       language: "en",
     });
 
-    expect(output).toContain("KodeAman OWASP Top 10 Report");
+    expect(output).toContain("AspidaSec OWASP Top 10 Report");
   });
 
   it("should render A01-A10 ASCII table", () => {

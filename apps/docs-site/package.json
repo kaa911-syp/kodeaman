@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/docs-site",
+  "name": "@aspidasec/docs-site",
   "version": "0.1.0",
-  "description": "Documentation site for KodeAman security coach",
+  "description": "Documentation site for AspidaSec security coach",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "apps/docs-site"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "documentation",
     "docs",

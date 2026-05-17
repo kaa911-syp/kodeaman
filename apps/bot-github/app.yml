@@ -1,9 +1,9 @@
 # https://github.com/settings/apps/new
-# GitHub App Manifest for KodeAman
+# GitHub App Manifest for AspidaSec
 
-name: KodeAman Security Coach
+name: AspidaSec Security Coach
 description: Security coaching bot for Indonesian developers — scan PRs for vulnerabilities and provide educational feedback
-url: https://github.com/kodeaman/kodeaman
+url: https://github.com/aspidasec/aspidasec
 public: true
 
 default_events:

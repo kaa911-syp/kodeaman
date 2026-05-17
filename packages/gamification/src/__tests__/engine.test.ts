@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { GamificationEngine, type FindingHistory } from "../engine.js";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 function makeFinding(overrides: Partial<NormalizedFinding> = {}): NormalizedFinding {
   return {

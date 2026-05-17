@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 import { buildCoverageReport } from "../coverage.js";
 import type { ScannerCoverage } from "../types.js";
 

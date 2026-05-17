@@ -2,9 +2,9 @@ import type {
   FindingCategory,
   OwaspCategory,
   SeverityLevel,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 
-export interface KodeamanRule {
+export interface AspidasecRule {
   id: string;
   title: string;
   titleId: string;
@@ -22,12 +22,12 @@ export interface KodeamanRule {
 
 export interface CustomRulesConfig {
   directory?: string;
-  rules?: KodeamanRule[];
+  rules?: AspidasecRule[];
 }
 
 export interface RuleValidationResult {
   valid: boolean;
-  rule?: KodeamanRule;
+  rule?: AspidasecRule;
   errors: string[];
   filePath?: string;
 }

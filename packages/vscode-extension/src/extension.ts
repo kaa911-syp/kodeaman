@@ -1,20 +1,20 @@
 import * as vscode from "vscode";
 import { findingsToDiagnostics } from "./diagnostics";
-import { runKodeAmanScan } from "./scan-runner";
+import { runAspidaSecScan } from "./scan-runner";
 
 let diagnostics: vscode.DiagnosticCollection;
 
 export function activate(context: vscode.ExtensionContext): void {
-  diagnostics = vscode.languages.createDiagnosticCollection("kodeaman");
+  diagnostics = vscode.languages.createDiagnosticCollection("aspidasec");
   context.subscriptions.push(diagnostics);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("kodeaman.scanWorkspace", async () => {
+    vscode.commands.registerCommand("aspidasec.scanWorkspace", async () => {
       await scanWorkspace();
     }),
-    vscode.commands.registerCommand("kodeaman.clearDiagnostics", () => {
+    vscode.commands.registerCommand("aspidasec.clearDiagnostics", () => {
       diagnostics.clear();
-      void vscode.window.showInformationMessage("KodeAman diagnostics cleared.");
+      void vscode.window.showInformationMessage("AspidaSec diagnostics cleared.");
     }),
   );
 }
@@ -29,19 +29,19 @@ async function scanWorkspace(): Promise<void> {
     return;
   }
 
-  const config = vscode.workspace.getConfiguration("kodeaman");
-  const cliPath = config.get<string>("cliPath", "kodeaman");
+  const config = vscode.workspace.getConfiguration("aspidasec");
+  const cliPath = config.get<string>("cliPath", "aspidasec");
   const maxBuffer = config.get<number>("maxBuffer", 10 * 1024 * 1024);
 
   await vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
-      title: "Running KodeAman security scan",
+      title: "Running AspidaSec security scan",
       cancellable: false,
     },
     async () => {
       try {
-        const result = await runKodeAmanScan({
+        const result = await runAspidaSecScan({
           cliPath,
           workspaceRoot: workspaceFolder.uri.fsPath,
           maxBuffer,
@@ -66,11 +66,11 @@ async function scanWorkspace(): Promise<void> {
         }
 
         void vscode.window.showInformationMessage(
-          `KodeAman scan completed with ${result.totalFindings} finding${result.totalFindings === 1 ? "" : "s"}.`,
+          `AspidaSec scan completed with ${result.totalFindings} finding${result.totalFindings === 1 ? "" : "s"}.`,
         );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        void vscode.window.showErrorMessage(`KodeAman scan failed: ${message}`);
+        void vscode.window.showErrorMessage(`AspidaSec scan failed: ${message}`);
       }
     },
   );
@@ -80,7 +80,7 @@ async function selectWorkspaceFolder(): Promise<vscode.WorkspaceFolder | undefin
   const folders = vscode.workspace.workspaceFolders;
 
   if (!folders || folders.length === 0) {
-    void vscode.window.showWarningMessage("Open a workspace folder before running KodeAman.");
+    void vscode.window.showWarningMessage("Open a workspace folder before running AspidaSec.");
     return undefined;
   }
 
@@ -89,7 +89,7 @@ async function selectWorkspaceFolder(): Promise<vscode.WorkspaceFolder | undefin
   }
 
   const selected = await vscode.window.showWorkspaceFolderPick({
-    placeHolder: "Select the workspace folder to scan with KodeAman",
+    placeHolder: "Select the workspace folder to scan with AspidaSec",
   });
 
   return selected;

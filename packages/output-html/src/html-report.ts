@@ -1,7 +1,7 @@
 import type {
   NormalizedFinding,
   SeverityLevel,
-} from "@kodeaman/schema";
+} from "@aspidasec/schema";
 import type { ReportConfig } from "./types.js";
 import { getStyles } from "./styles.js";
 import {
@@ -15,7 +15,7 @@ import {
 
 /**
  * OWASP scan report structure. Mirrors the schema type that worker-1 is adding.
- * TODO: Replace with import from @kodeaman/schema once OwaspScanReport is exported.
+ * TODO: Replace with import from @aspidasec/schema once OwaspScanReport is exported.
  */
 export interface OwaspScanReport {
   scanId: string;

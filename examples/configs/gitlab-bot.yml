@@ -1,6 +1,6 @@
-# .kodeaman.yml — GitLab Bot (Hono)
+# .aspidasec.yml — GitLab Bot (Hono)
 #
-# Use this configuration in repositories connected to the KodeAman GitLab bot.
+# Use this configuration in repositories connected to the AspidaSec GitLab bot.
 # The bot reads this file on every MR event and runs the configured scan.
 #
 # See docs/gitlab-bot-setup.md for bot installation and webhook setup.

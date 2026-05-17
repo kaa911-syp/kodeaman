@@ -39,9 +39,9 @@ app.post("/webhook", async (c) => {
 });
 
 app.get("/health", (c) => {
-  return c.json({ status: "ok", service: "kodeaman-bot-gitlab" });
+  return c.json({ status: "ok", service: "aspidasec-bot-gitlab" });
 });
 
 const port = Number(process.env.PORT) || 3000;
-console.log(`KodeAman GitLab bot listening on port ${port}`);
+console.log(`AspidaSec GitLab bot listening on port ${port}`);
 serve({ fetch: app.fetch, port });

@@ -1,9 +1,9 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
-import type { ScannerAdapter, ScanContext } from "@kodeaman/core";
-import type { NormalizedFinding, RepoContext } from "@kodeaman/schema";
+import type { ScannerAdapter, ScanContext } from "@aspidasec/core";
+import type { NormalizedFinding, RepoContext } from "@aspidasec/schema";
 import { RuleLoader } from "./loader.js";
-import type { KodeamanRule } from "./types.js";
+import type { AspidasecRule } from "./types.js";
 
 function escapeRegex(value: string): string {
   return value.replace(/[.+^${}()|[\]\\]/g, "\\$&");
@@ -100,13 +100,13 @@ export class CustomRuleScanner implements ScannerAdapter {
     return findings;
   }
 
-  private loadRules(repoRoot: string, config?: { customRules?: unknown }): KodeamanRule[] {
+  private loadRules(repoRoot: string, config?: { customRules?: unknown }): AspidasecRule[] {
     const configured = config ? this.loader.loadFromConfig(config as never) : [];
-    const rulesDir = resolve(repoRoot, ".kodeaman", "rules");
+    const rulesDir = resolve(repoRoot, ".aspidasec", "rules");
     return [...configured, ...this.loader.loadFromDirectory(rulesDir)];
   }
 
-  private toFinding(rule: KodeamanRule, context: ScanContext, filePath: string, content: string, index: number, match: string): NormalizedFinding {
+  private toFinding(rule: AspidasecRule, context: ScanContext, filePath: string, content: string, index: number, match: string): NormalizedFinding {
     const relativePath = relative(context.repoRoot, filePath).replaceAll(sep, "/");
     const lineInfo = getLineInfo(content, index, match.length);
     const findingId = `custom-${hash(`${rule.id}:${relativePath}:${lineInfo.startLine}:${lineInfo.startColumn}`)}`;

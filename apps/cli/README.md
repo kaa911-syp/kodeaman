@@ -1,11 +1,11 @@
-# @kodeaman/cli
+# @aspidasec/cli
 
-Command-line interface for local KodeAman workflows.
+Command-line interface for local AspidaSec workflows.
 
 ## Responsibility
 
-- Parse `kodeaman scan`, `kodeaman init`, and `kodeaman owasp-scan` commands.
-- Load repository configuration through `@kodeaman/config`.
+- Parse `aspidasec scan`, `aspidasec init`, and `aspidasec owasp-scan` commands.
+- Load repository configuration through `@aspidasec/config`.
 - Compose core, adapter, OWASP, and output packages into local developer workflows.
 - Keep CLI output script-friendly and safe for CI.
 
@@ -18,6 +18,6 @@ Command-line interface for local KodeAman workflows.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/cli typecheck
-pnpm --filter @kodeaman/cli build
+pnpm --filter @aspidasec/cli typecheck
+pnpm --filter @aspidasec/cli build
 ```

@@ -1,16 +1,16 @@
 /**
- * kodeaman_suggest_fix — Get fix suggestions for a security finding.
+ * aspidasec_suggest_fix — Get fix suggestions for a security finding.
  *
  * Returns actionable fix commands and remediation steps for a finding.
  */
 
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import type { NormalizedFinding } from "@aspidasec/schema";
 
 export function registerSuggestFixTool(server: McpServer): void {
   server.tool(
-    "kodeaman_suggest_fix",
+    "aspidasec_suggest_fix",
     "Get actionable fix suggestions for a security finding. Returns fix commands (npm/pnpm/yarn), remediation steps, safe code examples, and autofix eligibility. Provide the finding JSON from a scan result.",
     {
       finding: z

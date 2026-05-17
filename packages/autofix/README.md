@@ -1,17 +1,17 @@
-# @kodeaman/autofix
+# @aspidasec/autofix
 
-Automated fix runner for KodeAman scan findings. It collects `FixCommand` entries from normalized findings, deduplicates identical commands, supports dry-run previews, and skips breaking fixes unless explicitly enabled.
+Automated fix runner for AspidaSec scan findings. It collects `FixCommand` entries from normalized findings, deduplicates identical commands, supports dry-run previews, and skips breaking fixes unless explicitly enabled.
 
 ## Installation
 
 ```bash
-pnpm add @kodeaman/autofix
+pnpm add @aspidasec/autofix
 ```
 
 ## Usage
 
 ```ts
-import { AutofixRunner } from "@kodeaman/autofix";
+import { AutofixRunner } from "@aspidasec/autofix";
 
 const runner = new AutofixRunner({ dryRun: true });
 const report = await runner.run(findings);
@@ -19,10 +19,10 @@ const report = await runner.run(findings);
 console.log(report.fixableFindings, report.results);
 ```
 
-From the KodeAman CLI:
+From the AspidaSec CLI:
 
 ```bash
-kodeaman autofix
+aspidasec autofix
 ```
 
 ## API

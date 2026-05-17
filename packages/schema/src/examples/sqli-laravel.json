@@ -38,7 +38,7 @@
   },
   "repoContext": {
     "provider": "github",
-    "repoFullName": "kodeaman/demo-laravel",
+    "repoFullName": "aspidasec/demo-laravel",
     "branch": "feature/user-search",
     "pullRequestNumber": 18,
     "environment": "preview",

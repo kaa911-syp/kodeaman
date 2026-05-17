@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/owasp",
+  "name": "@aspidasec/owasp",
   "version": "0.1.0",
-  "description": "OWASP Top 10 scan orchestration for KodeAman",
+  "description": "OWASP Top 10 scan orchestration for AspidaSec",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -19,14 +19,14 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/schema": "workspace:*",
-    "@kodeaman/core": "workspace:*",
-    "@kodeaman/config": "workspace:*"
+    "@aspidasec/schema": "workspace:*",
+    "@aspidasec/core": "workspace:*",
+    "@aspidasec/config": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -38,15 +38,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/owasp"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "owasp",
     "top-10",

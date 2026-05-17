@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/autofix",
+  "name": "@aspidasec/autofix",
   "version": "0.1.0",
-  "description": "Autofix runner for KodeAman scan findings",
+  "description": "Autofix runner for AspidaSec scan findings",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -19,14 +19,14 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/config": "workspace:*",
-    "@kodeaman/core": "workspace:*",
-    "@kodeaman/schema": "workspace:*"
+    "@aspidasec/config": "workspace:*",
+    "@aspidasec/core": "workspace:*",
+    "@aspidasec/schema": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

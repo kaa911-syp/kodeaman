@@ -1,8 +1,8 @@
 import { Command } from "commander";
 import { resolve } from "node:path";
-import { AutofixRunner, type AutofixReport } from "@kodeaman/autofix";
-import { loadConfig } from "@kodeaman/config";
-import type { NormalizedFinding } from "@kodeaman/schema";
+import { AutofixRunner, type AutofixReport } from "@aspidasec/autofix";
+import { loadConfig } from "@aspidasec/config";
+import type { NormalizedFinding } from "@aspidasec/schema";
 import * as logger from "../utils/logger.js";
 
 interface AutofixOptions {
@@ -65,26 +65,26 @@ async function scanForFindings(
   repoRoot: string,
   config: ReturnType<typeof loadConfig>,
 ): Promise<NormalizedFinding[]> {
-  const { ScanPipeline } = await import("@kodeaman/core");
+  const { ScanPipeline } = await import("@aspidasec/core");
   const pipeline = new ScanPipeline(config as never);
 
   if (config.scanners.semgrep) {
-    const { SemgrepAdapter } = await import("@kodeaman/adapters-semgrep");
+    const { SemgrepAdapter } = await import("@aspidasec/adapters-semgrep");
     pipeline.registerAdapter(new SemgrepAdapter() as never);
   }
 
   if (config.scanners.zapBaseline) {
-    const { ZapBaselineAdapter } = await import("@kodeaman/adapters-zap");
+    const { ZapBaselineAdapter } = await import("@aspidasec/adapters-zap");
     pipeline.registerAdapter(new ZapBaselineAdapter() as never);
   }
 
   if (config.scanners.playwright) {
-    const { PlaywrightAdapter } = await import("@kodeaman/adapters-playwright");
+    const { PlaywrightAdapter } = await import("@aspidasec/adapters-playwright");
     pipeline.registerAdapter(new PlaywrightAdapter() as never);
   }
 
   if (config.scanners.npmAudit) {
-    const { NpmAuditAdapter } = await import("@kodeaman/adapters-npm-audit");
+    const { NpmAuditAdapter } = await import("@aspidasec/adapters-npm-audit");
     pipeline.registerAdapter(new NpmAuditAdapter() as never);
   }
 
@@ -104,7 +104,7 @@ function renderMarkdownReport(
     findings.map((finding) => [finding.findingId, finding]),
   );
   const lines = [
-    "# KodeAman Autofix Report",
+    "# AspidaSec Autofix Report",
     "",
     `- Total findings: ${report.totalFindings}`,
     `- Fixable findings: ${report.fixableFindings}`,

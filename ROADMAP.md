@@ -1,6 +1,6 @@
 # Roadmap
 
-This roadmap tracks product milestones for KodeAman. Each sprint represents roughly one week of development.
+This roadmap tracks product milestones for AspidaSec. Each sprint represents roughly one week of development.
 
 ---
 
@@ -8,14 +8,14 @@ This roadmap tracks product milestones for KodeAman. Each sprint represents roug
 
 - [x] Initialize monorepo with pnpm workspaces, Turborepo, and TypeScript strict mode
 - [x] Add Apache 2.0 license and governance files
-- [x] Create `@kodeaman/schema` with `NormalizedFinding` types and validators
+- [x] Create `@aspidasec/schema` with `NormalizedFinding` types and validators
 - [x] Set up CI workflow with GitHub Actions
 - [x] Create issue templates and labels
 - [x] Add README, ROADMAP, CONTRIBUTING, and AGENTS.md
 
 ## Sprint 1 -- Core Scan Pipeline
 
-- [x] Build CLI skeleton with `kodeaman scan` command
+- [x] Build CLI skeleton with `aspidasec scan` command
 - [x] Implement Semgrep SAST adapter and parser
 - [x] Add markdown output package for PR comments and console reports
 - [x] Build prioritizer v0 with severity and confidence scoring
@@ -28,7 +28,7 @@ This roadmap tracks product milestones for KodeAman. Each sprint represents roug
 - [x] Connect bot to core scan pipeline
 - [x] Implement PR comment formatting with top 3 prioritized findings
 - [x] Add badges and XP notes to PR comments
-- [x] Add `.kodeaman.yml` configuration file support
+- [x] Add `.aspidasec.yml` configuration file support
 - [ ] Pilot dry run on 2 demo repositories
 - [ ] Improve false positive presentation and noise reduction
 
@@ -56,23 +56,23 @@ This roadmap tracks product milestones for KodeAman. Each sprint represents roug
 
 ## Sprint 5 -- MCP Server and Vibe Coding
 
-- [x] Build `@kodeaman/mcp-server` with 8 MCP tools
+- [x] Build `@aspidasec/mcp-server` with 8 MCP tools
 - [x] Fix npm-audit adapter interface mismatch (`repoRoot` vs `targetPath`)
 - [x] Enable config-less scanning with auto-detection of npm projects
-- [x] Validate adapter resilience when scanning projects without `.kodeaman.yml`
+- [x] Validate adapter resilience when scanning projects without `.aspidasec.yml`
 - [x] Add MCP server documentation to docs site
 - [ ] Publish MCP server to npm registry
 - [ ] Test MCP integration with Cursor, Windsurf, and other AI coding assistants
 
 ## Sprint 6 -- Plugin System, IDE Integration, and Gitea Support
 
-- [x] Build plugin system in `@kodeaman/core` with lifecycle hooks (`beforeScan`, `afterScan`, `onFinding`, `onError`)
+- [x] Build plugin system in `@aspidasec/core` with lifecycle hooks (`beforeScan`, `afterScan`, `onFinding`, `onError`)
 - [x] Add `PluginLoader` for dynamic plugin discovery and validation
-- [x] Build `@kodeaman/bot-gitea` with HMAC-SHA256 webhook verification and Forgejo compatibility
-- [x] Build `@kodeaman/vscode-extension` with inline diagnostics and scan command
+- [x] Build `@aspidasec/bot-gitea` with HMAC-SHA256 webhook verification and Forgejo compatibility
+- [x] Build `@aspidasec/vscode-extension` with inline diagnostics and scan command
 - [x] Add SARIF output documentation for VS Code and JetBrains integration
-- [x] Add `@kodeaman/telemetry` with JSONL file writer for scan validation output
-- [x] Add `@kodeaman/test-utils` with shared mock finding factories
+- [x] Add `@aspidasec/telemetry` with JSONL file writer for scan validation output
+- [x] Add `@aspidasec/test-utils` with shared mock finding factories
 - [x] Add npm registry metadata to all packages for publishing readiness
 - [ ] Publish all packages to npm registry
 - [ ] Submit VS Code extension to Visual Studio Marketplace
@@ -85,17 +85,17 @@ This roadmap tracks product milestones for KodeAman. Each sprint represents roug
 - [x] Fix OWASP orchestrator duplicating findings across categories (run pipeline once, distribute findings)
 - [x] Fix npm-audit PostCSS remediation text confusing vulnerable package with fix package
 - [x] Fix coverage report showing 10% instead of 100% during OWASP scans
-- [x] Add `@kodeaman/adapters-bandit` for Python SAST via Bandit
-- [x] Add `@kodeaman/adapters-gosec` for Go SAST via gosec
-- [x] Add `@kodeaman/adapters-cargo-audit` for Rust SCA via cargo-audit
-- [x] Add `@kodeaman/adapters-spotbugs` for Java SAST via SpotBugs
+- [x] Add `@aspidasec/adapters-bandit` for Python SAST via Bandit
+- [x] Add `@aspidasec/adapters-gosec` for Go SAST via gosec
+- [x] Add `@aspidasec/adapters-cargo-audit` for Rust SCA via cargo-audit
+- [x] Add `@aspidasec/adapters-spotbugs` for Java SAST via SpotBugs
 - [x] Add `repoContext` to `ScanContext` for prioritizer heuristics
 - [x] Add `scannedCategories` to `OwaspScanReport` for accurate coverage tracking
-- [x] Add `@kodeaman/watcher` with `kodeaman watch` CLI command for real-time file monitoring
-- [x] Add `@kodeaman/autofix` with `kodeaman autofix` CLI command for automated fix execution
-- [x] Add `@kodeaman/custom-rules` with `kodeaman rules` CLI command for user-defined security rules
-- [x] Add `@kodeaman/dashboard` with `kodeaman dashboard` CLI command for web-based trend tracking
-- [x] Add `@kodeaman/history` with `kodeaman history` CLI command for scan history and team collaboration
+- [x] Add `@aspidasec/watcher` with `aspidasec watch` CLI command for real-time file monitoring
+- [x] Add `@aspidasec/autofix` with `aspidasec autofix` CLI command for automated fix execution
+- [x] Add `@aspidasec/custom-rules` with `aspidasec rules` CLI command for user-defined security rules
+- [x] Add `@aspidasec/dashboard` with `aspidasec dashboard` CLI command for web-based trend tracking
+- [x] Add `@aspidasec/history` with `aspidasec history` CLI command for scan history and team collaboration
 - [ ] Add 10 more bilingual coaching templates
 
 ## Repository Organization
@@ -106,7 +106,7 @@ This roadmap tracks product milestones for KodeAman. Each sprint represents roug
 - [x] README files beside all app and package folders
 - [x] Onboarding guides under `docs/`
 - [x] Demo projects under `examples/`
-- [x] Example `.kodeaman.yml` configurations under `examples/configs/`
+- [x] Example `.aspidasec.yml` configurations under `examples/configs/`
 
 ---
 

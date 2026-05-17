@@ -48,9 +48,9 @@ app.post("/webhook", async (c) => {
 });
 
 app.get("/health", (c) => {
-  return c.json({ status: "ok", service: "kodeaman-bot-gitea" });
+  return c.json({ status: "ok", service: "aspidasec-bot-gitea" });
 });
 
 const port = Number(process.env.PORT) || 3000;
-console.log(`KodeAman Gitea/Forgejo bot listening on port ${port}`);
+console.log(`AspidaSec Gitea/Forgejo bot listening on port ${port}`);
 serve({ fetch: app.fetch, port });

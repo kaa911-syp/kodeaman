@@ -1,6 +1,6 @@
-# @kodeaman/output-html
+# @aspidasec/output-html
 
-Self-contained HTML report generation for KodeAman.
+Self-contained HTML report generation for AspidaSec.
 
 ## Responsibility
 
@@ -18,7 +18,7 @@ Self-contained HTML report generation for KodeAman.
 ## Verification
 
 ```bash
-pnpm --filter @kodeaman/output-html typecheck
-pnpm --filter @kodeaman/output-html test
-pnpm --filter @kodeaman/output-html build
+pnpm --filter @aspidasec/output-html typecheck
+pnpm --filter @aspidasec/output-html test
+pnpm --filter @aspidasec/output-html build
 ```

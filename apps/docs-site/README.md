@@ -1,11 +1,11 @@
-# @kodeaman/docs-site
+# @aspidasec/docs-site
 
-Documentation website for KodeAman (placeholder).
+Documentation website for AspidaSec (placeholder).
 
 ## Responsibility
 
 - Host user-facing guides, API references, and tutorials.
-- Serve as the public documentation entry point for KodeAman users.
+- Serve as the public documentation entry point for AspidaSec users.
 
 ## Status
 

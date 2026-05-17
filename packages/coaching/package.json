@@ -1,7 +1,7 @@
 {
-  "name": "@kodeaman/coaching",
+  "name": "@aspidasec/coaching",
   "version": "0.1.0",
-  "description": "Security coaching content generator for KodeAman",
+  "description": "Security coaching content generator for AspidaSec",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
@@ -19,14 +19,14 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kodeaman/schema": "workspace:*",
-    "@kodeaman/i18n": "workspace:*",
-    "@kodeaman/lessons": "workspace:*"
+    "@aspidasec/schema": "workspace:*",
+    "@aspidasec/i18n": "workspace:*",
+    "@aspidasec/lessons": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
@@ -37,15 +37,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/kodeaman.git",
+    "url": "https://github.com/vibellabbs-code/aspidasec.git",
     "directory": "packages/coaching"
   },
-  "homepage": "https://github.com/vibellabbs-code/kodeaman#readme",
+  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/kodeaman/issues"
+    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
   },
   "keywords": [
-    "kodeaman",
+    "aspidasec",
     "security",
     "coaching",
     "education",
