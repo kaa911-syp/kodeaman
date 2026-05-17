@@ -262,29 +262,7 @@ kodeaman/
 
 ### Data Flow
 
-```
-Source Code
-    │
-    ▼
-┌─────────────────────────────────────────┐
-│  Scanner Adapters (Semgrep, ZAP, ...)   │
-│  Each adapter produces NormalizedFinding │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│  ScanPipeline                            │
-│  1. Run all registered adapters          │
-│  2. Deduplicate findings                 │
-│  3. Prioritize (10+ heuristics)          │
-│  4. Build summary + coverage report      │
-└────────────────┬────────────────────────┘
-                 │
-        ┌────────┼────────┐
-        ▼        ▼        ▼
-   Markdown    HTML     SARIF
-   (PR/CLI)  (Report)  (IDE/CI)
-```
+![KodeAman Data Flow](docs/diagrams/data-flow.jpg)
 
 ## Configuration
 
