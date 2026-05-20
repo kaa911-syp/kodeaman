@@ -19,7 +19,7 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {column.links.map((link) => (
                   <li key={link}>
-                    <a href={link === 'GitHub' ? 'https://github.com/vibellabbs-code/aspidasec' : '#'} className="text-sm text-zinc-400 transition hover:text-[#fafafa]">
+                    <a href={link === 'GitHub' ? 'https://github.com/kaa911-syp/AspidaSec' : '#'} className="text-sm text-zinc-400 transition hover:text-[#fafafa]">
                       {link}
                     </a>
                   </li>

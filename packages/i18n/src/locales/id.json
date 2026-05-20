@@ -33,7 +33,7 @@
   },
   "pr": {
     "commentHeader": "## Laporan Keamanan AspidaSec",
-    "commentFooter": "---\n_Didukung oleh [AspidaSec](https://github.com/aspidasec) — coach keamanan kamu_",
+    "commentFooter": "---\n_Didukung oleh [AspidaSec](https://github.com/kaa911-syp/AspidaSec) — coach keamanan kamu_",
     "noIssuesFound": "Tidak ada masalah keamanan di PR ini. Lanjutkan!",
     "issuesFound": "Ditemukan {count} masalah keamanan di PR ini.",
     "criticalWarning": "**KRITIS:** PR ini mengandung {count} masalah keamanan kritis yang harus ditangani sebelum merge.",

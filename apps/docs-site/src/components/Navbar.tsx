@@ -4,7 +4,7 @@ const links = [
   { label: 'Features', href: '#features' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Get Started', href: '#get-started' },
-  { label: 'GitHub', href: 'https://github.com/vibellabbs-code/aspidasec' },
+  { label: 'GitHub', href: 'https://github.com/kaa911-syp/AspidaSec' },
 ]
 
 export function Navbar() {

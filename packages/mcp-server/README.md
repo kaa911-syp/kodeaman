@@ -63,7 +63,7 @@ claude mcp add aspidasec -- aspidasec-mcp
 For a local development build, point Claude Code at the compiled entrypoint:
 
 ```bash
-claude mcp add aspidasec -- node C:/Users/user2/work/os/aspidasec/packages/mcp-server/dist/index.js
+claude mcp add aspidasec -- node C:/Users/user2/work/os/AspidaSec/packages/mcp-server/dist/index.js
 ```
 
 ### Cursor
@@ -88,7 +88,7 @@ For local development, use `node` with the built JavaScript file:
   "mcpServers": {
     "aspidasec": {
       "command": "node",
-      "args": ["C:/Users/user2/work/os/aspidasec/packages/mcp-server/dist/index.js"]
+      "args": ["C:/Users/user2/work/os/AspidaSec/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -116,7 +116,7 @@ For a repository checkout, configure Windsurf to run the built server through No
   "mcpServers": {
     "aspidasec": {
       "command": "node",
-      "args": ["C:/Users/user2/work/os/aspidasec/packages/mcp-server/dist/index.js"]
+      "args": ["C:/Users/user2/work/os/AspidaSec/packages/mcp-server/dist/index.js"]
     }
   }
 }

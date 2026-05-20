@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { ScrollReveal } from './animations'
 
 const snippets = {
-  CLI: `git clone https://github.com/vibellabbs-code/aspidasec.git
-cd aspidasec && pnpm install && pnpm run build
+  CLI: `git clone https://github.com/kaa911-syp/AspidaSec.git
+cd AspidaSec && pnpm install && pnpm run build
 pnpm --filter @aspidasec/cli start -- scan ./my-project`,
   'MCP Server': `{
   "mcpServers": {
@@ -14,8 +14,8 @@ pnpm --filter @aspidasec/cli start -- scan ./my-project`,
     }
   }
 }`,
-  Docker: `git clone https://github.com/vibellabbs-code/aspidasec.git
-cd aspidasec
+  Docker: `git clone https://github.com/kaa911-syp/AspidaSec.git
+cd AspidaSec
 docker compose up --build
 pnpm --filter @aspidasec/cli start -- scan ./my-project`,
 }

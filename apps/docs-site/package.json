@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/aspidasec.git",
+    "url": "https://github.com/kaa911-syp/AspidaSec.git",
     "directory": "apps/docs-site"
   },
   "license": "Apache-2.0"

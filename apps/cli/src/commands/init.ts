@@ -57,7 +57,7 @@ export function createInitCommand(): Command {
 
         const lines: string[] = [
           "# AspidaSec Configuration",
-          "# https://github.com/aspidasec/aspidasec",
+          "# https://github.com/kaa911-syp/AspidaSec",
           "",
           `language: ${lang}`,
           "",

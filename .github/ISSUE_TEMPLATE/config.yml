@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: Questions & Discussions
-    url: https://github.com/aspidasec/aspidasec/discussions
+    url: https://github.com/kaa911-syp/AspidaSec/discussions
     about: Ask questions and share ideas with the community
   - name: Security Vulnerability
-    url: https://github.com/aspidasec/aspidasec/blob/main/SECURITY.md
+    url: https://github.com/kaa911-syp/AspidaSec/blob/main/SECURITY.md
     about: Report security vulnerabilities privately

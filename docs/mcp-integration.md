@@ -69,7 +69,7 @@ For local repository development, point Claude Code at the package entrypoint af
   "mcpServers": {
     "aspidasec": {
       "command": "node",
-      "args": ["C:/Users/user2/work/os/aspidasec/packages/mcp-server/dist/index.js"]
+      "args": ["C:/Users/user2/work/os/AspidaSec/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -129,7 +129,7 @@ For local development, build the package and use Node directly:
   "name": "aspidasec",
   "transport": "stdio",
   "command": "node",
-  "args": ["C:/Users/user2/work/os/aspidasec/packages/mcp-server/dist/index.js"]
+  "args": ["C:/Users/user2/work/os/AspidaSec/packages/mcp-server/dist/index.js"]
 }
 ```
 

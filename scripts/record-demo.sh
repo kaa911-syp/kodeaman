@@ -226,7 +226,7 @@ run_demo() {
   echo ""
   echo -e "  \033[1mAspidaSec\033[0m — Secure Code, Taught Right"
   echo ""
-  echo -e "  \033[2mhttps://github.com/vibellabbs-code/aspidasec\033[0m"
+  echo -e "  \033[2mhttps://github.com/kaa911-syp/AspidaSec\033[0m"
   echo -e "  \033[2mLicense: Apache 2.0\033[0m"
   echo ""
   echo -e "\033[1;35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"

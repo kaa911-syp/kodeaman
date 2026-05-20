@@ -10,8 +10,8 @@
 
 ### Community
 
-- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/aspidasec/aspidasec/discussions)
-- **GitHub Issues**: [Report bugs or request features](https://github.com/aspidasec/aspidasec/issues)
+- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/kaa911-syp/AspidaSec/discussions)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/kaa911-syp/AspidaSec/issues)
 
 ### Indonesian Developer Communities
 

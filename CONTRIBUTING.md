@@ -13,8 +13,8 @@ Thank you for your interest in contributing to AspidaSec! This guide will help y
 ### Setup
 
 ```bash
-git clone https://github.com/vibellabbs-code/aspidasec.git
-cd aspidasec
+git clone https://github.com/kaa911-syp/AspidaSec.git
+cd AspidaSec
 pnpm install
 pnpm build
 ```
@@ -84,7 +84,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 - Be respectful and inclusive.
 - Follow our [Code of Conduct](CODE_OF_CONDUCT.md).
-- Questions? Open a [Discussion](https://github.com/aspidasec/aspidasec/discussions).
+- Questions? Open a [Discussion](https://github.com/kaa911-syp/AspidaSec/discussions).
 
 ## License
 

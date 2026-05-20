@@ -22,7 +22,7 @@ export function Hero() {
               Get Started
               <ArrowRightIcon className="h-4 w-4" />
             </a>
-            <a href="https://github.com/vibellabbs-code/aspidasec" className="inline-flex items-center justify-center rounded-xl border border-zinc-800 bg-zinc-950/40 px-6 py-3 text-sm font-semibold text-[#fafafa] transition hover:border-zinc-700 hover:bg-zinc-900">
+            <a href="https://github.com/kaa911-syp/AspidaSec" className="inline-flex items-center justify-center rounded-xl border border-zinc-800 bg-zinc-950/40 px-6 py-3 text-sm font-semibold text-[#fafafa] transition hover:border-zinc-700 hover:bg-zinc-900">
               View on GitHub
             </a>
           </div>

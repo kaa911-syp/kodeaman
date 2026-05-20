@@ -17,8 +17,8 @@ This guide covers local CLI setup. For PR bot setup see [GitHub Bot Setup](./git
 
 ```bash
 # Clone the repository
-git clone https://github.com/aspidasec/aspidasec.git
-cd aspidasec
+git clone https://github.com/kaa911-syp/AspidaSec.git
+cd AspidaSec
 
 # Install dependencies
 pnpm install

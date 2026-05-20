@@ -37,12 +37,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vibellabbs-code/aspidasec.git",
+    "url": "https://github.com/kaa911-syp/AspidaSec.git",
     "directory": "apps/bot-gitlab"
   },
-  "homepage": "https://github.com/vibellabbs-code/aspidasec#readme",
+  "homepage": "https://github.com/kaa911-syp/AspidaSec#readme",
   "bugs": {
-    "url": "https://github.com/vibellabbs-code/aspidasec/issues"
+    "url": "https://github.com/kaa911-syp/AspidaSec/issues"
   },
   "keywords": [
     "aspidasec",

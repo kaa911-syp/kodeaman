@@ -1,14 +1,14 @@
 # AspidaSec
 
-[![CI](https://github.com/vibellabbs-code/aspidasec/actions/workflows/ci.yml/badge.svg)](https://github.com/vibellabbs-code/aspidasec/actions/workflows/ci.yml)
+[![CI](https://github.com/kaa911-syp/AspidaSec/actions/workflows/ci.yml/badge.svg)](https://github.com/kaa911-syp/AspidaSec/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Release](https://img.shields.io/github/v/tag/vibellabbs-code/aspidasec?label=version&color=green)](https://github.com/vibellabbs-code/aspidasec/tags)
+[![Release](https://img.shields.io/github/v/tag/kaa911-syp/AspidaSec?label=version&color=green)](https://github.com/kaa911-syp/AspidaSec/tags)
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20-339933?logo=node.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)
 ![pnpm](https://img.shields.io/badge/pnpm-workspaces-F69220?logo=pnpm)
-[![Last Commit](https://img.shields.io/github/last-commit/vibellabbs-code/aspidasec)](https://github.com/vibellabbs-code/aspidasec/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/kaa911-syp/AspidaSec)](https://github.com/kaa911-syp/AspidaSec/commits/main)
 
-**Baca dalam bahasa lain**: [Bahasa Indonesia](./README.id.md) _(segera hadir)_
+**Catatan Bahasa Indonesia**: AspidaSec sudah mendukung coaching Bahasa Indonesia melalui opsi `--language id`; dokumentasi Bahasa Indonesia lengkap sedang disiapkan.
 
 Open-core security coach for Indonesian developers. Scans your code, prioritizes findings by real-world risk, and teaches developers how to fix issues — in **Bahasa Indonesia** or English — with contextual explanations, fix suggestions, and micro-lessons.
 
@@ -37,8 +37,8 @@ AspidaSec changes that:
 ### CLI (recommended)
 
 ```bash
-git clone https://github.com/vibellabbs-code/aspidasec.git
-cd aspidasec
+git clone https://github.com/kaa911-syp/AspidaSec.git
+cd AspidaSec
 pnpm install
 pnpm run build
 
@@ -58,7 +58,7 @@ Add to your Claude Code, Cursor, or Windsurf MCP config:
   "mcpServers": {
     "aspidasec": {
       "command": "node",
-      "args": ["path/to/aspidasec/packages/mcp-server/dist/index.js"]
+      "args": ["path/to/AspidaSec/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -217,7 +217,7 @@ AspidaSec supports structured scanning organized by OWASP Top 10 (2021) categori
 AspidaSec is a TypeScript monorepo with **30 packages** and **5 apps** using pnpm workspaces and Turborepo.
 
 ```
-aspidasec/
+AspidaSec/
 ├── apps/
 │   ├── cli/               # aspidasec CLI (8 commands)
 │   ├── bot-github/         # GitHub PR reviewer (Probot)
@@ -383,7 +383,7 @@ We are looking for:
 
 ## Pilot Program
 
-We are running early pilot programs with Indonesian development teams. If your team wants early access, roadmap influence, or hands-on setup support, open a [Pilot Feedback issue](https://github.com/vibellabbs-code/aspidasec/issues/new?template=pilot_feedback.yml) or contact the maintainers.
+We are running early pilot programs with Indonesian development teams. If your team wants early access, roadmap influence, or hands-on setup support, open a [Pilot Feedback issue](https://github.com/kaa911-syp/AspidaSec/issues/new?template=pilot_feedback.yml) or contact the maintainers.
 
 ## License
 
