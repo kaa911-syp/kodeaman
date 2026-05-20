@@ -11,7 +11,7 @@ import { Stats } from './components/Stats'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#fafafa]">
+    <div className="min-h-screen overflow-hidden bg-[#030607] text-[#f7fbfa]">
       <Navbar />
       <main>
         <Hero />

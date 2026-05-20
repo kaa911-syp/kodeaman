@@ -1,8 +1,69 @@
 # Roadmap
 
-This roadmap tracks product milestones for AspidaSec. Each sprint represents roughly one week of development.
+This roadmap tracks product milestones for AspidaSec.
+
+AspidaSec is now scoped as a CLI-first website security scanner that helps developers identify, prioritize, and fix OWASP-related security risks in modern web applications.
+
+The current product filter is:
+
+- Scanning
+- Prioritization
+- Remediation
+- Reporting
+- CI or PR workflow
+
+Features that do not support one of those areas should not enter the MVP.
+
+See:
+
+- [Product Scope](./docs/product-scope.md)
+- [MVP](./docs/mvp.md)
+- [Architecture](./docs/architecture.md)
+- [Product Philosophy](./docs/product-philosophy.md)
+- [Trust Model](./docs/trust-model.md)
+- [Golden Path](./docs/golden-path.md)
 
 ---
+
+## Current Phase -- Product Foundation
+
+- [x] Define AspidaSec as a developer-first website security scanner
+- [x] Remove training/ecosystem positioning from primary README messaging
+- [x] Document MVP scope and non-MVP boundaries
+- [x] Document scanner, analysis, guidance, and output architecture
+- [x] Document the trust model: AI must never invent findings
+- [x] Document the CLI-first golden path
+- [ ] Refactor package boundaries where implementation violates the documented architecture
+- [ ] Tune CLI and report UX around "Top 5 Risks", "Fix First", evidence, and remediation clarity
+- [ ] De-emphasize dashboard and gamification in user-facing website copy until the golden path is strong
+
+## MVP Freeze
+
+The MVP is limited to:
+
+- OWASP-oriented website security scanning
+- ZAP dynamic scanning
+- dependency audit
+- Semgrep web checks
+- basic secret/config review
+- Playwright route discovery where useful
+- finding normalization and deduplication
+- risk prioritization
+- Bahasa Indonesia and English remediation guidance
+- HTML, Markdown, JSON, SARIF, CI, and PR output
+
+Deferred until after MVP:
+
+- hosted dashboard
+- multi-tenant backend
+- auth/RBAC
+- enterprise policy management
+- advanced analytics
+- leaderboard or gamification-first workflows
+- attack simulation labs
+- custom IDEs
+- cloud sync
+- multi-agent research workflows
 
 ## Sprint 0 -- Repository Foundation
 

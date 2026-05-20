@@ -8,33 +8,134 @@
 ![pnpm](https://img.shields.io/badge/pnpm-workspaces-F69220?logo=pnpm)
 [![Last Commit](https://img.shields.io/github/last-commit/kaa911-syp/AspidaSec)](https://github.com/kaa911-syp/AspidaSec/commits/main)
 
-**Catatan Bahasa Indonesia**: AspidaSec sudah mendukung coaching Bahasa Indonesia melalui opsi `--language id`; dokumentasi Bahasa Indonesia lengkap sedang disiapkan.
+Website security scanning with practical remediation guidance.
 
-Open-core security coach for Indonesian developers. Scans your code, prioritizes findings by real-world risk, and teaches developers how to fix issues — in **Bahasa Indonesia** or English — with contextual explanations, fix suggestions, and micro-lessons.
+AspidaSec scans modern web applications for OWASP-related risks, prioritizes the findings that matter, and produces developer-ready fixes and reports in Bahasa Indonesia or English.
 
-![Nano Banana Civilization](assets/concept-art/nano-banana-v1-bioluminescent-jungle.jpg)
+## Product Scope
 
-![AspidaSec demo](docs/demo.gif)
+AspidaSec is not an AI cybersecurity ecosystem, training platform, universal scanner, or dashboard-first product.
 
-> *"Aspida" (Greek: Ασπίδα) = "Shield" — Security coaching for developers*
+It is a CLI-first website security scanner for developers and small teams who need to answer:
 
-## Why AspidaSec
+- What security risks are present in this web application?
+- Which findings should be fixed first?
+- What evidence proves the issue exists?
+- How do we fix it safely?
+- How do we share the result in CI, pull requests, or team review?
 
-Most SAST/DAST tools produce hundreds of findings, provide only English guidance, and assume senior-level security expertise. Indonesian development teams — startups, campus labs, government digitization projects — end up ignoring noise or copy-pasting fixes they don't understand. Vulnerabilities stay open and learning never happens.
+The MVP only includes work that supports scanning, prioritization, remediation, reporting, or CI workflow.
 
-AspidaSec changes that:
+## Who It Is For
 
-- **Educates, not just alerts** — every finding includes a bilingual explanation (Bahasa Indonesia + English) with remediation steps, code examples, and a linked micro-lesson. Developers learn *why* a vulnerability matters, not just that it exists
-- **Prioritizes by real-world risk** — scores findings using severity, confidence, auth-path proximity, internet exposure, dependency directness, fix availability, and production context. The top 3 highest-risk findings surface first
-- **Supports 8 scanners across 6 languages** — Semgrep (SAST), ZAP (DAST), npm audit (SCA), Bandit (Python), gosec (Go), cargo-audit (Rust), SpotBugs (Java), and Playwright (browser)
-- **OWASP Top 10 structured scanning** — orchestrated scan mode that organizes findings by OWASP category (A01–A10) with evidence gates, confidence gates, and multi-scanner correlation
-- **Gamifies secure coding** — XP, streaks, badges, and quests make security improvements measurable and motivating
-- **Integrates everywhere** — CLI, GitHub bot, GitLab bot, Gitea/Forgejo bot, VS Code extension, MCP server for AI coding assistants, Docker Compose self-hosting
-- **80+ coaching templates** — bilingual remediation guidance for common vulnerability patterns across frameworks
+- Developers maintaining public-facing websites and web apps
+- Small product teams that need practical OWASP coverage without a dedicated security team
+- Indonesian software teams that need clear remediation guidance in Bahasa Indonesia
+- Agencies and maintainers who need shareable security reports for client or team review
+- CI users who want security output that is readable enough to act on
+
+## Golden Path
+
+The first product workflow is intentionally narrow:
+
+```bash
+aspidasec scan .
+```
+
+or:
+
+```bash
+aspidasec scan https://example.com
+```
+
+The scan should move through one clear path:
+
+1. Accept a local project, GitHub checkout, or deployed URL.
+2. Run website-focused checks: dependency audit, OWASP-oriented static checks, dynamic scan, route crawling, and basic secrets/config review.
+3. Normalize and deduplicate findings.
+4. Prioritize findings by severity, confidence, exploitability, public exposure, affected file or endpoint, and fix availability.
+5. Generate practical remediation guidance in Bahasa Indonesia or English.
+6. Export a clean HTML report, Markdown report, PR comment, JSON, or SARIF.
+
+If this path is excellent, AspidaSec has product value before any dashboard exists.
+
+## MVP Feature Set
+
+### Core Scanner
+
+- OWASP Top 10 oriented checks
+- ZAP dynamic scanning for deployed or locally running web apps
+- npm, pnpm, or yarn dependency audit
+- Semgrep web application rules
+- Basic secret and risky configuration detection
+- Playwright-assisted crawling for route discovery where useful
+
+### Analysis
+
+- Finding normalization into one schema
+- Deduplication across scanners
+- OWASP category mapping
+- Severity and confidence normalization
+- Risk prioritization for the top findings
+
+### Guidance
+
+- Finding summaries based on scanner evidence
+- Practical remediation steps
+- Safe code examples
+- References to relevant standards or scanner evidence
+- Bahasa Indonesia and English explanations
+
+### Output
+
+- CLI output
+- HTML report
+- Markdown report
+- PR comment output
+- JSON and SARIF for CI and downstream tools
+
+## Explicitly Not In MVP
+
+These may become useful later, but they should not lead the product now:
+
+- Hosted dashboard
+- Multi-tenant backend
+- Authentication or RBAC
+- Team leaderboard
+- Gamification-first workflows
+- Attack simulation labs
+- Multi-agent research workflows
+- Custom IDEs
+- Cloud sync
+- Enterprise policy management
+
+Dashboard, history, and collaboration code can exist in the repository, but the MVP story should remain CLI-first and report-first.
+
+## Why AspidaSec Exists
+
+Most security scanners fail developers at the last mile. They may detect issues, but the output is often noisy, duplicated, hard to prioritize, and difficult to turn into a safe fix.
+
+AspidaSec focuses on the parts that make website security work actionable:
+
+- **Evidence-first findings** - scanner output and reproducible evidence drive every issue.
+- **Prioritized output** - the top risks are separated from background noise.
+- **Fix-first guidance** - each important finding includes practical remediation, examples, and references.
+- **Localized guidance** - Bahasa Indonesia support helps local teams act without losing security nuance.
+- **CI-ready reports** - output is designed for pull requests, CI logs, HTML review, and SARIF consumers.
+
+## Trust Model
+
+AspidaSec must be trustworthy before it is clever.
+
+AI or generated guidance must never invent vulnerabilities, severities, affected files, endpoints, evidence, or scanner names. Detection must come from scanners, repository analysis, configuration review, or explicit user-provided evidence.
+
+The guidance layer may summarize, explain, translate, and suggest remediation. It must not fabricate findings.
+
+See [docs/trust-model.md](./docs/trust-model.md) for the full rule set.
 
 ## Quick Start
 
-### CLI (recommended)
+### Local Project Scan
 
 ```bash
 git clone https://github.com/kaa911-syp/AspidaSec.git
@@ -42,16 +143,24 @@ cd AspidaSec
 pnpm install
 pnpm run build
 
-# Scan a project directory
 pnpm --filter @aspidasec/cli start -- scan ./my-project
+```
 
-# OWASP Top 10 scan with HTML report
+### Website / OWASP Scan
+
+```bash
 pnpm --filter @aspidasec/cli start -- owasp-scan --format html --output report.html
 ```
 
-### MCP Server (AI coding assistants)
+### Bahasa Indonesia Guidance
 
-Add to your Claude Code, Cursor, or Windsurf MCP config:
+```bash
+aspidasec scan ./project --language id
+```
+
+### MCP Server
+
+Add the MCP server to an AI coding assistant such as Claude Code, Cursor, or Windsurf:
 
 ```json
 {
@@ -64,326 +173,160 @@ Add to your Claude Code, Cursor, or Windsurf MCP config:
 }
 ```
 
-Works without configuration files. Projects with `package.json` automatically get npm audit scanning.
-
-### Docker (self-hosted bots)
-
-```bash
-cp .env.example .env
-# Edit .env with your GitHub/GitLab tokens
-docker compose up -d
-```
-
-See [docs/self-hosting/deployment.md](./docs/self-hosting/deployment.md) for production setup.
-
-## Features
-
-### Scanning and Analysis
-
-- **Multi-scanner pipeline** — register any combination of SAST, DAST, and SCA scanners via the adapter interface
-- **Smart deduplication** — identical findings from multiple scanners are merged, not counted twice
-- **Priority scoring** — 10+ heuristics including severity, confidence, auth-path proximity, internet exposure, dependency directness, fix availability, and production environment context
-- **OWASP Top 10 mode** — orchestrated scanning organized by category (A01–A10) with evidence gates, confidence gates, and multi-scanner correlation that boosts confidence when SAST and DAST find the same issue
-- **Plugin system** — community-contributed scanner adapters with `beforeScan`, `afterScan`, `onFinding`, and `onError` lifecycle hooks
-
-### Education and Coaching
-
-- **Bilingual coaching** — every finding includes remediation guidance in Bahasa Indonesia and English, with code examples specific to the vulnerability
-- **Micro-lessons** — 10 structured lessons covering OWASP Top 10 categories, linked from findings so developers learn in context
-- **Framework presets** — Laravel, Node/Express, and WordPress presets that tune scanner rules and coaching for your stack
-- **Security glossary** — `@aspidasec/i18n` includes a bilingual security glossary so Indonesian developers can learn standard terminology
-
-### Gamification
-
-- **XP rewards** — earn points for fixing findings. Higher severity = more XP
-- **Badges** — unlock achievements for fixing specific vulnerability categories
-- **Streaks** — maintain daily/weekly streaks to build consistent security habits
-- **Quests** — targeted challenges like "Fix all SQL injection findings this sprint"
-
-### Integration
-
-- **CLI** — 8 commands: `scan`, `init`, `owasp-scan`, `watch`, `autofix`, `rules`, `dashboard`, `history`
-- **GitHub bot** — Probot app that comments on PRs with top 3 prioritized findings, badges, and XP notes
-- **GitLab bot** — Hono webhook service for MR review comments
-- **Gitea/Forgejo bot** — HMAC-SHA256 verified webhook bot with PR comment management
-- **VS Code extension** — inline diagnostic overlays from scan results with severity mapping and one-click scan triggering
-- **MCP server** — 8 tools for AI-assisted security scanning (see [MCP Tools](#mcp-server) below)
-- **Docker Compose** — production-ready self-hosted deployment for all bots
-
-### Reporting
-
-- **Markdown** — PR comment renderer and CLI console renderer
-- **HTML** — self-contained report with OWASP dashboard, severity breakdowns, evidence cards, gamification section, and light/dark/auto theme
-- **SARIF** — standard format for VS Code, JetBrains, and GitHub Code Scanning integration
-- **Telemetry** — JSONL file writer for scan validation output, tracking scanner performance and timing
-
-### Developer Workflow
-
-- **Watch mode** — real-time file monitoring with debounced scan triggers for continuous security feedback during development
-- **Autofix** — automated execution of fix commands from scan findings with dry-run mode and breaking-change safety gates
-- **Custom rules** — YAML rule definitions with regex pattern matching and Zod schema validation
-- **Dashboard** — lightweight web dashboard with SVG trend charts, OWASP coverage grid, and recent scans table
-- **History** — scan history storage with JSONL persistence, date/project filtering, trend aggregation, and team collaboration
+The MCP server exposes scan, OWASP scan, preflight, scanner listing, finding explanation, fix suggestion, SARIF conversion, and coverage-report tools.
 
 ## CLI Commands
 
 ```bash
 # Core scanning
-aspidasec scan [path]              # Run security scan on a directory
-aspidasec owasp-scan [options]     # OWASP Top 10 structured scan
-aspidasec init                     # Generate .aspidasec.yml config file
+aspidasec scan [path-or-url]        # Run a website security scan
+aspidasec owasp-scan [options]      # Run OWASP Top 10 structured scan
+aspidasec init                      # Generate .aspidasec.yml config
 
-# Development workflow
-aspidasec watch [path]             # Real-time file monitoring with auto-scan
-aspidasec autofix [options]        # Execute fix commands from scan findings
-aspidasec rules list|validate      # Manage custom security rules
-
-# Reporting and history
-aspidasec dashboard                # Launch web dashboard (port 4800)
-aspidasec history show|trends|export  # View scan history and trends
-```
-
-### Scan Options
-
-```bash
 # Output formats
-aspidasec scan ./project --format markdown    # Console/PR output (default)
-aspidasec scan ./project --format json        # Machine-readable JSON
-aspidasec scan ./project --format sarif       # IDE/CI integration
-aspidasec scan ./project --format html        # Self-contained HTML report
+aspidasec scan ./project --format markdown
+aspidasec scan ./project --format json
+aspidasec scan ./project --format sarif
+aspidasec scan ./project --format html
 
 # Language
-aspidasec scan ./project --language id        # Bahasa Indonesia coaching
-aspidasec scan ./project --language en        # English coaching (default)
-
-# OWASP scan options
-aspidasec owasp-scan --categories A01,A03,A07  # Specific categories only
-aspidasec owasp-scan --confidence medium       # Minimum confidence gate
-aspidasec owasp-scan --no-evidence-gate        # Skip evidence requirement
-aspidasec owasp-scan --parallel                # Run categories in parallel
+aspidasec scan ./project --language id
+aspidasec scan ./project --language en
 ```
-
-## MCP Server
-
-The `@aspidasec/mcp-server` exposes AspidaSec as a Model Context Protocol server for AI coding assistants (Claude Code, Cursor, Windsurf, and others).
-
-| Tool | Description |
-|------|-------------|
-| `aspidasec_scan` | Run a full security scan on a project directory |
-| `aspidasec_owasp_scan` | Run an OWASP Top 10 structured scan |
-| `aspidasec_preflight` | Check scanner availability before scanning |
-| `aspidasec_list_scanners` | List all registered scanner adapters |
-| `aspidasec_explain_finding` | Get a detailed bilingual explanation of a finding |
-| `aspidasec_suggest_fix` | Get fix suggestions with code examples |
-| `aspidasec_convert_sarif` | Convert scan results to SARIF format |
-| `aspidasec_coverage_report` | Generate an OWASP category coverage report |
-
-Auto-detection: projects with `package.json`, `package-lock.json`, or `pnpm-lock.yaml` automatically get npm audit scanning without any `.aspidasec.yml` configuration.
-
-See [docs/mcp-integration.md](./docs/mcp-integration.md) for setup instructions across different AI assistants.
-
-## OWASP Top 10 Scan Mode
-
-AspidaSec supports structured scanning organized by OWASP Top 10 (2021) categories A01–A10.
-
-### How It Works
-
-1. The scan pipeline runs **once** across all registered adapters
-2. Findings are **distributed** across OWASP categories by CWE mapping — each finding appears in exactly one category
-3. **Confidence gates** filter low-confidence findings (configurable: `low`, `medium`, `high`)
-4. **Evidence gates** require scanner evidence by default (override with `--no-evidence-gate`)
-5. **Multi-scanner correlation** — when SAST and DAST scanners find the same issue (matching CWE + overlapping location), both findings get a confidence boost to `high`
-
-### Evidence Policy
-
-- Findings require scanner evidence by default
-- Web findings require proof artifacts: HTML report, terminal snapshot, HTTP request, or HTTP response
-- Evidence artifacts let reviewers verify that findings came from real scanner runs, not hallucinated reports
-
-### Scanner Coverage
-
-| Scanner | Type | Languages | OWASP Categories |
-|---------|------|-----------|------------------|
-| Semgrep | SAST | JS/TS, Python, Java, Go, Ruby, PHP | A01, A02, A03, A07, A08, A10 |
-| ZAP | DAST | Any web application | A01, A02, A03, A05, A07 |
-| npm audit | SCA | Node.js | A06 |
-| Bandit | SAST | Python | A01, A02, A03, A07 |
-| gosec | SAST | Go | A01, A02, A03, A07 |
-| cargo-audit | SCA | Rust | A06 |
-| SpotBugs | SAST | Java | A01, A02, A03, A07, A10 |
-
-## Architecture
-
-AspidaSec is a TypeScript monorepo with **30 packages** and **5 apps** using pnpm workspaces and Turborepo.
-
-```
-AspidaSec/
-├── apps/
-│   ├── cli/               # aspidasec CLI (8 commands)
-│   ├── bot-github/         # GitHub PR reviewer (Probot)
-│   ├── bot-gitlab/         # GitLab MR reviewer (Hono)
-│   ├── bot-gitea/          # Gitea/Forgejo webhook bot
-│   └── docs-site/          # Documentation website
-├── packages/
-│   ├── schema/             # NormalizedFinding types + Zod validators
-│   ├── core/               # Scan pipeline, dedup, plugin system
-│   ├── config/             # .aspidasec.yml loader + validation
-│   ├── prioritizer/        # Priority scoring engine (10+ heuristics)
-│   ├── owasp/              # OWASP Top 10 orchestrator
-│   ├── adapters-semgrep/   # Semgrep SAST adapter
-│   ├── adapters-zap/       # ZAP DAST adapter
-│   ├── adapters-npm-audit/ # npm audit SCA adapter
-│   ├── adapters-bandit/    # Python Bandit SAST adapter
-│   ├── adapters-gosec/     # Go gosec SAST adapter
-│   ├── adapters-cargo-audit/ # Rust cargo-audit SCA adapter
-│   ├── adapters-spotbugs/  # Java SpotBugs SAST adapter
-│   ├── adapters-playwright/# Playwright browser adapter
-│   ├── coaching/           # 20+ bilingual coaching templates
-│   ├── lessons/            # 10 bilingual micro-lessons
-│   ├── i18n/               # Translator + security glossary
-│   ├── gamification/       # XP, badges, quests, streaks
-│   ├── presets/            # Laravel, Express, WordPress presets
-│   ├── output-markdown/    # PR comment + console renderer
-│   ├── output-html/        # Self-contained HTML report
-│   ├── output-sarif/       # SARIF output for IDEs
-│   ├── mcp-server/         # MCP server (8 tools)
-│   ├── watcher/            # File watcher for real-time scanning
-│   ├── autofix/            # Automated fix runner
-│   ├── custom-rules/       # Custom YAML rule engine
-│   ├── dashboard/          # Web dashboard with trend charts
-│   ├── history/            # Scan history + team collaboration
-│   ├── telemetry/          # JSONL scan validation output
-│   ├── vscode-extension/   # VS Code inline diagnostics
-│   └── test-utils/         # Shared mock finding factories
-├── docs/                   # Onboarding guides
-├── examples/               # Demo projects + config examples
-└── docker-compose.yml      # Self-hosted deployment
-```
-
-### Data Flow
-
-![AspidaSec Data Flow](docs/diagrams/data-flow.jpg)
 
 ## Configuration
 
-AspidaSec uses a `.aspidasec.yml` file in your project root. Generate one with `aspidasec init`.
+AspidaSec uses `.aspidasec.yml` in the scanned project root.
 
 ```yaml
-# .aspidasec.yml
-language: id                    # Coaching language: "en" or "id"
+language: id
 
 scanners:
-  semgrep: true                 # Enable Semgrep SAST
-  npmAudit: true                # Enable npm audit SCA
-  zapBaseline: false            # Enable ZAP DAST (needs target URL)
+  semgrep: true
+  npmAudit: true
+  zapBaseline: false
 
 output:
-  markdown: true                # PR comment / console output
-  html: false                   # Self-contained HTML report
-  sarif: false                  # SARIF for IDE integration
+  markdown: true
+  html: false
+  sarif: false
 
 owasp:
-  enabled: false                # Enable OWASP Top 10 scan mode
+  enabled: false
   categories: [A01, A02, A03, A04, A05, A06, A07, A08, A09, A10]
-  parallel: false               # Run categories in parallel
-  confidenceGate: low           # Minimum confidence: low | medium | high
-  evidenceGate: true            # Require scanner evidence
-  failOnSeverity: high          # Fail CI on this severity or above
+  parallel: false
+  confidenceGate: low
+  evidenceGate: true
+  failOnSeverity: high
 
 environment:
-  skipWslCheck: false           # Skip WSL detection
-  scannerTimeout: 120000        # Scanner timeout in ms
+  skipWslCheck: false
+  scannerTimeout: 120000
 ```
 
-See [examples/configs/](./examples/configs/) for annotated configurations: CLI local, GitHub bot, GitLab bot, and OWASP mode.
+See [examples/configs/](./examples/configs/) for annotated configurations.
+
+## Architecture
+
+AspidaSec is organized around four product layers:
+
+| Layer | Responsibility | Key packages |
+|-------|----------------|--------------|
+| Scanner layer | Run website security scanners and collect raw evidence | `adapters-*`, `owasp`, `cli` |
+| Analysis layer | Normalize, deduplicate, map, and prioritize findings | `schema`, `core`, `prioritizer`, `config` |
+| Guidance layer | Explain findings and produce practical remediation | `coaching`, `i18n`, `lessons` |
+| Output layer | Render reports for developers and CI systems | `output-markdown`, `output-html`, `output-sarif`, `mcp-server` |
+
+```text
+AspidaSec/
+├── apps/
+│   ├── cli/               # primary developer entry point
+│   ├── bot-github/        # PR comment workflow
+│   ├── bot-gitlab/        # MR comment workflow
+│   ├── bot-gitea/         # Gitea / Forgejo PR workflow
+│   └── docs-site/         # public website
+├── packages/
+│   ├── schema/            # normalized finding types and validators
+│   ├── core/              # scan pipeline, dedupe, plugin system
+│   ├── config/            # .aspidasec.yml loader and validation
+│   ├── prioritizer/       # risk scoring
+│   ├── owasp/             # OWASP Top 10 orchestration
+│   ├── adapters-*/        # scanner integrations
+│   ├── coaching/          # remediation templates
+│   ├── i18n/              # Bahasa Indonesia and English text
+│   ├── output-*/          # Markdown, HTML, and SARIF renderers
+│   └── mcp-server/        # AI assistant integration
+├── docs/                  # product, setup, and architecture docs
+├── examples/              # demo projects and config examples
+└── docker-compose.yml     # self-hosted bot deployment
+```
+
+See [docs/architecture.md](./docs/architecture.md) for the product architecture.
+
+## Product Documents
+
+| Document | Purpose |
+|----------|---------|
+| [Product Scope](./docs/product-scope.md) | Defines what AspidaSec is, who it serves, and what it will not do now |
+| [MVP](./docs/mvp.md) | Freezes the first usable version and defers non-essential features |
+| [Architecture](./docs/architecture.md) | Separates scanner, analysis, guidance, and output layers |
+| [Product Philosophy](./docs/product-philosophy.md) | Defines the principles behind the product decisions |
+| [Trust Model](./docs/trust-model.md) | Documents evidence-first security and AI safety boundaries |
+| [Golden Path](./docs/golden-path.md) | Defines the one workflow that must feel excellent first |
+
+## Existing Setup Docs
+
+| Guide | Description |
+|-------|-------------|
+| [Getting Started](./docs/getting-started.md) | CLI installation, configuration, and option reference |
+| [GitHub Bot Setup](./docs/github-bot-setup.md) | GitHub App registration and PR comments |
+| [GitLab Bot Setup](./docs/gitlab-bot-setup.md) | GitLab webhook setup and MR comments |
+| [Self-Hosting](./docs/self-hosting/deployment.md) | Docker Compose deployment |
+| [MCP Integration](./docs/mcp-integration.md) | MCP setup for AI coding assistants |
+| [SARIF IDE Integration](./docs/sarif-ide-integration.md) | SARIF output for IDEs and code scanning |
+
+## Open Source Strategy
+
+Open-source core:
+
+- Scanner engine
+- CLI
+- Report templates
+- Basic guidance prompts and templates
+- Configuration schema
+- CI-friendly output
+
+Possible paid future:
+
+- Hosted dashboard
+- Team collaboration
+- Historical scan analytics
+- Cloud scanning
+- Policy management
+- Enterprise integrations
+
+This keeps the open-source project useful while leaving room for hosted and team-oriented workflows later.
+
+## Success Criteria
+
+The MVP is successful when:
+
+- A typical scan completes in under five minutes for a small to medium web app.
+- The report clearly separates the top risks from lower-priority noise.
+- Each top finding includes evidence, affected file or endpoint, and practical fix guidance.
+- A developer can fix at least one real vulnerability without needing a security expert.
+- CI and PR output are readable enough for team review.
+- Reports can be shared as HTML, Markdown, JSON, or SARIF.
 
 ## Tests
 
 ```bash
-pnpm test              # Run all tests (Vitest)
-pnpm run typecheck     # Type-check all packages (tsc --noEmit)
-pnpm lint              # Lint all packages (Biome)
+pnpm test
+pnpm run typecheck
+pnpm lint
 ```
 
-Tests cover scan pipeline logic, adapter parsing, priority scoring, OWASP orchestration, coverage reporting, coaching template resolution, and npm-audit remediation text accuracy.
-
-## CI
-
-GitHub Actions runs on every push/PR to `main`:
-
-1. **Install** — `pnpm install --frozen-lockfile`
-2. **Build** — `pnpm run build` (34 packages)
-3. **Typecheck** — `pnpm run typecheck`
-4. **Test** — `pnpm test` (80+ tests)
-5. **Lint** — `pnpm lint`
-
-See [.github/workflows/ci.yml](./.github/workflows/ci.yml).
-
-## Stack
-
-| Component | Technology |
-|-----------|------------|
-| Language | TypeScript (strict mode, ES2022, NodeNext) |
-| Runtime | Node.js >= 20 |
-| Package manager | pnpm workspaces |
-| Build orchestrator | Turborepo |
-| Test framework | Vitest |
-| Linter/formatter | Biome |
-| Schema validation | Zod |
-| CLI framework | Commander.js |
-| GitHub bot | Probot |
-| GitLab/Gitea bot | Hono |
-| Containerization | Docker Compose |
-
-## Documentation
-
-| Guide | Description |
-|-------|-------------|
-| [Getting Started](./docs/getting-started.md) | CLI installation, configuration, and full option reference |
-| [GitHub Bot Setup](./docs/github-bot-setup.md) | GitHub App registration, environment setup, and PR comment structure |
-| [GitLab Bot Setup](./docs/gitlab-bot-setup.md) | Access token setup, webhook configuration, and self-hosted support |
-| [Self-Hosting](./docs/self-hosting/deployment.md) | Docker Compose architecture, environment variables, and production checklist |
-| [MCP Integration](./docs/mcp-integration.md) | MCP server setup for Claude Code, Cursor, Windsurf, and other AI assistants |
-| [SARIF IDE Integration](./docs/sarif-ide-integration.md) | SARIF output for VS Code, JetBrains, and GitHub Code Scanning |
-
-## Open-Core Model
-
-| Layer | License | Contents |
-|-------|---------|----------|
-| Core engine | Apache 2.0 | Scan pipeline, adapters, coaching, CLI, GitHub/GitLab/Gitea bots, MCP server, VS Code extension |
-| Community presets | Apache 2.0 | Rule packs, lesson sets, and translations contributed by the community |
-| Pro (future) | Commercial | Org dashboard, SSO, advanced analytics, priority support |
-
-## Who It Is For
-
-- **Indonesian startups** shipping fast and concerned about OWASP Top 10
-- **University CS programs** teaching secure development in Bahasa Indonesia
-- **Government digital-service teams** meeting compliance requirements
-- **Any team** that wants actionable, educational security feedback — not a wall of CVEs
-
-## Principles
-
-- **Education over alerts** — every finding is a teaching moment
-- **Bahasa-first, global-ready** — internationalization from day one
-- **Pluggable** — bring your own scanner, coaching pack, or lesson set
-- **Privacy-respecting** — your code stays on your infrastructure
-- **Community-driven** — presets, lessons, and translations are open contributions
-
-## Contributing
-
-We welcome contributions. See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
-We are looking for:
-
-- **Indonesian developers** to shape coaching content
-- **Security engineers** to curate and validate rule packs
-- **Translators** for Bahasa Indonesia lesson content
-- **Educators** teaching secure coding at Indonesian universities
-- **Open-source contributors** interested in developer tooling
-
-## Pilot Program
-
-We are running early pilot programs with Indonesian development teams. If your team wants early access, roadmap influence, or hands-on setup support, open a [Pilot Feedback issue](https://github.com/kaa911-syp/AspidaSec/issues/new?template=pilot_feedback.yml) or contact the maintainers.
+GitHub Actions runs install, build, typecheck, test, and lint on pushes and pull requests to `main`.
 
 ## License
 

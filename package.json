@@ -2,7 +2,7 @@
   "name": "aspidasec",
   "version": "0.0.0",
   "private": true,
-  "description": "Open-core security coach agent for Indonesian developers",
+  "description": "CLI-first website security scanner with practical remediation guidance",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.0.0",
   "engines": {

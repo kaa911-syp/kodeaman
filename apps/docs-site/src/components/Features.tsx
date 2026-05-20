@@ -1,40 +1,83 @@
-import { CodeBracketIcon, GlobeIcon, ChartIcon, TrophyIcon, PuzzleIcon, ChecklistIcon, ShieldIcon } from './icons'
+import { Activity, FileCheck, Gauge, GitPullRequest, Languages, SearchCode, ShieldCheck } from 'lucide-react'
 import { StaggerContainer, StaggerItem } from './animations'
 
 const features = [
   {
-    title: 'Multi-Scanner Pipeline',
-    description: '8 scanners across 6 languages. Semgrep, ZAP, npm audit, Bandit, gosec, cargo-audit, SpotBugs, Playwright.',
-    icon: <div className="flex gap-2"><ShieldIcon className="h-6 w-6" /><CodeBracketIcon className="h-6 w-6" /></div>,
+    title: 'OWASP-oriented scanning',
+    description: 'Coordinate ZAP, Semgrep, dependency audit, Playwright crawling, and config review around website risk instead of disconnected raw scanner output.',
+    icon: SearchCode,
+    meta: 'scanner layer',
   },
-  { title: 'Bilingual Coaching', description: 'Every finding includes remediation in Bahasa Indonesia and English with code examples.', icon: <GlobeIcon className="h-6 w-6" /> },
-  { title: 'OWASP Top 10', description: 'Structured scanning organized by OWASP categories A01-A10 with evidence and confidence gates.', icon: <ChecklistIcon className="h-6 w-6" /> },
-  { title: 'Smart Prioritization', description: '10+ heuristics including severity, auth-path proximity, internet exposure, and fix availability.', icon: <ChartIcon className="h-6 w-6" /> },
-  { title: 'Gamification', description: 'XP, badges, streaks, and quests make security improvements measurable and motivating.', icon: <TrophyIcon className="h-6 w-6" /> },
-  { title: 'Integrate Everywhere', description: 'CLI, GitHub bot, GitLab bot, Gitea bot, VS Code extension, MCP server, Docker.', icon: <PuzzleIcon className="h-6 w-6" /> },
+  {
+    title: 'Severity normalization',
+    description: 'Merge duplicate signals, normalize severity, and surface what is public, exploitable, production blocking, or safe to queue later.',
+    icon: Gauge,
+    meta: 'analysis layer',
+  },
+  {
+    title: 'Evidence-backed guidance',
+    description: 'AI summarizes only existing findings, then converts file, endpoint, and reproduction evidence into concrete fix guidance.',
+    icon: ShieldCheck,
+    meta: 'trust model',
+  },
+  {
+    title: 'Bilingual remediation',
+    description: 'Developers can read practical fixes in Bahasa Indonesia or English without turning scanner results into vague training copy.',
+    icon: Languages,
+    meta: 'developer ux',
+  },
+  {
+    title: 'Opinionated reports',
+    description: 'HTML and Markdown reports are shaped around top risks, fix-first ordering, affected assets, and references teams can share.',
+    icon: FileCheck,
+    meta: 'output layer',
+  },
+  {
+    title: 'CI and PR workflow',
+    description: 'CLI output, SARIF, JSON, and PR comments make the scanner useful before a web dashboard or hosted backend exists.',
+    icon: GitPullRequest,
+    meta: 'integration',
+  },
 ]
 
 export function Features() {
   return (
-    <section id="features" className="px-6 py-24 lg:px-8">
+    <section id="features" className="relative px-6 py-24 lg:px-8">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/25 to-transparent" />
       <div className="mx-auto max-w-7xl">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-teal-500">Features</p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#fafafa]">Built for real-world security</h2>
-          <p className="mt-5 text-lg leading-relaxed text-zinc-400">AspidaSec connects scanner evidence, production risk, and practical education so security work becomes focused and repeatable.</p>
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-300/20 bg-emerald-300/10 text-emerald-200">
+              <Activity className="h-5 w-5" strokeWidth={1.8} />
+            </div>
+            <h2 className="max-w-xl text-4xl font-semibold tracking-normal text-white sm:text-5xl">
+              Designed around the five jobs a developer needs from a scanner.
+            </h2>
+          </div>
+          <p className="max-w-2xl text-base leading-8 text-zinc-400 lg:justify-self-end">
+            The page moves away from generic feature cards and toward an explainable product architecture: scan, analyze, guide, output, and integrate.
+          </p>
         </div>
-        <StaggerContainer className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <StaggerItem key={feature.title}>
-              <article className="group h-full rounded-xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-teal-500/35 hover:bg-zinc-900/80">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-zinc-800 bg-black/30 text-teal-500 transition group-hover:border-teal-500/35">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-[#fafafa]">{feature.title}</h3>
-                <p className="mt-3 text-base leading-7 text-zinc-400">{feature.description}</p>
-              </article>
-            </StaggerItem>
-          ))}
+
+        <StaggerContainer className="mt-14 divide-y divide-white/10 border-y border-white/10">
+          {features.map((feature) => {
+            const Icon = feature.icon
+            return (
+              <StaggerItem key={feature.title}>
+                <article className="grid gap-5 py-7 sm:grid-cols-[13rem_1fr_auto] sm:items-center">
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                    <Icon className="h-5 w-5" strokeWidth={1.8} />
+                    {feature.meta}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-white">{feature.title}</h3>
+                    <p className="mt-2 max-w-3xl text-sm leading-7 text-zinc-400">{feature.description}</p>
+                  </div>
+                  <span className="hidden h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(52,211,153,0.65)] sm:block" />
+                </article>
+              </StaggerItem>
+            )
+          })}
         </StaggerContainer>
       </div>
     </section>

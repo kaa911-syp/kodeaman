@@ -1,6 +1,6 @@
 # GitLab Bot Setup
 
-AspidaSec's GitLab bot (`@aspidasec/bot-gitlab`) automatically reviews merge requests for security issues using a Hono-based webhook service. When an MR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation coaching.
+AspidaSec's GitLab bot (`@aspidasec/bot-gitlab`) automatically reviews merge requests for website security issues using a Hono-based webhook service. When an MR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation guidance.
 
 ## Prerequisites
 
@@ -48,9 +48,6 @@ scanners:
 prioritization:
   maxFindingsInComment: 3
   failOnSeverity: high
-
-gamification:
-  enabled: true
 
 output:
   markdown: true
@@ -106,9 +103,8 @@ node dist/index.js
 2. The bot should post a note within 30–60 seconds with:
    - Scan status summary
    - Top findings by severity
-   - Bilingual remediation coaching
+   - Bilingual remediation guidance
    - OWASP category breakdown (if OWASP mode enabled)
-   - Gamification badges and XP (if enabled)
 3. On subsequent pushes, the bot updates the existing note
 
 ## MR Comment Structure
@@ -120,9 +116,8 @@ The bot note includes:
 | **Header** | Scan status, finding count, scanners used |
 | **Top Findings** | Up to `maxFindingsInComment` highest-priority findings |
 | **Finding Detail** | Severity, confidence, file location, evidence, remediation |
-| **Coaching** | Bilingual remediation guidance (en + id) |
+| **Guidance** | Bilingual remediation guidance (en + id) |
 | **OWASP Dashboard** | Category coverage table (OWASP mode only) |
-| **Gamification** | XP earned, badges, streak info |
 
 ## Self-Hosted GitLab
 

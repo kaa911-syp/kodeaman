@@ -1,6 +1,6 @@
 # GitHub Bot Setup
 
-AspidaSec's GitHub bot (`@aspidasec/bot-github`) automatically reviews pull requests for security issues using Probot. When a PR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation coaching.
+AspidaSec's GitHub bot (`@aspidasec/bot-github`) automatically reviews pull requests for website security issues using Probot. When a PR is opened or updated, the bot runs configured scanners and posts a comment with prioritized findings and remediation guidance.
 
 ## Prerequisites
 
@@ -54,9 +54,6 @@ prioritization:
   maxFindingsInComment: 3
   failOnSeverity: high
 
-gamification:
-  enabled: true
-
 output:
   markdown: true
 ```
@@ -102,9 +99,8 @@ node dist/index.js
 2. The bot should post a comment within 30–60 seconds with:
    - Scan status summary
    - Top findings by severity
-   - Remediation coaching (bilingual if configured)
+   - Remediation guidance (bilingual if configured)
    - OWASP category breakdown (if OWASP mode enabled)
-   - Gamification badges and XP (if enabled)
 3. On subsequent pushes, the bot updates the existing comment
 
 ## PR Comment Structure
@@ -116,9 +112,8 @@ The bot comment includes:
 | **Header** | Scan status, finding count, scanners used |
 | **Top Findings** | Up to `maxFindingsInComment` highest-priority findings |
 | **Finding Detail** | Severity, confidence, file location, evidence, remediation |
-| **Coaching** | Bilingual remediation guidance (en + id) |
+| **Guidance** | Bilingual remediation guidance (en + id) |
 | **OWASP Dashboard** | Category coverage table (OWASP mode only) |
-| **Gamification** | XP earned, badges, streak info |
 
 ## Troubleshooting
 

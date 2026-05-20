@@ -1,6 +1,6 @@
 # Getting Started with AspidaSec
 
-AspidaSec is a security coach agent for developers. It scans your code with established tools (Semgrep, ZAP, npm audit), normalizes findings into a single format, and delivers prioritized remediation coaching in English and Bahasa Indonesia.
+AspidaSec is a CLI-first website security scanner for developers. It scans modern web applications with established tools, normalizes findings into one format, prioritizes the risks that matter, and delivers practical remediation guidance in English and Bahasa Indonesia.
 
 This guide covers local CLI setup. For PR bot setup see [GitHub Bot Setup](./github-bot-setup.md) or [GitLab Bot Setup](./gitlab-bot-setup.md).
 
@@ -47,8 +47,6 @@ scanners:
 prioritization:
   maxFindingsInComment: 3
   failOnSeverity: critical
-gamification:
-  enabled: true
 output:
   markdown: true
   sarif: false
