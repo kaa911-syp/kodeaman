@@ -4,13 +4,12 @@ Internationalization helpers and locale dictionaries for AspidaSec.
 
 ## Responsibility
 
-- Provide English and Bahasa Indonesia user-facing strings.
+- Provide English user-facing strings.
 - Keep glossary terms consistent across reports, CLI output, bot comments, and lessons.
-- Ensure translated keys stay synchronized.
 
 ## Source of truth
 
-- Locale files live in `src/locales/en.json` and `src/locales/id.json`.
+- Locale files live in `src/locales/en.json`.
 - Translation helpers live in `src/translator.ts`.
 - Security glossary helpers live in `src/glossary.ts`.
 

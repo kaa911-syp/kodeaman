@@ -1,13 +1,11 @@
 import enStrings from "./locales/en.json" with { type: "json" };
-import idStrings from "./locales/id.json" with { type: "json" };
 
-export type Locale = "en" | "id";
+export type Locale = "en";
 
 type NestedRecord = { [key: string]: string | NestedRecord };
 
 const locales: Record<Locale, NestedRecord> = {
   en: enStrings as unknown as NestedRecord,
-  id: idStrings as unknown as NestedRecord,
 };
 
 function resolve(obj: NestedRecord, key: string): string | undefined {

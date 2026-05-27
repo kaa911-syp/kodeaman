@@ -10,7 +10,9 @@
 
 Website security scanning with practical remediation guidance.
 
-AspidaSec scans modern web applications for OWASP-related risks, prioritizes the findings that matter, and produces developer-ready fixes and reports in Bahasa Indonesia or English.
+AspidaSec scans modern web applications for OWASP-related risks, prioritizes findings that matter, and produces developer-ready fixes and reports.
+
+![AspidaSec Concept Art](./assets/concept-art/nano-banana-v1-bioluminescent-jungle.jpg)
 
 ## Product Scope
 
@@ -30,7 +32,6 @@ The MVP only includes work that supports scanning, prioritization, remediation, 
 
 - Developers maintaining public-facing websites and web apps
 - Small product teams that need practical OWASP coverage without a dedicated security team
-- Indonesian software teams that need clear remediation guidance in Bahasa Indonesia
 - Agencies and maintainers who need shareable security reports for client or team review
 - CI users who want security output that is readable enough to act on
 
@@ -54,7 +55,7 @@ The scan should move through one clear path:
 2. Run website-focused checks: dependency audit, OWASP-oriented static checks, dynamic scan, route crawling, and basic secrets/config review.
 3. Normalize and deduplicate findings.
 4. Prioritize findings by severity, confidence, exploitability, public exposure, affected file or endpoint, and fix availability.
-5. Generate practical remediation guidance in Bahasa Indonesia or English.
+5. Generate practical remediation guidance.
 6. Export a clean HTML report, Markdown report, PR comment, JSON, or SARIF.
 
 If this path is excellent, AspidaSec has product value before any dashboard exists.
@@ -84,7 +85,6 @@ If this path is excellent, AspidaSec has product value before any dashboard exis
 - Practical remediation steps
 - Safe code examples
 - References to relevant standards or scanner evidence
-- Bahasa Indonesia and English explanations
 
 ### Output
 
@@ -120,7 +120,6 @@ AspidaSec focuses on the parts that make website security work actionable:
 - **Evidence-first findings** - scanner output and reproducible evidence drive every issue.
 - **Prioritized output** - the top risks are separated from background noise.
 - **Fix-first guidance** - each important finding includes practical remediation, examples, and references.
-- **Localized guidance** - Bahasa Indonesia support helps local teams act without losing security nuance.
 - **CI-ready reports** - output is designed for pull requests, CI logs, HTML review, and SARIF consumers.
 
 ## Trust Model
@@ -150,12 +149,6 @@ pnpm --filter @aspidasec/cli start -- scan ./my-project
 
 ```bash
 pnpm --filter @aspidasec/cli start -- owasp-scan --format html --output report.html
-```
-
-### Bahasa Indonesia Guidance
-
-```bash
-aspidasec scan ./project --language id
 ```
 
 ### MCP Server

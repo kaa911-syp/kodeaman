@@ -20,10 +20,10 @@ export function registerScanTool(server: McpServer): void {
           "Absolute path to the project root directory to scan",
         ),
       language: z
-        .enum(["en", "id"])
+        .enum(["en"])
         .optional()
         .describe(
-          "Output language: 'en' for English, 'id' for Indonesian (Bahasa). Defaults to config setting.",
+          "Output language: 'en' for English. Defaults to config setting.",
         ),
       format: z
         .enum(["json", "markdown", "sarif"])

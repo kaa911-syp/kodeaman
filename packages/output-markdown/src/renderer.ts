@@ -45,17 +45,17 @@ export interface OwaspCategoryResult {
   findings: NormalizedFinding[];
 }
 
-const OWASP_NAMES: Record<string, { en: string; id: string }> = {
-  A01: { en: "Broken Access Control", id: "Kontrol Akses Rusak" },
-  A02: { en: "Cryptographic Failures", id: "Kegagalan Kriptografi" },
-  A03: { en: "Injection", id: "Injeksi" },
-  A04: { en: "Insecure Design", id: "Desain Tidak Aman" },
-  A05: { en: "Security Misconfiguration", id: "Konfigurasi Keamanan Salah" },
-  A06: { en: "Vulnerable & Outdated Components", id: "Komponen Rentan & Usang" },
-  A07: { en: "Identification & Authentication Failures", id: "Kegagalan Identifikasi & Autentikasi" },
-  A08: { en: "Software & Data Integrity Failures", id: "Kegagalan Integritas Software & Data" },
-  A09: { en: "Security Logging & Monitoring Failures", id: "Kegagalan Logging & Monitoring Keamanan" },
-  A10: { en: "Server-Side Request Forgery", id: "Pemalsuan Permintaan Sisi Server" },
+const OWASP_NAMES: Record<string, string> = {
+  A01: "Broken Access Control",
+  A02: "Cryptographic Failures",
+  A03: "Injection",
+  A04: "Insecure Design",
+  A05: "Security Misconfiguration",
+  A06: "Vulnerable & Outdated Components",
+  A07: "Identification & Authentication Failures",
+  A08: "Software & Data Integrity Failures",
+  A09: "Security Logging & Monitoring Failures",
+  A10: "Server-Side Request Forgery",
 };
 
 export interface ScanSummary {

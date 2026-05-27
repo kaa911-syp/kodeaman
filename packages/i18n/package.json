@@ -1,7 +1,7 @@
 {
   "name": "@aspidasec/i18n",
   "version": "0.1.0",
-  "description": "Internationalization and translation support for AspidaSec (en/id)",
+  "description": "Internationalization and translation support for AspidaSec (en)",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {

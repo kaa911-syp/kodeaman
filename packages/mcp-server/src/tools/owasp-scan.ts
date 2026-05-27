@@ -18,9 +18,9 @@ export function registerOwaspScanTool(server: McpServer): void {
         .string()
         .describe("Absolute path to the project root directory to scan"),
       language: z
-        .enum(["en", "id"])
+        .enum(["en"])
         .optional()
-        .describe("Output language: 'en' for English, 'id' for Indonesian"),
+        .describe("Output language: 'en' for English"),
       categories: z
         .array(z.string())
         .optional()

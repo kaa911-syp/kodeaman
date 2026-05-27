@@ -1,19 +1,19 @@
 import type { SeverityLevel } from "@aspidasec/schema";
 
 /**
- * OWASP Top 10 (2021) categories with bilingual names.
+ * OWASP Top 10 (2021) categories.
  */
 export const OWASP_CATEGORIES = [
-  { id: "A01", en: "Broken Access Control", id_: "Kontrol Akses Rusak" },
-  { id: "A02", en: "Cryptographic Failures", id_: "Kegagalan Kriptografi" },
-  { id: "A03", en: "Injection", id_: "Injeksi" },
-  { id: "A04", en: "Insecure Design", id_: "Desain Tidak Aman" },
-  { id: "A05", en: "Security Misconfiguration", id_: "Konfigurasi Keamanan Salah" },
-  { id: "A06", en: "Vulnerable & Outdated Components", id_: "Komponen Rentan & Usang" },
-  { id: "A07", en: "Identification & Authentication Failures", id_: "Kegagalan Identifikasi & Autentikasi" },
-  { id: "A08", en: "Software & Data Integrity Failures", id_: "Kegagalan Integritas Software & Data" },
-  { id: "A09", en: "Security Logging & Monitoring Failures", id_: "Kegagalan Logging & Monitoring Keamanan" },
-  { id: "A10", en: "Server-Side Request Forgery", id_: "Pemalsuan Permintaan Sisi Server" },
+  { id: "A01", en: "Broken Access Control" },
+  { id: "A02", en: "Cryptographic Failures" },
+  { id: "A03", en: "Injection" },
+  { id: "A04", en: "Insecure Design" },
+  { id: "A05", en: "Security Misconfiguration" },
+  { id: "A06", en: "Vulnerable & Outdated Components" },
+  { id: "A07", en: "Identification & Authentication Failures" },
+  { id: "A08", en: "Software & Data Integrity Failures" },
+  { id: "A09", en: "Security Logging & Monitoring Failures" },
+  { id: "A10", en: "Server-Side Request Forgery" },
 ] as const;
 
 function escapeHtml(text: string): string {
@@ -32,14 +32,13 @@ export function headerTemplate(opts: {
   bySeverity: Record<SeverityLevel, number>;
   repoName?: string;
   branch?: string;
-  locale: "en" | "id";
   theme: "light" | "dark" | "auto";
 }): string {
   const themeAttr = opts.theme === "auto" ? "" : ` data-theme="${opts.theme}"`;
-  const title = opts.locale === "id" ? "Laporan Keamanan" : "Security Report";
-  const dateLabel = opts.locale === "id" ? "Tanggal Scan" : "Scan Date";
-  const envLabel = opts.locale === "id" ? "Lingkungan" : "Environment";
-  const totalLabel = opts.locale === "id" ? "Total Temuan" : "Total Findings";
+  const title = "Security Report";
+  const dateLabel = "Scan Date";
+  const envLabel = "Environment";
+  const totalLabel = "Total Findings";
 
   const metaParts: string[] = [];
   metaParts.push(`<span>${dateLabel}: ${escapeHtml(opts.scanDate)}</span>`);
@@ -62,7 +61,7 @@ export function headerTemplate(opts: {
     .join("");
 
   return `<!DOCTYPE html>
-<html lang="${opts.locale}"${themeAttr}>
+<html lang="en"${themeAttr}>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,9 +83,8 @@ ${severityStats}
 
 export function owaspDashboardTemplate(
   categoryCounts: Map<string, { total: number; maxSeverity: SeverityLevel }>,
-  locale: "en" | "id",
 ): string {
-  const title = locale === "id" ? "Dashboard OWASP Top 10" : "OWASP Top 10 Dashboard";
+  const title = "OWASP Top 10 Dashboard";
 
   const severityToBg: Record<SeverityLevel, string> = {
     critical: "var(--color-critical)",
@@ -100,8 +98,7 @@ export function owaspDashboardTemplate(
     const data = categoryCounts.get(cat.id);
     const count = data?.total ?? 0;
     const bgColor = count > 0 ? severityToBg[data!.maxSeverity] : "var(--color-info)";
-    const name = locale === "id" ? cat.id_ : cat.en;
-    return `<div class="owasp-cell"><span class="owasp-id">${cat.id}: ${escapeHtml(name)}</span><span class="owasp-count" style="background:${bgColor}">${count}</span></div>`;
+    return `<div class="owasp-cell"><span class="owasp-id">${cat.id}: ${escapeHtml(cat.en)}</span><span class="owasp-count" style="background:${bgColor}">${count}</span></div>`;
   }).join("");
 
   return `<section>
@@ -123,12 +120,11 @@ export function evidenceCardTemplate(opts: {
   cwes: string[];
   owaspRefs: string[];
   confidence: string;
-  locale: "en" | "id";
 }): string {
-  const whyLabel = opts.locale === "id" ? "Kenapa ini penting" : "Why it matters";
-  const fixLabel = opts.locale === "id" ? "Cara Memperbaiki" : "How to Fix";
-  const confidenceLabel = opts.locale === "id" ? "Keyakinan" : "Confidence";
-  const fixCommandsLabel = opts.locale === "id" ? "Perintah Perbaikan" : "Fix Commands";
+  const whyLabel = "Why it matters";
+  const fixLabel = "How to Fix";
+  const confidenceLabel = "Confidence";
+  const fixCommandsLabel = "Fix Commands";
 
   let locationHtml = "";
   if (opts.filePath) {
@@ -150,8 +146,7 @@ export function evidenceCardTemplate(opts: {
   const fixCommandsHtml = opts.fixCommands && opts.fixCommands.length > 0
     ? `<div class="fix-commands"><strong>${fixCommandsLabel}:</strong>${opts.fixCommands.map((fixCommand) => {
       const command = fixCommand.cwd ? `cd ${fixCommand.cwd} && ${fixCommand.command}` : fixCommand.command;
-      const description = opts.locale === "id" ? fixCommand.descriptionId : fixCommand.description;
-      return `<div class="fix-command"><p>${escapeHtml(description)}${fixCommand.isBreaking ? " (breaking)" : ""}</p><pre><code>${escapeHtml(command)}</code></pre></div>`;
+      return `<div class="fix-command"><p>${escapeHtml(fixCommand.description)}${fixCommand.isBreaking ? " (breaking)" : ""}</p><pre><code>${escapeHtml(command)}</code></pre></div>`;
     }).join("")}</div>`
     : "";
 
@@ -188,19 +183,16 @@ export function gamificationTemplate(opts: {
   xpEarned: number;
   badges: string[];
   streaks: number;
-  locale: "en" | "id";
 }): string {
-  const title = opts.locale === "id" ? "Gamifikasi" : "Gamification";
+  const title = "Gamification";
   const xpLabel = "XP";
-  const badgeLabel = opts.locale === "id" ? "Lencana" : "Badges";
+  const badgeLabel = "Badges";
   const streakLabel = "Streak";
 
   const badgesHtml =
     opts.badges.length > 0
       ? opts.badges.map((b) => escapeHtml(b)).join(", ")
-      : opts.locale === "id"
-        ? "Belum ada"
-        : "None yet";
+      : "None yet";
 
   return `<section class="gamification-section">
 <h2>${title}</h2>
@@ -212,11 +204,8 @@ export function gamificationTemplate(opts: {
 </section>`;
 }
 
-export function footerTemplate(locale: "en" | "id", timestamp: string): string {
-  const text =
-    locale === "id"
-      ? `Dibuat oleh AspidaSec &mdash; Security coach untuk developer Indonesia`
-      : `Generated by AspidaSec &mdash; Security coach for Indonesian developers`;
+export function footerTemplate(timestamp: string): string {
+  const text = "Generated by AspidaSec — Developer-focused security automation";
 
   return `<footer class="report-footer">
 <p>${text}</p>

@@ -13,7 +13,7 @@ const program = new Command();
 
 program
   .name("aspidasec")
-  .description("AspidaSec — Security coach for Indonesian developers")
+  .description("AspidaSec — Developer-focused security automation")
   .version("0.2.0");
 
 program.addCommand(createScanCommand());
