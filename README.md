@@ -278,39 +278,6 @@ See [docs/architecture.md](./docs/architecture.md) for the product architecture.
 | [MCP Integration](./docs/mcp-integration.md) | MCP setup for AI coding assistants |
 | [SARIF IDE Integration](./docs/sarif-ide-integration.md) | SARIF output for IDEs and code scanning |
 
-## Open Source Strategy
-
-Open-source core:
-
-- Scanner engine
-- CLI
-- Report templates
-- Basic guidance prompts and templates
-- Configuration schema
-- CI-friendly output
-
-Possible paid future:
-
-- Hosted dashboard
-- Team collaboration
-- Historical scan analytics
-- Cloud scanning
-- Policy management
-- Enterprise integrations
-
-This keeps the open-source project useful while leaving room for hosted and team-oriented workflows later.
-
-## Success Criteria
-
-The MVP is successful when:
-
-- A typical scan completes in under five minutes for a small to medium web app.
-- The report clearly separates the top risks from lower-priority noise.
-- Each top finding includes evidence, affected file or endpoint, and practical fix guidance.
-- A developer can fix at least one real vulnerability without needing a security expert.
-- CI and PR output are readable enough for team review.
-- Reports can be shared as HTML, Markdown, JSON, or SARIF.
-
 ## Tests
 
 ```bash

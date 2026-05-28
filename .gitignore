@@ -51,3 +51,8 @@ AGENTS.md
 
 # Claude
 .claude/
+/_zip_extract
+AspidaSec.zip
+/docs
+/output
+/scans

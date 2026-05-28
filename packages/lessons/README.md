@@ -6,7 +6,7 @@ Security micro-lessons for AspidaSec developer coaching.
 
 - Store educational lesson metadata and Markdown lesson content.
 - Connect findings to stable lesson IDs and slugs.
-- Keep lessons practical, secure, and approachable for Indonesian developer teams.
+- Keep lessons practical, secure, and approachable.
 
 ## Source of truth
 
