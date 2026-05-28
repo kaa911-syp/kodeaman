@@ -1,4 +1,5 @@
 import { KawungMark } from './Mark'
+import { docs } from '../site'
 
 const COLUMNS = [
   {
@@ -14,11 +15,11 @@ const COLUMNS = [
   {
     title: 'Docs',
     links: [
-      { label: 'Getting started', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/getting-started.md', external: true },
-      { label: 'Architecture', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/architecture.md', external: true },
-      { label: 'GitHub bot', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/github-bot-setup.md', external: true },
-      { label: 'MCP integration', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/mcp-integration.md', external: true },
-      { label: 'SARIF / IDEs', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/sarif-ide-integration.md', external: true },
+      { label: 'Quickstart', href: docs('/get-started/quickstart'), external: true },
+      { label: 'Architecture', href: docs('/concepts/architecture'), external: true },
+      { label: 'GitHub bot', href: docs('/integrations/github-bot'), external: true },
+      { label: 'MCP integration', href: docs('/integrations/mcp-overview'), external: true },
+      { label: 'SARIF / IDEs', href: docs('/integrations/sarif-ide'), external: true },
     ],
   },
   {

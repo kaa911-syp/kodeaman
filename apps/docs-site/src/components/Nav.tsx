@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { KawungMark } from './Mark'
+import { DOCS_URL } from '../site'
 
 const NAV_LINKS = [
   { href: '#evidence', label: 'evidence' },
   { href: '#exhibit', label: 'exhibit' },
   { href: '#index', label: 'scanners' },
   { href: '#install', label: 'install' },
-  { href: 'https://github.com/kaa911-syp/AspidaSec', label: 'docs', external: true },
+  { href: DOCS_URL, label: 'docs', external: true },
 ]
 
 function getInitialTheme(): 'light' | 'dark' {
