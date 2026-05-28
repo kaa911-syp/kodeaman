@@ -1,49 +1,76 @@
-import { GitBranch, ShieldCheck } from 'lucide-react'
+import { KawungMark } from './Mark'
 
-const columns = [
-  { title: 'Product', links: [{ label: 'Scanner', href: '#features' }, { label: 'Workflow', href: '#how-it-works' }, { label: 'CLI', href: '#get-started' }] },
-  { title: 'Docs', links: [{ label: 'Getting Started', href: '#get-started' }, { label: 'Architecture', href: '#features' }, { label: 'Trust Model', href: '#report-preview' }] },
-  { title: 'Source', links: [{ label: 'GitHub', href: 'https://github.com/kaa911-syp/AspidaSec' }, { label: 'Apache 2.0 License', href: 'https://github.com/kaa911-syp/AspidaSec' }] },
-]
+const COLUMNS = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Evidence ledger', href: '#evidence' },
+      { label: 'Exhibit finding', href: '#exhibit' },
+      { label: 'Scanners index', href: '#index' },
+      { label: 'Install', href: '#install' },
+      { label: 'Repo', href: 'https://github.com/kaa911-syp/AspidaSec', external: true },
+    ],
+  },
+  {
+    title: 'Docs',
+    links: [
+      { label: 'Getting started', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/getting-started.md', external: true },
+      { label: 'Architecture', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/architecture.md', external: true },
+      { label: 'GitHub bot', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/github-bot-setup.md', external: true },
+      { label: 'MCP integration', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/mcp-integration.md', external: true },
+      { label: 'SARIF / IDEs', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/docs/sarif-ide-integration.md', external: true },
+    ],
+  },
+  {
+    title: 'Community',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/kaa911-syp/AspidaSec', external: true },
+      { label: 'Discussions', href: 'https://github.com/kaa911-syp/AspidaSec/discussions', external: true },
+      { label: 'Issues', href: 'https://github.com/kaa911-syp/AspidaSec/issues', external: true },
+      { label: 'License (Apache 2.0)', href: 'https://github.com/kaa911-syp/AspidaSec/blob/main/LICENSE', external: true },
+    ],
+  },
+] as const
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/10 px-6 py-14 lg:px-8">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/25 to-transparent" />
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 md:grid-cols-[1.35fr_1fr_1fr_1fr]">
+    <footer className="footer2">
+      <div className="container">
+        <div className="footer-grid2">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-300/25 bg-emerald-300/10 text-emerald-200">
-                <ShieldCheck className="h-5 w-5" strokeWidth={1.8} />
+            <div className="brand" style={{ marginBottom: 18 }}>
+              <KawungMark size={28} />
+              <span className="word">
+                ASPIDA<span className="dim">·SEC</span>
               </span>
-              <h2 className="text-xl font-semibold text-white">AspidaSec</h2>
             </div>
-            <p className="mt-5 max-w-sm text-base leading-7 text-zinc-400">
-              Developer-first website security scanning with evidence-backed prioritization and practical remediation guidance.
+            <p className="footer-tag">
+              Evidence-first website security scanning with practical remediation guidance.
+              <span className="id">Pemindai keamanan situs web berbasis bukti.</span>
             </p>
-            <a href="https://github.com/kaa911-syp/AspidaSec" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200 transition hover:text-emerald-100">
-              <GitBranch className="h-4 w-4" />
-              Open repository
-            </a>
           </div>
-          {columns.map((column) => (
-            <div key={column.title}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300">{column.title}</h3>
-              <ul className="mt-4 space-y-3">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="text-sm text-zinc-400 transition hover:text-white">
-                      {link.label}
-                    </a>
-                  </li>
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h4>{col.title}</h4>
+              <div className="footer-links2">
+                {col.links.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    {...('external' in l && l.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                  >
+                    {l.label}
+                  </a>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
-        <div className="mt-12 border-t border-white/10 pt-6 text-sm text-zinc-500">
-          Copyright 2026 Vibellabbs Code. Website security scanner for developers.
+        <div className="footer-bottom2">
+          <span>
+            <b>Apache 2.0</b> · 2026 AspidaSec
+          </span>
+          <span>Athens × Bandung · built where rigor meets craft</span>
         </div>
       </div>
     </footer>

@@ -1,30 +1,36 @@
-import { CodeExample } from './components/CodeExample'
-import { DashboardPreview } from './components/DashboardPreview'
-import { Features } from './components/Features'
+import { EvidenceLedger } from './components/EvidenceLedger'
+import { ExhibitFinding } from './components/ExhibitFinding'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
-import { HowItWorks } from './components/HowItWorks'
-import { Navbar } from './components/Navbar'
-import { SplineShowcase } from './components/SplineShowcase'
-import { Stats } from './components/Stats'
-import { ZoomParallaxFeatures } from './components/ZoomParallaxFeatures'
+import { Install } from './components/Install'
+import { Manifesto } from './components/Manifesto'
+import { Nav } from './components/Nav'
+import { ScannersIndex } from './components/ScannersIndex'
+import { TranscriptSection } from './components/TranscriptSection'
+import { useReveal } from './hooks/useReveal'
 
 function App() {
+  useReveal()
+
   return (
-    <div className="min-h-screen bg-[#030607] text-[#f7fbfa]">
-      <Navbar />
+    <>
+      <a className="skip-link" href="#top">
+        Skip to content
+      </a>
+      <div className="meander-rule" aria-hidden="true" />
+      <Nav />
       <main>
         <Hero />
-        <SplineShowcase />
-        <Features />
-        <ZoomParallaxFeatures />
-        <DashboardPreview />
-        <HowItWorks />
-        <CodeExample />
-        <Stats />
+        <EvidenceLedger />
+        <ExhibitFinding />
+        <TranscriptSection />
+        <ScannersIndex />
+        <Install />
+        <Manifesto />
       </main>
       <Footer />
-    </div>
+      <div className="meander-rule" aria-hidden="true" />
+    </>
   )
 }
 
